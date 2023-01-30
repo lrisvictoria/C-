@@ -143,36 +143,132 @@ using namespace std;
 //}
 
 // 传址
-void swap(int* x, int* y)
-{
-	int tmp = *x;
-	*x = *y;
-	*y = tmp;
-}
+//void swap(int* x, int* y)
+//{
+//	int tmp = *x;
+//	*x = *y;
+//	*y = tmp;
+//}
+//
+//// 传引用
+//void swap(int& x, int& y)
+//{
+//	int tmp = x;
+//	x = y;
+//	y = tmp;
+//}
+//
+//// 传值
+//void swap(int x, int y)
+//{
+//	int tmp = x;
+//	x = y;
+//	y = tmp;
+//}
+//
+//int main()
+//{
+//	int a = 10;
+//	int b = 20;
+//
+//	swap(&a, &b);
+//	swap(a, b);
+//
+//	return 0;
+//}
 
-// 传引用
-void swap(int& x, int& y)
-{
-	int tmp = x;
-	x = y;
-	y = tmp;
-}
+//int& add(int a, int b)
+//{
+//	int c = a + b;
+//	return c;
+//}
+//
+//int main()
+//{
+//	int& ret = add(1, 2);
+//	cout << ret << endl;
+//
+//	add(10, 20);
+//
+//	cout << ret << endl;
+//
+//	return 0;
+//}
 
-// 传值
-void swap(int x, int y)
+//#include <time.h>
+//struct A { int a[10000]; };
+//A a;
+//// 值返回
+//A TestFunc1() { return a; } // 拷贝
+//// 引用返回
+//A& TestFunc2() { return a; } // 不拷贝
+//void TestReturnByRefOrValue()
+//{
+//	// 以值作为函数的返回值类型
+//	size_t begin1 = clock();
+//	for (size_t i = 0; i < 100000; ++i)
+//		TestFunc1();
+//	size_t end1 = clock();
+//	// 以引用作为函数的返回值类型
+//	size_t begin2 = clock();
+//	for (size_t i = 0; i < 100000; ++i)
+//		TestFunc2();
+//	size_t end2 = clock();
+//	// 计算两个函数运算完成之后的时间
+//	cout << "TestFunc1 time:" << end1 - begin1 << endl;
+//	cout << "TestFunc2 time:" << end2 - begin2 << endl;
+//}
+//
+//int main()
+//{
+//	TestReturnByRefOrValue();
+//
+//	return 0;
+//}
+
+//#include <time.h>
+//struct A { int a[10000]; };
+//void TestFunc1(A a) {}
+//void TestFunc2(A& a) {}
+//void TestRefAndValue()
+//{
+//	A a;
+//	// 以值作为函数参数
+//	size_t begin1 = clock();
+//	for (size_t i = 0; i < 10000; ++i)
+//		TestFunc1(a);
+//	size_t end1 = clock();
+//	// 以引用作为函数参数
+//	size_t begin2 = clock();
+//	for (size_t i = 0; i < 10000; ++i)
+//		TestFunc2(a);
+//	size_t end2 = clock();
+//	// 分别计算两个函数运行结束后的时间
+//	cout << "TestFunc1(A)-time:" << end1 - begin1 << endl;
+//	cout << "TestFunc2(A&)-time:" << end2 - begin2 << endl;
+//}
+//
+//int main()
+//{
+//	TestRefAndValue();
+//}
+
+void func(const int& x)
 {
-	int tmp = x;
-	x = y;
-	y = tmp;
+	cout << x << endl;
 }
 
 int main()
 {
-	int a = 10;
-	int b = 20;
+	const int a = 10;
+	const int& b = a; // 权限不变
 
-	swap(&a, &b);
-	swap(a, b);
+	int c = 10;
+	const int& d = c; // 权限缩小
+
+	func(a);
+	func(c);
+	func(10);
 
 	return 0;
 }
