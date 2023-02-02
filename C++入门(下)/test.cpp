@@ -161,20 +161,58 @@ using namespace std;
 //		cout << e << endl;
 //}
 
-void f(int)
-{
-	cout << "f(int)" << endl;
-}
+//void f(int)
+//{
+//	cout << "f(int)" << endl;
+//}
+//
+//void f(int*)
+//{
+//	cout << "f(int*)" << endl;
+//}
+//
+//int main()
+//{
+//	f(0);
+//	f(NULL);
+//	 f((int*)NULL);
+//	return 0;
+//}
 
-void f(int*)
-{
-	cout << "f(int*)" << endl;
-}
+//int main()
+//{
+//	int a = 0;
+//	auto b = &a;
+//
+//	cout << typeid(b).name() << endl;
+//}
+
+//#include <map>
+//
+//int main()
+//{
+//	map<string, string> dict;
+//	typedef map<string, string>::iterator Dict;
+//	Dict it = dict.begin();
+//
+//	return 0;
+//}
+
+//typedef char* pstring;
+//
+//int main()
+//{
+//	const pstring p1 = nullptr;
+//	const pstring* p2;
+//}
+
+#include <map>
 
 int main()
 {
-	f(0);
-	f(NULL);
-	// f((int*)NULL);
+	map<string, string> dict;
+	//map<string, string>::iterator it = dict.begin();
+	auto it = dict.begin();
+
 	return 0;
 }
