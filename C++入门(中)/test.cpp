@@ -253,22 +253,141 @@ using namespace std;
 //	TestRefAndValue();
 //}
 
-void func(const int& x)
-{
-	cout << x << endl;
-}
+//void func(const int& x)
+//{
+//	cout << x << endl;
+//}
+//
+//int main()
+//{
+//	const int a = 10;
+//	const int& b = a; // 权限不变
+//
+//	int c = 10;
+//	const int& d = c; // 权限缩小
+//
+//	func(a);
+//	func(c);
+//	func(10);
+//
+//	return 0;
+//}
+
+//int c(int a, int b)
+//{
+//	static int n = 0;
+//	n++;
+//	return n;
+//}
+//
+//int main()
+//{
+//	int ret = c(1, 2);
+//	cout << ret << endl;
+//
+//	return 0;
+//}
+
+
+//#include <cassert>
+//#define N 10
+//
+//typedef struct Array
+//{
+//	int a[N];
+//	int size;
+//}AY;
+//
+//int& PostAt(AY& ay, int i)
+//{
+//	assert(i < N);
+//
+//	return ay.a[i];
+//}
+//
+//int main()
+//{
+//	AY ay;
+//	PostAt(ay, 1);
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		PostAt(ay, i) = i * 3;
+//	}
+//
+//	for (int i = 0; i < N; i++)
+//	{
+//		cout << PostAt(ay, i) << ' ';
+//	}
+//
+//	return 0;
+//}
+
+//int& add(int a, int b)
+//{
+//	int c = a + b;
+//	return c;
+//}
+//
+//int main()
+//{
+//	int ret = add(1, 2);
+//	cout << ret << endl;
+//	add(1, 3);
+//
+//	add(1, 3);
+//
+//	cout << ret << endl;
+//	return 0;
+//}
+
+//int c()
+//{
+//    static int n = 0;
+//    n++;
+//    return n;
+//}
+//
+//int main()
+//{
+//    const int& ret = c(); // error
+//
+//    return 0;
+//}
+
+//int main()
+//{
+//	int i = 0;
+//	const double& d = i;
+//
+//	return 0;
+//}
+
+//int main()
+//{
+//	int a = 10;
+//	
+//	int& ra = a;
+//	ra = 20;
+//
+//	int* pa = &a;
+//	*pa = 20;
+//	return 0;
+//}
+
+//int c()
+//{
+//	static int n = 0;
+//	n++;
+//	return n;
+//}
+//
+//int main()
+//{
+//	int ret = c();
+//	cout << ret << endl;
+//
+//	return 0;
+//}
 
 int main()
-{
-	const int a = 10;
-	const int& b = a; // 权限不变
-
-	int c = 10;
-	const int& d = c; // 权限缩小
-
-	func(a);
-	func(c);
-	func(10);
-
-	return 0;
-}

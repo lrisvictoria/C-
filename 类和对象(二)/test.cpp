@@ -112,30 +112,147 @@ using namespace std;
 //	return 0;
 //}
 
-class Date
+//class Date
+//{
+//public:
+//	Date(int year = 0, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//
+//	~Date()
+//	{
+//		cout << "~Date()" << endl;
+//	}
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//
+//int main()
+//{
+//	Date d1;
+//
+//	return 0;
+//}
+
+//class Stack
+//{
+//public:
+//	Stack(int capacity = 4)
+//	{
+//		_a = (int*)malloc(sizeof(int) * capacity);
+//		if (_a = nullptr)
+//		{
+//			cout << "malloc fail" << endl;
+//			exit(-1);
+//		}
+//
+//		_top = 0;
+//		_capacity = capacity;
+//	}
+//	Stack(const Date& d)
+//	{
+//		
+//	}
+//	~Stack()
+//	{
+//		free(_a);
+//		_a = nullptr;
+//		_top = _capacity = 0;
+//	}
+//
+//private:
+//	int* _a;
+//	size_t _top;
+//	size_t _capacity;
+//};
+//
+//
+//int main()
+//{
+//	MyQueue mq;
+//
+//	return 0;
+//}
+
+//class A
+//{
+//public:
+//	A() {}
+//	A(const A& a)
+//	{
+//		cout << "A(const A&)" << endl;
+//	}
+//};
+//
+//class Date
+//{
+//public:
+//	Date(int year = 0, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	~Date()
+//	{
+//		cout << "~Date()" << endl;
+//	}
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//	A _aa;
+//};
+//
+//int main()
+//{
+//	Date d1;
+//
+//	Date d2(d1);
+//
+//	return 0;
+//}
+
+class Stack
 {
 public:
-	Date(int year = 0, int month = 1, int day = 1)
+	Stack(int capacity = 4) // 构造函数，缺省1参数，不传参默认给 4
 	{
-		_year = year;
-		_month = month;
-		_day = day;
+		_a = (int*)malloc(sizeof(int) * capacity);
+		if (_a = nullptr)
+		{
+			cout << "malloc fail" << endl;
+			exit(-1);
+		}
+
+		_top = 0;
+		_capacity = capacity;
 	}
-	~Date()
+	void push() {}
+	~Stack()
 	{
-		// Date 类没有资源需要清理，所以 Date 类不识闲析构函数都可以
-		cout << "~Date()" << endl;
+		free(_a);
+		_a = nullptr;
+		_top = _capacity = 0;
 	}
 
 private:
-	int _year;
-	int _month;
-	int _day;
+	int* _a;
+	size_t _top;
+	size_t _capacity;
 };
 
 int main()
 {
-	Date d1;
+	Stack s1;
+	Stack s2(20);
 
 	return 0;
 }
