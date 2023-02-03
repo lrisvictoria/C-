@@ -217,12 +217,104 @@ using namespace std;
 
 
 // 1.下面程序编译运行结果是？ A、编译报错 B、运行崩溃 C、正常运行
+//class A
+//{
+//public:
+//	void PrintA()
+//	{
+//		cout << _a << endl;
+//	}
+//private:
+//	int _a;
+//};
+//int main()
+//{
+//	A* p = nullptr;
+//	p->PrintA();
+//	return 0;
+//}
+
+//class Date
+//{
+//public:
+//	void Init(int year, int month, int day)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//
+//	void Print()
+//	{
+//		cout << this << endl;
+//		cout << this->_year << "-" << this->_month << "-" << this->_day << endl;
+//	}
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//
+//int main()
+//{
+//	Date d1;
+//	d1.Print();
+//
+//	Date.Print();
+//
+//	return 0;
+//}
+
+// 1.下面程序编译运行结果是？ A、编译报错 B、运行崩溃 C、正常运行
+//class A
+//{
+//public:
+//	void PrintA()
+//	{
+//		cout << "PrintA()" << endl;
+//	}
+//private:
+//	int _a;
+//};
+//int main()
+//{
+//	A* p = nullptr;
+//	p->PrintA();
+//	return 0;
+//}
+
+
+
+
+
+
+
+// 1.下面程序编译运行结果是？ A、编译报错 B、运行崩溃 C、正常运行
+//class A
+//{
+//public:
+//	void PrintA()
+//	{
+//		cout << _a << endl;
+//	}
+//private:
+//	int _a;
+//};
+//int main()
+//{
+//	A* p = nullptr;
+//	p->PrintA();
+//	return 0;
+//}
+
+// 1.下面程序编译运行结果是？ A、编译报错 B、运行崩溃 C、正常运行
 class A
 {
 public:
 	void PrintA()
 	{
-		cout << _a << endl;
+		cout << "PrintA()" << endl;
 	}
 private:
 	int _a;
@@ -230,6 +322,6 @@ private:
 int main()
 {
 	A* p = nullptr;
-	p->PrintA();
+	(*p).PrintA();
 	return 0;
 }
