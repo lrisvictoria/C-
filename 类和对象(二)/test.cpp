@@ -311,6 +311,101 @@ using namespace std;
 //	return 0;
 //}
 
+//class Date
+//{
+//public:
+//	Date(int year = 0, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	
+//	Date(const Date& d)
+//	{
+//		cout << "进行拷贝构造" << endl;
+//	}
+//
+//	// d1 = d3
+//	Date& operator=(const Date& d)
+//	{
+//		if (this != &d) // this 和 d 相等 
+//		{
+//			_year = d._year;
+//			_month = d._month;
+//			_day = d._day;
+//		}
+//
+//		return *this;
+//	}
+//
+//	bool operator>(const Date d)
+//	{
+//		if (_year > d._year) 
+//		{
+//			return true;
+//		}
+//		else if (_year == d._year && _month > d._month) 
+//		{
+//			return true;
+//		}
+//		else if (_year == d._year && _month == d._month && _day < d._day)
+//		{
+//			return true;
+//		}
+//		else 
+//		{
+//			return false;
+//		}
+//	}
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//
+//
+//int main()
+//{
+//	Date d1(2023, 2, 3);
+//	Date d2(2023, 3, 4);
+//
+//	Date d3(2022, 2, 3);
+//
+//	d3 = d2 = d1;
+//
+//	return 0;
+//}
+
+//class Date
+//{
+//public:
+//	Date()
+//	{
+//		_year = 100;
+//	}
+//	
+//	void Print()
+//	{
+//		cout << _year << '-' << _month << '-' << _day << endl;
+//	}
+//
+//private:
+//	int _year; // 缺省值
+//	int _month;
+//	int _day;
+//};
+//
+//int main()
+//{
+//	Date d1;
+//	
+//	d1.Print();
+//
+//	return 0;
+//}
+
 class Date
 {
 public:
@@ -320,43 +415,16 @@ public:
 		_month = month;
 		_day = day;
 	}
-	
-	Date(const Date& d)
+
+	// 获取若干天之后的一天
+	Date GetAfterDay()
 	{
-		cout << "进行拷贝构造" << endl;
+
 	}
 
-	// d1 = d3
-	Date& operator=(const Date& d)
+	~Date()
 	{
-		if (this != &d) // this 和 d 相等 
-		{
-			_year = d._year;
-			_month = d._month;
-			_day = d._day;
-		}
-
-		return *this;
-	}
-
-	bool operator>(const Date d)
-	{
-		if (_year > d._year) 
-		{
-			return true;
-		}
-		else if (_year == d._year && _month > d._month) 
-		{
-			return true;
-		}
-		else if (_year == d._year && _month == d._month && _day < d._day)
-		{
-			return true;
-		}
-		else 
-		{
-			return false;
-		}
+		cout << "析构" << endl;
 	}
 
 private:
@@ -364,16 +432,3 @@ private:
 	int _month;
 	int _day;
 };
-
-
-int main()
-{
-	Date d1(2023, 2, 3);
-	Date d2(2023, 3, 4);
-
-	Date d3(2022, 2, 3);
-
-	d3 = d2 = d1;
-
-	return 0;
-}
