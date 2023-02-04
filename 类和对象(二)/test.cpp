@@ -406,29 +406,116 @@ using namespace std;
 //	return 0;
 //}
 
-class Date
+//#include <cassert>
+//
+//class Date
+//{
+//public:
+//	Date(int year = 0, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//
+//	Date(const Date& d)
+//	{
+//		_year = d._year;
+//		_month = d._month;
+//		_day = d._day;
+//	}
+//
+//	int GetMonthDay(int year, int month)
+//	{
+//		assert(month > 0 && month < 13);
+//		int monthDayArr[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+//		int day = monthDayArr[month];
+//
+//		if (month == 2 && ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)))
+//		{
+//			day += 1;
+//		}
+//
+//		return day;
+//	}
+//
+//	/*
+//	* 让当前天数加上 x ，若当前天数大于本月天数，则需要进位
+//	*/
+//	Date GetAfterXDay(int x)
+//	{
+//		Date tmp = *this; // 拷贝构造一份，防止把自己改掉
+//		tmp._day += x;
+//		while (tmp._day > GetMonthDay(tmp._year, tmp._month)) // 32 31
+//		{
+//			// 进位
+//			tmp._day -= GetMonthDay(tmp._year, tmp._month); // 32 - 31 = 1
+//			tmp._month++; // 月份 + 1
+//			if (tmp._month == 13) // 若月份超了，则进一年
+//			{
+//				tmp._year++;
+//				tmp._month = 1;
+//			}
+//		}
+//
+//		return tmp; // 返回 tmp 的年月日
+//	}
+//
+//	/*~Date()
+//	{
+//		cout << "析构" << endl;
+//	}*/
+//
+//	void Print()
+//	{
+//		cout << _year << '-' << _month << '-' << _day << endl;
+//	}
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//
+//int main()
+//{
+//	Date d1(2022, 1, 2);
+//	Date d2 = d1.GetAfterXDay(100);
+//
+//	d1.Print();
+//	d2.Print();
+//
+//	return 0;
+//}
+
+class Widget
 {
 public:
-	Date(int year = 0, int month = 1, int day = 1)
+	Widget()
 	{
-		_year = year;
-		_month = month;
-		_day = day;
+		// cout << "Wiget(const Widget&)" << endl;
 	}
 
-	// 获取若干天之后的一天
-	Date GetAfterDay()
+	Widget(const Widget&)
 	{
-
+		cout << "Wiget(const WidGet&)" << endl;
 	}
-
-	~Date()
-	{
-		cout << "析构" << endl;
-	}
-
-private:
-	int _year;
-	int _month;
-	int _day;
 };
+
+Widget f(Widget u)
+{
+	return u;
+}
+
+int main()
+{
+	//Widget x;
+	//Widget y = f(x); // 理论三次，但是这里只有两次
+	// 在一次调用中，连续构造函数，会被编译器优化，合二为一，直接拿 u 的返回值去优化了
+
+	Widget x, y;
+
+	y = f(x);
+
+	return 0;
+}
