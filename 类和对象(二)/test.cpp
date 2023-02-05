@@ -488,34 +488,199 @@ using namespace std;
 //	return 0;
 //}
 
-class Widget
+//class Widget
+//{
+//public:
+//	Widget()
+//	{
+//		// cout << "Wiget(const Widget&)" << endl;
+//	}
+//
+//	Widget(const Widget&)
+//	{
+//		cout << "Wiget(const WidGet&)" << endl;
+//	}
+//
+//	~Widget()
+//	{
+//		cout << "析构" << endl;
+//	}
+//};
+//
+//Widget f(Widget u)
+//{
+//	return u;
+//}
+//
+//int main()
+//{
+//	//Widget x;
+//	//Widget y = f(x); // 理论三次，但是这里只有两次
+//	// 在一次调用中，连续构造函数，会被编译器优化，合二为一，直接拿 u 的返回值去优化了
+//
+//	// Widget x, y;
+//
+//	// y = f(x);
+//
+//	Widget d1;
+//	Widget();
+//
+//	printf("我是析构");
+//
+//	return 0;
+//}
+
+// const 成员
+
+
+//class Date
+//{
+//public:
+//	Date(int year = 0, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//
+//	Date(const Date& d)
+//	{
+//		cout << "进行拷贝构造" << endl;
+//	}
+//
+//	// d1 = d3
+//	Date operator=(const Date& d)
+//	{
+//		_year = d._year;
+//		_month = d._month;
+//		_day = d._day;
+//
+//		return *this; // 调用拷贝构造
+//	}
+//
+//	void Print() const 
+//	{
+//		cout << _year << '-' << _month << '-' << _day << endl;
+//	}
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//
+//
+//int main()
+//{
+//	Date d;
+//	d.Print();
+//
+//	const Date d2;
+//	d2.Print();
+//
+//	return 0;
+//}
+
+//class A
+//{
+//public:
+//	A* operator&()
+//	{
+//		return this;
+//	}
+//	const A* operator&() const
+//	{
+//		return this;
+//	}
+//};
+//
+//int main()
+//{
+//	A d1;
+//	cout << &d1 << endl;
+//
+//	const A d2;
+//	cout << &d2 << endl;
+//
+//	return 0;
+//}
+
+//class Stack
+//{
+//public:
+//	Stack(int capacity = 4)
+//	{
+//		_array = (int*)malloc(sizeof(int) * capacity);
+//		if (_array == nullptr)
+//		{
+//			cout << "malloc fail" << endl;
+//			exit(-1);
+//		}
+//
+//		_top = 0;
+//		_capacity = capacity;
+//	}
+//	Stack(const Stack& st)
+//	{
+//		_array = (int*)malloc(sizeof(int) * st._capacity);
+//		if (_array == nullptr)
+//		{
+//			cout << "malloc fail" << endl;
+//			exit(-1);
+//		}
+//		memcpy(_array, st._array, sizeof(st._array) * st._top);
+//		_top = st._top;
+//		_capacity = st._capacity;
+//	}
+//	void Push(const int& data)
+//	{
+//		_array[_top] = data;
+//		_top++;
+//	}
+//	~Stack()
+//	{
+//		free(_array);
+//		_array = nullptr;
+//		_top = _capacity = 0;
+//	}
+//
+//private:
+//	int* _array;
+//	size_t _top;
+//	size_t _capacity;
+//};
+//
+//int main()
+//{
+//	Stack st1;
+//	st1.Push(1);
+//	Stack st2(st1);
+//
+//	return 0;
+//}
+
+class A
 {
 public:
-	Widget()
+	A() {} // 构造
+	A(const A& a)
 	{
-		// cout << "Wiget(const Widget&)" << endl;
+		cout << "进行拷贝构造" << endl;
 	}
-
-	Widget(const Widget&)
+	A Test(A a)
 	{
-		cout << "Wiget(const WidGet&)" << endl;
+		return a;
 	}
+private:
+	int _a;
 };
-
-Widget f(Widget u)
-{
-	return u;
-}
 
 int main()
 {
-	//Widget x;
-	//Widget y = f(x); // 理论三次，但是这里只有两次
-	// 在一次调用中，连续构造函数，会被编译器优化，合二为一，直接拿 u 的返回值去优化了
+	A a1;
+	A a2;
 
-	Widget x, y;
-
-	y = f(x);
+	a1.Test(a2); // 传参进行一次拷贝构造，返回进行一次拷贝构造
 
 	return 0;
 }

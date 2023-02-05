@@ -1,6 +1,6 @@
 #include "Date.h"
 
-int Date::GetMonthDay(int year, int month)
+int Date::GetMonthDay(int year, int month) const
 {
 	// 从 1 月开始
 	static int monthDayArr[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -22,7 +22,7 @@ Date::Date(int year, int month, int day)
 	_day = day;
 
 	// 检查日期是否错误 
-	if (!(_year >= 0 && (month > 0 && month < 13) && (day > 0 && day <= GetMonthDay(year, month))))
+	if (!(_year > 0 && (month > 0 && month < 13) && (day > 0 && day <= GetMonthDay(year, month))))
 	{
 		cout << "非法日期：";
 		Print(); // 访问成员函数
@@ -32,19 +32,19 @@ Date::Date(int year, int month, int day)
 // 拷贝构造
 Date::Date(const Date& d)
 {
-	cout << "进行拷贝构造" << endl;
+	//cout << "进行拷贝构造" << endl;
 	_year = d._year;
 	_month = d._month;
 	_day = d._day;
 }
 
-void Date::Print()
+void Date::Print() const
 {
 	cout << _year << '-' << _month << '-' << _day << endl;
 }
 
 // 只要实现 > 和 = 
-bool Date::operator>(const Date& d)
+bool Date::operator>(const Date& d) const
 {
 	if (_year > d._year) 
 	{
@@ -65,36 +65,36 @@ bool Date::operator>(const Date& d)
 }
 
 // d1 == d2 
-bool Date::operator==(const Date& d)
+bool Date::operator==(const Date& d) const
 {
 	return _year == d._year && _month == d._month && _day == d._day;
 }
 
 // 复用 == 
-bool Date::operator!=(const Date& d)
+bool Date::operator!=(const Date& d) const
 {
 	return !(*this == d);
 }
 
 // 复用 > 和 == 
-bool Date::operator>=(const Date& d)
+bool Date::operator>=(const Date& d) const
 {
 	return *this > d || *this == d;
 }
 
 // 复用 > 
-bool Date::operator<=(const Date& d)
+bool Date::operator<=(const Date& d) const
 {
 	return !(*this > d);
 }
 	
 // 复用 >= ，不大于并且不相等
-bool Date::operator<(const Date& d)
+bool Date::operator<(const Date& d) const
 {
 	return !(*this >= d);
 }
 
-Date& Date::operator+=(int day)
+Date& Date::operator+=(int day) 
 {
 	// 处理负数 -100
 	if (day < 0)
@@ -112,11 +112,11 @@ Date& Date::operator+=(int day)
 			_month = 1;
 		}
 	}
-	return *this; // 返回引用，返回时不进行拷贝
+	return *this; // 返回引用，返回时不进行拷贝，d1 = d2 += d30
 }
 
 // 复用 += 
-Date Date::operator+(int day)
+Date Date::operator+(int day) const
 {
 	Date tmp(*this); // 拷贝构造
 	tmp += day; // 复用 += 
@@ -125,8 +125,7 @@ Date Date::operator+(int day)
 
 // ++d1
 Date& Date::operator++()
-{
-	*this += 1;
+{ 
 	return *this;
 }
 
@@ -170,7 +169,7 @@ Date& Date::operator-=(int day)
 }
 
 
-Date Date::operator-(int day)
+Date Date::operator-(int day) const
 {
 	Date tmp(*this);
 	tmp -= day;
@@ -191,7 +190,7 @@ Date Date::operator--(int)
 }
 
 // 比较两个日期的大小，让小的累加，用变量记录，什么时候两个日期相等，此刻的变量就是相差的天数
-int Date::operator-(const Date& d)
+int Date::operator-(const Date& d) const
 {
 	Date max = *this;
 	Date min = d;
@@ -211,4 +210,10 @@ int Date::operator-(const Date& d)
 	}
 
 	return cnt * flag;
+}
+
+ostream& operator<<(ostream& out, const Date& d)
+{
+	out << d._year << '-' << d._month << '-' << d._day << endl;
+	return out;
 }

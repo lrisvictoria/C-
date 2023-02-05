@@ -66,6 +66,14 @@ void Test5()
 	cout << (d2 - d3) << endl;
 }
 
+void Test6()
+{
+	Date d1;
+	Date d2(2023, 2, 5);
+	// cout << d1 << endl;
+	cout << d1 << d2;
+}
+
 int main()
 {
 	//Test1();
@@ -73,7 +81,7 @@ int main()
 
 	// Test4();
 
-	Test5();
+	Test6();
 
 	return 0;
 }
