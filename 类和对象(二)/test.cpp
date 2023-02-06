@@ -659,28 +659,104 @@ using namespace std;
 //	return 0;
 //}
 
-class A
+//class A
+//{
+//public:
+//	A() {} // 构造
+//	A(const A& a)
+//	{
+//		cout << "进行拷贝构造" << endl;
+//	}
+//	A Test(A a)
+//	{
+//		return a;
+//	}
+//private:
+//	int _a;
+//};
+//
+//int main()
+//{
+//	A a1;
+//	A a2;
+//
+//	a1.Test(a2); // 传参进行一次拷贝构造，返回进行一次拷贝构造
+//
+//	return 0;
+//}
+
+//class Date
+//{
+//public:
+//	Date() {}
+//	Date(const Date& d)
+//	{
+//		cout << "进行拷贝构造" << endl;
+//	}
+//	Date& operator=(const Date& d)
+//	{
+//		cout << "赋值重载" << endl;
+//		_year = d._year;
+//		_month = d._month;
+//		_day = d._day;
+//	}
+//
+//private:
+//	int _year = 1; // 缺省值
+//	int _month = 1;
+//	int _day = 1;
+//};
+//
+//int main()
+//{
+//	Date d1;
+//	Date d2 = d1; // 拷贝构造
+//
+//	return 0;
+//}
+
+class Date
 {
 public:
-	A() {} // 构造
-	A(const A& a)
+	Date(int year = 1, int month = 1, int day = 1)
 	{
-		cout << "进行拷贝构造" << endl;
+		_year = year;
+		_month = month;
+		_day = day;
 	}
-	A Test(A a)
-	{
-		return a;
-	}
-private:
-	int _a;
+
+	int _year;
+	int _month;
+	int _day;
 };
+
+bool operator>(const Date& d1, const Date& d2)
+{
+	if (d1._year > d2._year)
+	{
+		return true;
+	}
+	else if (d1._year == d2._year && d1._month > d2._month)
+	{
+		return true;
+	}
+	else if (d1._year == d2._year && d1._month == d2._month && d1._day > d2._day)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 int main()
 {
-	A a1;
-	A a2;
+	Date d1(2023, 2, 5);
+	Date d2(2023, 2, 4);
 
-	a1.Test(a2); // 传参进行一次拷贝构造，返回进行一次拷贝构造
+	cout << (d1 > d2) << endl;
+	cout << (operator>(d1, d2)) << endl;
 
 	return 0;
 }

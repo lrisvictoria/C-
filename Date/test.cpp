@@ -71,7 +71,12 @@ void Test6()
 	Date d1;
 	Date d2(2023, 2, 5);
 	// cout << d1 << endl;
-	cout << d1 << d2;
+	// cout << d1 << d2;
+	
+	cin >> d1 >> d2;
+
+	d1.Print();
+	d2.Print();
 }
 
 int main()

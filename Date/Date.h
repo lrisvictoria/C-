@@ -7,6 +7,8 @@ using namespace std;
 class Date
 {
 	friend ostream& operator<<(ostream& out, const Date& d);
+	friend istream& operator>>(istream& in, Date& d);
+
 public:
 	// 公元 1 年开始
 	Date(int year = 1, int month = 1, int day = 1);
@@ -33,7 +35,6 @@ public:
 	Date& operator--();
 	Date operator--(int);
 	int operator-(const Date& d) const; // paln day - today
-	void operator<<(ostream& out);
 
 private:
 	int _year;

@@ -217,3 +217,9 @@ ostream& operator<<(ostream& out, const Date& d)
 	out << d._year << '-' << d._month << '-' << d._day << endl;
 	return out;
 }
+
+istream& operator>>(istream& in, Date& d) // d 要被修改，不能加 const
+{
+	in >> d._year >> d._month >> d._day;
+	return in;
+}
