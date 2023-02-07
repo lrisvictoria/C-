@@ -6,6 +6,7 @@ using namespace std;
 
 class Date
 {
+	// 友元
 	friend ostream& operator<<(ostream& out, const Date& d);
 	friend istream& operator>>(istream& in, Date& d);
 
@@ -29,7 +30,7 @@ public:
 	Date& operator-=(int day); // d1 += 100
 	Date operator-(int day) const;
 
-	// 默认第一个为前置 ++ ，后置 ++ 为了区分增加了一个参数进位，和前置构成函数重载
+	// 默认第一个为前置 ++ ，后置 ++ 为了区分增加了一个参数占位，和前置构成函数重载
 	Date& operator++(); // ++d1
 	Date operator++(int); // d1++
 	Date& operator--();

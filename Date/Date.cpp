@@ -122,7 +122,7 @@ Date Date::operator+(int day) const
 	return tmp;
 }
 
-// ++d1
+// ++d1 // 先自增，再返回本身
 Date& Date::operator++()
 { 
 	*this += 1;
