@@ -6,7 +6,7 @@ int Date::GetMonthDay(int year, int month) const
 	static int monthDayArr[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 	int day = monthDayArr[month];
 
-	if (month == 2 && ((year % 400 == 0) && (year % 4 == 0 && year % 100 != 0)))
+	if (month == 2 && ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)))
 	{
 		day += 1;
 	}
@@ -96,23 +96,22 @@ bool Date::operator<(const Date& d) const
 
 Date& Date::operator+=(int day) 
 {
-	// 处理负数 -100
 	if (day < 0)
 	{
 		return *this -= -day;
 	}
 	_day += day;
-	while (_day > GetMonthDay(_year, _month)) // 不合法处理
+	while (_day > GetMonthDay(_year, _month))
 	{
 		_day -= GetMonthDay(_year, _month);
 		_month++;
-		if (_month == 13) // 超过一年
+		if (_month == 13)
 		{
 			_year++;
 			_month = 1;
 		}
 	}
-	return *this; // 返回引用，返回时不进行拷贝，d1 = d2 += d30
+	return *this;
 }
 
 // 复用 += 
@@ -126,6 +125,7 @@ Date Date::operator+(int day) const
 // ++d1
 Date& Date::operator++()
 { 
+	*this += 1;
 	return *this;
 }
 
