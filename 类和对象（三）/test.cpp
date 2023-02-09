@@ -86,54 +86,55 @@ using namespace std;
 //	return 0;
 //}
 
-//class A
-//{
-//public:
-//	A(int a = 1) 
-//	{
-//		cout << "进行构造" << endl;
-//		_a = a; 
-//	}
-//	A(const A& a)
-//	{
-//		cout << "进行拷贝构造" << endl;
-//		_a = a._a;
-//	}
-//	A& operator=(const A& a)
-//	{
-//		cout << "赋值重载" << endl;
-//		_a = a._a;
-//		return *this;
-//	}
-//private:
-//	int _a;
-//};
-//
-//class Date
-//{
-//public:
-//	Date(int year, int month, int day, const A& aa)
-//		:_aa(aa)
-//	{
-//		_year = year;
-//		_month = month;
-//		_day = day;
-//	}
-//
-//private:
-//	int _year;
-//	int _month;
-//	int _day;
-//	A _aa;
-//};
-//
-//int main()
-//{
-//	A aa(10); // 调用构造
-//	Date d1(2023, 2, 6, aa);
-//
-//	return 0;
-//}
+class A
+{
+public:
+	A(int a = 1) 
+	{
+		cout << "进行构造" << endl;
+		_a = a; 
+	}
+	A(const A& a)
+	{
+		cout << "进行拷贝构造" << endl;
+		_a = a._a;
+	}
+	A& operator=(const A& a)
+	{
+		cout << "赋值重载" << endl;
+		_a = a._a;
+		return *this;
+	}
+private:
+	int _a;
+};
+
+class Date
+{
+public:
+	Date(int year, int month, int day, const A& aa)
+	// 默认调用 _aa 的构造
+	{
+		_aa = aa;
+		_year = year;
+		_month = month;
+		_day = day;
+	}
+
+private:
+	int _year;
+	int _month;
+	int _day;
+	A _aa;
+};
+
+int main()
+{
+	A aa(10); // 调用构造
+	Date d1(2023, 2, 6, aa);
+
+	return 0;
+}
 
 //class A
 //{
@@ -631,24 +632,24 @@ using namespace std;
 //    cout << (d1 - d2) << endl;
 //}
 
-class A
-{
-	class B
-	{
-	private:
-		int _c;
-		int _d;
-	};
-private:
-	int _a;
-	int _b;
-};
-
-int main()
-{
-	cout << sizeof(A) << endl;
-
-	
-
-	return 0;
-}
+//class A
+//{
+//	class B
+//	{
+//	private:
+//		int _c;
+//		int _d;
+//	};
+//private:
+//	int _a;
+//	int _b;
+//};
+//
+//int main()
+//{
+//	cout << sizeof(A) << endl;
+//
+//	
+//
+//	return 0;
+//}
