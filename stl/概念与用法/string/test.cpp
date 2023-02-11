@@ -1,4 +1,5 @@
-#include <iostream>
+ï»¿#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ private:
 //{
 //	// string s("hello");
 //
-//	char str1[] = "³ÔÁËÂğ";
+//	char str1[] = "åƒäº†å—";
 //	str1[1] += 1;
 //	str1[2] += 1;
 //
@@ -31,7 +32,7 @@ private:
 //	string s2 = "hello";
 //	cout << s2 << endl;
 //	
-//	string s3 = s2; // ¿½±´¹¹Ôì
+//	string s3 = s2; // æ‹·è´æ„é€ 
 //	cout << s3 << endl;
 //
 //
@@ -184,7 +185,7 @@ void test_str3()
 void test_str4()
 {
 	string s("hello");
-	cout << s << endl; // Á÷²åÈëÔËËã·ûÖØÔØ
+	cout << s << endl; // æµæ’å…¥è¿ç®—ç¬¦é‡è½½
 	cout << s.c_str() << endl; // char*
 }
 
@@ -198,21 +199,21 @@ void test_str5()
 		cout << suf << endl;
 	}*/
 
-	// È¡³ö url ÖĞµÄÃ¿Ò»²¿·Ö
-	// http Ğ­Òé + ÖĞ¼äÊÇÓòÃû£ºlegacy.cplusplus.com + Î¨Ò»×ÊÔ´¶¨Î»
+	// å–å‡º url ä¸­çš„æ¯ä¸€éƒ¨åˆ†
+	// http åè®® + ä¸­é—´æ˜¯åŸŸåï¼šlegacy.cplusplus.com + å”¯ä¸€èµ„æºå®šä½
 	string url("https://legacy.cplusplus.com/reference/string/string/?kw=string");
 	
-	// È¡³öĞ­Òé
+	// å–å‡ºåè®®
 	size_t pos1 = url.find(':');
 	string pro = url.substr(0, pos1 - 0);
 	cout << pro << endl;
 	
-	// È¡³öÓòÃû
+	// å–å‡ºåŸŸå
 	size_t pos2 = url.find('/', pos1 + 3);
 	string domain = url.substr(pos1 + 3, pos2 - (pos1 + 3));
 	cout << domain << endl;
 
-	// È¡³ö×ÊÔ´¶¨Î»
+	// å–å‡ºèµ„æºå®šä½
 	size_t pos3 = pos2 + 1;
 	string uri = url.substr(pos3);
 	cout << uri << endl;
@@ -221,15 +222,15 @@ void test_str6()
 {
 	string s("hello");
 
-	// Í·²å 0(N) Ğ§ÂÊµÍ£¬ÉÙÓÃ
-	s.insert(0, 1, 'x'); // ÏÂ±ê
+	// å¤´æ’ 0(N) æ•ˆç‡ä½ï¼Œå°‘ç”¨
+	s.insert(0, 1, 'x'); // ä¸‹æ ‡
 	cout << s << endl;
-	s.insert(s.begin(), 'y'); // µü´úÆ÷
+	s.insert(s.begin(), 'y'); // è¿­ä»£å™¨
 	cout << s << endl;
-	s.insert(0, "test"); // ²åÈë×Ö·û´®
+	s.insert(0, "test"); // æ’å…¥å­—ç¬¦ä¸²
 	cout << s << endl;
 
-	// ÖĞ¼äÎ»ÖÃ²åÈë
+	// ä¸­é—´ä½ç½®æ’å…¥
 	s.insert(4, "&&&&&");
 	cout << s << endl;
 }
@@ -238,10 +239,10 @@ void test_str7()
 {
 	string s("hello");
 
-	// Í·É¾Î²É¾
-	// ¾¡Á¿ÉÙÓÃÍ·²¿ºÍÖĞ¼äµÄÉ¾³ı£¬ÒòÎªÒªÅ²¶¯Êı¾İ£¬Ğ§ÂÊµÍ
+	// å¤´åˆ å°¾åˆ 
+	// å°½é‡å°‘ç”¨å¤´éƒ¨å’Œä¸­é—´çš„åˆ é™¤ï¼Œå› ä¸ºè¦æŒªåŠ¨æ•°æ®ï¼Œæ•ˆç‡ä½
 
-	s.erase(0, 1); // É¾Í·²¿Ò»¸ö×Ö·û
+	s.erase(0, 1); // åˆ å¤´éƒ¨ä¸€ä¸ªå­—ç¬¦
 	cout << s << endl;
 	s.erase(s.size() - 1, 1);
 	cout << s << endl;
@@ -249,14 +250,217 @@ void test_str7()
 	cout << s << endl;
 }
 
+
+//int main()
+//{
+//	// test_str1();
+//	// test_str2();
+//
+//	// test_capacitygrow();
+//
+//	// test_str7();
+//
+//	//string s1;
+//	// 
+//	//char ch = cin.get();
+//	//while (ch != '\n')
+//	//{
+//	//	s1 += ch;
+//	//	ch = cin.get(); // cin çš„æˆå‘˜å‡½æ•°ï¼Œä¸€ä¸ªå­—ç¬¦ä¸€ä¸ªå­—ç¬¦æ‹¿
+//	//}
+//
+//	//cout << s1 << endl;
+//	
+//	string s;
+//	getline(cin, s);
+//
+//	cout << s << endl;
+//
+//	return 0;
+//}
+
+//int main()
+//{
+//	string a = "hello world";
+//
+//	string b = a;
+//
+//	if (a.c_str() == b.c_str())
+//
+//	{
+//
+//		cout << "true" << endl;
+//
+//	}
+//
+//	else cout << "false" << endl;
+//
+//	string c = b;
+//
+//	c = "";
+//
+//	if (a.c_str() == b.c_str())
+//
+//	{
+//
+//		cout << "true" << endl;
+//
+//	}
+//
+//	else cout << "false" << endl;
+//
+//	a = "";
+//
+//	if (a.c_str() == b.c_str())
+//
+//	{
+//
+//		cout << "true" << endl;
+//
+//	}
+//
+//	else cout << "false" << endl;
+//
+//	return 0;
+//
+//}
+
+//int main(int argc, char* argv[])
+//{
+//	string strText = "How are you?";
+//	string strSeparator = " ";
+//	string strResult;
+//	int size_pos = 0;
+//	int size_prev_pos = 0;
+//	while ((size_pos = strText.find_first_of(strSeparator, size_pos)) != string::npos)
+//	{
+//
+//		strResult = strText.substr(size_prev_pos, size_pos - size_prev_pos);
+//
+//		cout << strResult << " ";
+//
+//		size_prev_pos = ++size_pos;
+//
+//	}
+//	if (size_prev_pos != strText.size())
+//	{
+//		strResult = strText.substr(size_prev_pos, size_pos - size_prev_pos);
+//		cout << strResult << " ";
+//	}
+//	cout << endl;
+//	return 0;
+//
+//}
+
+//int main()
+//
+//{
+//
+//	string s1 = "hello world";
+//
+//	string s2 = "change world";
+//
+//	string::iterator it = s1.begin();
+//
+//	swap(s1, s2);
+//
+//	while (it != s1.end())
+//
+//		cout << *it;
+//
+//	cout << endl;
+//
+//}
+
+//#include <climits>
+//
+//class Solution {
+//public:
+//	typedef long long ll;
+//	int StrToInt(string str) {
+//		ll res = 0, k = 0;
+//		while (k < str.size() && str[k] == ' ') {
+//			k++;
+//		}
+//		int minus = 1;
+//		if (k < str.size() && str[k] == '-') {
+//			minus = -1;
+//			k++;
+//		}
+//		else if (k < str.size() && str[k] == '+') {
+//			k++;
+//		}
+//
+//		while (k < str.size() && (str[k] >= '0' && str[k] <= '9')) {
+//			res = res * 10 + str[k] - '0';
+//			k++;
+//			if (res > INT_MAX || !(str[k] >= '0' && str[k] <= '9')) {
+//				return 0;
+//			}
+//		}
+//		res *= minus;
+//		return res;
+//	}
+//};
+//
+//int main()
+//{
+//	Solution foo;
+//	string s;
+//	cin >> s;
+//	cout << foo.StrToInt(s) << endl;
+//}
+
+//int main()
+//{
+//	string s1("hello world"), s2("string");
+//	cout << (s1 < s2) << endl;
+//	cout << ("hhh" < s2) << endl;
+//
+//	return 0;
+//}
+
+//int main()
+//{
+//	string a("+123456");
+//	cout << stoi(a) << endl;
+//
+//	return 0;
+//}
+
+// stoi example
+#include <iostream>   // std::cout
+#include <string>     // std::string, std::stoi
+//
+//int main()
+//{
+//	std::string str_dec = "2001, A Space Odyssey";
+//	std::string str_hex = "40c3";
+//	std::string str_bin = "-10010110001";
+//	std::string str_auto = "0x7f";
+//
+//	std::string::size_type sz;   // alias of size_t
+//
+//	int i_dec = std::stoi(str_dec, &sz);
+//	int i_hex = std::stoi(str_hex, nullptr, 16);
+//	int i_bin = std::stoi(str_bin, nullptr, 2);
+//	int i_auto = std::stoi(str_auto, nullptr, 0);
+//
+//	std::cout << str_dec << ": " << i_dec << " and [" << str_dec.substr(sz) << "]\n";
+//	std::cout << str_hex << ": " << i_hex << '\n';
+//	std::cout << str_bin << ": " << i_bin << '\n';
+//	std::cout << str_auto << ": " << i_auto << '\n';
+//
+//	return 0;
+//}
+
 int main()
 {
-	// test_str1();
-	// test_str2();
+	int a = 1234;
+	cout << to_string(a) << endl;
 
-	// test_capacitygrow();
-
-	test_str7();
+	double b = 3.14;
+	cout << to_string(b) << endl;
 
 	return 0;
 }
