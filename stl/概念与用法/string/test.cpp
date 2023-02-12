@@ -454,13 +454,13 @@ void test_str7()
 //	return 0;
 //}
 
-int main()
-{
-	int a = 1234;
-	cout << to_string(a) << endl;
-
-	double b = 3.14;
-	cout << to_string(b) << endl;
-
-	return 0;
-}
+//int main()
+//{
+//	int a = 1234;
+//	cout << to_string(a) << endl;
+//
+//	double b = 3.14;
+//	cout << to_string(b) << endl;
+//
+//	return 0;
+//}
