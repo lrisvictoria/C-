@@ -4,5 +4,5 @@
 
 int main()
 {
-	anduin::test_string1();
+	anduin::test_string2();
 }
