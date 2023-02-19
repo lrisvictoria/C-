@@ -12,6 +12,8 @@ private:
 	// ... 
 };
 
+
+
 // typedef basic_string<char> string;
 
 //int main()
