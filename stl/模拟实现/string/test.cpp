@@ -5,5 +5,7 @@
 
 int main()
 {
+
+
 	anduin::test_string2();
 }
