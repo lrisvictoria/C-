@@ -687,16 +687,17 @@ using namespace std;
 //	return 0;
 //}
 
-class A
-{
-	A()
-		:_aa(5)
-	{}
-private:
-	static const int _aa = 5;
-};
+//class A
+//{
+//	A()
+//		:_aa(5)
+//	{}
+//private:
+//	static const int _aa;
+//};
+//
+//int main()
+//{
+//
+//}
 
-int main()
-{
-
-}

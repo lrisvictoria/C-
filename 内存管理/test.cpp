@@ -290,27 +290,42 @@ using namespace std;
 //	return 0;
 //}
 
-class A
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		: _a(a)
+//	{
+//		cout << "A():" << this << endl;
+//	}
+//	~A()
+//	{
+//		cout << "~A():" << this << endl;
+//	}
+//private:
+//	int _a;
+//};
+//
+//int main()
+//{
+//	A* p = (A*)malloc(sizeof(A));
+//	new(p)A; 
+//	new(p)A(1); // 带参初始化
+//
+//	return 0;
+//}
+
+template<class T, typename S>
+int Swap(T& a, S& b)
 {
-public:
-	A(int a = 0)
-		: _a(a)
-	{
-		cout << "A():" << this << endl;
-	}
-	~A()
-	{
-		cout << "~A():" << this << endl;
-	}
-private:
-	int _a;
-};
+	return a + (int)b;
+}
 
 int main()
 {
-	A* p = (A*)malloc(sizeof(A));
-	new(p)A; 
-	new(p)A(1); // 带参初始化
+	int a = 3;
+	double b = 3.14;
 
-	return 0;
+	cout << Swap(a, b) << endl;
 }
+
