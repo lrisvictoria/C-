@@ -14,3 +14,4 @@ namespace AQueue
 		struct Node* tail;
 	};
 }
+
