@@ -27,10 +27,27 @@ void TestDate2()
 {
 	Date d1(2023, 5, 5);
 	d1 += 100;
+	Date d2(2023, 1, 1);
 
 	// cout << d1;
-	d1 << cout;
-	d1.operator<<(cout);
+	/*d1 << cout;
+	d1.operator<<(cout);*/
+
+	// cout << d1 << d2 << endl;
+	// operator<<(cout, d1);
+
+	cin >> d1 >> d2;
+	cout << d1 << d2;
+
+
+
+}
+
+void TestDate3()
+{
+	Date d1(2023, 5, 5);
+
+	cout << d1 - 100 << endl;
 }
 
 int main()
@@ -45,7 +62,7 @@ int main()
 
 	d1 = d2;*/
 
-	TestDate2();
+	TestDate3();
 
 	return 0;
 }
