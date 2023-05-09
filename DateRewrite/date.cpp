@@ -110,16 +110,6 @@ bool Date::operator>=(const Date& d)
 	return *this > d || *this == d;
 }
 
-bool Date::operator<(const Date& d)
-{
-	return !(*this >= d);
-}
-
-bool Date::operator>=(const Date& d)
-{
-	return !(*this < d);
-}
-
 bool Date::operator!=(const Date& d)
 {
 	return !(*this == d);
@@ -129,7 +119,7 @@ Date& Date::operator+=(int day)
 {
 	if (day < 0)
 	{
-		return *this -= day;
+		return *this -= -day;
 	}
 	_day += day;
 	while (_day > GetMonthDay(_year, _month))
@@ -157,7 +147,7 @@ Date& Date::operator-=(int day)
 {
 	if (day > 0)
 	{
-		return *this += day;
+		return *this += -day;
 	}
 	_day -= day;
 
@@ -206,4 +196,33 @@ Date Date::operator--(int)
 	Date tmp(*this);
 	*this -= 1;
 	return tmp;
+}
+
+// d1 - d2
+int Date::operator-(const Date& d)
+{
+	Date max = *this;
+	Date min = d;
+	int flag = 1;
+
+	if (*this < d)
+	{
+		max = d;
+		min = *this;
+		flag = -1; 
+	}
+
+	int n = 0;
+	while (min != max)
+	{
+		++min;
+		++n;
+	}
+
+	return flag * n;
+}
+
+void Date::operator<<(ostream& out)
+{
+	cout << _year << ' ' << _month << ' ' << _day;
 }

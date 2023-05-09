@@ -15,7 +15,6 @@ public:
 	bool operator<(const Date& d);
 	Date& operator=(const Date& d); // ¸³ÖµÖØÔØ
 	bool operator>(const Date& d);
-	bool operator<(const Date& d);
 	bool operator>=(const Date& d);
 	bool operator<= (const Date& d);
 	bool operator==(const Date& d);
@@ -29,7 +28,10 @@ public:
 	Date operator++(int);
 	Date& operator--();
 	Date operator--(int);
+
+	int operator-(const Date& d);
 	
+	void operator<<(ostream& out);
 private:
 	int _year;
 	int _month;
