@@ -32,18 +32,158 @@
 //	int i = 10;
 //	double d = i; // i 产生临时变量 double 类型
 //
+//	const A& aa3 = 2; // 常量具有常性，临时变量具有常性
+//
 //	return 0;
 //}
 
+// 设计一个类，在类外面只能在栈或者堆上创建对象
+
+//#include <iostream>
+//
+//using namespace std;
+//
+//class A
+//{
+//public:
+//	static A GetStackObj()
+//	{
+//		A aa;
+//		return aa;
+//	}
+//
+//	static A* GetHeapObj()
+//	{
+//		return new A;
+//	}
+//
+//	// 封装成私有，只能在类内部调用
+//private:
+//	A()
+//	{}
+//
+//private:
+//	int _a1 = 1;
+//	int _a2 = 2;
+//};
+//
+//
+//int main()
+//{
+//	// 但是调用两个成员函数就会被对象和成员函数的优先级所困扰
+//	// 这时就可以使用静态成员函数
+//	// static A GetStackObj();
+//
+//	return 0;
+//}
+
+
+//#include <iostream>
+//
+//using namespace std;
+//
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		:_a(a)
+//	{
+//		++_cnt;
+//	}
+//	A(const A& aa) { ++aa._cnt; }
+//
+//private:
+//	int _a;
+//public:
+//	static int _cnt;
+//};
+//
+//int A::_cnt = 0;
+//
+//int main()
+//{
+//	A a1;
+//	A a2 = 1;
+//
+//	cout << A::_cnt << endl;
+//
+//	return 0;
+//}
+
+//#include <iostream>
+//
+//using namespace std;
+//
+//class A
+//{
+//public:
+//	int a()
+//	{
+//		return _cnt;
+//	}
+//	int c()
+//	{
+//		int tmp = 3;
+//		return tmp;
+//	}
+//	static int b()
+//	{
+//
+//		++_cnt;
+//		_cnt = c();
+//	}
+//
+//private:
+//	static int _cnt;
+//};
+//
+//int A::_cnt = 0;
+//
+//int main()
+//{
+//
+//
+//	return 0;
+//}
+
+// 使一个对象只能在栈上创建/堆上创建
+
 #include <iostream>
-#include <cstring>
 
 using namespace std;
 
+class A
+{
+public:
+	static A GetStackObj()
+	{
+		A aa;
+		return aa;
+	}
+
+	static A* GetHeapObj()
+	{
+		return new A;
+	}
+
+	// 封装成私有，只能在类内部调用
+	// 这样子就不能直接创建对象
+private:
+	A()
+	{}
+
+private:
+	int _a1 = 1;
+	int _a2 = 2;
+};
+
+
 int main()
 {
-	int count[26];
-	memset(count, 0, sizeof(int));
+	// 但是调用两个成员函数就会被对象和成员函数的优先级所困扰
+	// 因为调用需要有一个对象，但是对象的指定创建范围不同
+	// 这时就可以使用静态成员函数
+	// static A GetStackObj();
 
 	return 0;
 }
