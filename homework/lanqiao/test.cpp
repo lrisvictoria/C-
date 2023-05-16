@@ -325,43 +325,90 @@
 //	return 0;
 //}
 
+//#include <iostream>
+//#include <algorithm>
+//
+//using namespace std;
+//
+//int main()
+//{
+//	int arr[] = { 10, 2, 4, 30, 35 };
+//	int n = 5;
+//	int flag = 0;
+//
+//	for (int i = 0; i < n; i++)
+//	{
+//		int* tmp = (int*)malloc(sizeof(int) * (n - 1));
+//		int e = arr[i];
+//		tmp[i] = e;
+//		for (int k = 0; k < 5; k++)
+//		{
+//			tmp[k] = e * arr[i];
+//		}
+//		for (int j = 0; j < n; j++)
+//		{
+//			if (j != i)
+//			{
+//				if (tmp[j] == arr[j])
+//				{
+//					cout << tmp[j] << endl;
+//					return 0;
+//				}
+//			}
+//		}
+//	}
+//
+//	if (!flag)
+//	{
+//		cout << -1 << endl;
+//	}
+//
+//	return 0;
+//}
+
 #include <iostream>
-#include <algorithm>
+#include <cmath>
 
 using namespace std;
 
+int days[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+bool leap(int year)
+{
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+        return true;
+    }
+    return false;
+}
+
+int sum(int year, int month)
+{
+    int res = 0;
+    for (int i = 0; i < year; i++)
+    {
+        if (leap(i)) {
+            res += 366;
+        }
+        else {
+            res += 365;
+        }
+    }
+    if (leap(year)) {
+        days[2] = 29;
+    }
+    for (int i = 1; i < month; i++) {
+        res += days[i];
+    }
+
+    return res;
+}
+
 int main()
 {
-	int arr[] = { 10, 2, 4, 30, 35 };
-	int n = 5;
-	int flag = 0;
+    int year1, year2, month1, month2, day1, day2;
+    scanf_s("%4d%02d%2d", &year1, &month1, &day1);
+    scanf_s("%4d%02d%2d", &year2, &month2, &day2);
 
-	for (int i = 0; i < n; i++)
-	{
-		int* tmp = (int*)malloc(sizeof(int) * (n - 1));
-		int e = arr[i];
-		tmp[i] = e;
-		for (int k = 0; k < 5; k++)
-		{
-			tmp[k] = e * arr[i];
-		}
-		for (int j = 0; j < n; j++)
-		{
-			if (j != i)
-			{
-				if (tmp[j] == arr[j])
-				{
-					cout << tmp[j] << endl;
-					return 0;
-				}
-			}
-		}
-	}
+    cout << abs(sum(year1, month1) - sum(year2, month2)) << endl;
 
-	if (!flag)
-	{
-		cout << -1 << endl;
-	}
-
-	return 0;
+    return 0;
 }
