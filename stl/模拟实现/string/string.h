@@ -49,9 +49,12 @@ namespace anduin
 		}
 		~string()
 		{
-			delete[] _str;
-			_str = nullptr;
-			_size = _capacity = 0;
+			if (_str)
+			{
+				delete[] _str;
+				_str = nullptr;
+				_size = _capacity = 0;
+			}
 		}
 
 		const char* c_str() const
@@ -280,14 +283,25 @@ namespace anduin
 			return tmp; // 返回需要拷贝构造
 		}
 
-		// 拷贝构造，深拷贝
+		// 拷贝构造，深拷贝 传统写法
+		//string(const string& s)
+		//{
+		//	_str = new char[s._capacity + 1];
+		//	// strcpy(_str, s._str);
+		//	memcpy(_str, s._str, s._size + 1); // 需要完整拷贝
+		//	_size = s._size;
+		//	_capacity = s._capacity;
+		//}
+
+		// 现代写法
+		// 缺点：无法解决 += '\0' 的情况
 		string(const string& s)
+			:_str(nullptr)
+			,_size(0)
+			,_capacity(0)
 		{
-			_str = new char[s._capacity + 1];
-			// strcpy(_str, s._str);
-			memcpy(_str, s._str, s._size + 1); // 需要完整拷贝
-			_size = s._size;
-			_capacity = s._capacity;
+			string tmp(s._str); // 构造函数调用
+			swap(tmp);
 		}
 
 		void clear()

@@ -134,6 +134,10 @@ void test_string9()
 	s1 = s2;
 	cout << s1 << endl;
 	cout << s2 << endl;
+
+	cout << "******************" << endl;
+	string s3("hello world");
+	cout << sizeof(s3) << endl;
 }
 
 int main()
@@ -166,7 +170,18 @@ int main()
 	cout << (s5 < s6) << endl;
 	cout << (s5 > s6) << endl;
 
-	test_string9();
+	// test_string9();
+
+	anduin::string s7("hello world");
+	anduin::string s8(s7); // ¿½±´¹¹Ôì
+
+	cout << s8 << endl;
+
+	s7 += '\0';
+	s7 += "AAAAAAAAA";
+
+	anduin::string s9(s7);
+	cout << s9 << endl;
 
 
 	return 0;
