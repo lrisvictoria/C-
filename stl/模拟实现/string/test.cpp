@@ -65,14 +65,14 @@ void test_string3()
 void test_string4()
 {
 	anduin::string s1("hello world");
-	/*s1.insert(6, 3, '0');
+	s1.insert(6, 3, '0');
 	cout << s1.c_str() << endl;
 
-	s1.insert(0, 3, '0');
-	cout << s1.c_str() << endl;*/
+	/*s1.insert(0, 3, '0');
+	cout << s1.c_str() << endl;
 
 	s1.insert(5, "hello hello");
-	cout << s1.c_str() << endl;
+	cout << s1.c_str() << endl;*/
 }
 
 void test_string5()
@@ -142,47 +142,48 @@ void test_string9()
 
 int main()
 {
-	// test_string3();
-	// test_string2();
+	//// test_string3();
+	//// test_string2();
 
-	// test_string6();
-	
+	//// test_string6();
+	//
 
-	/*char str[100];
-	scanf("%s", str);
-	printf("%s", str);*/
-	// test_string8();
+	///*char str[100];
+	//scanf("%s", str);
+	//printf("%s", str);*/
+	//// test_string8();
 
-	anduin::string s1("hello");
-	anduin::string s2("hello");
+	//anduin::string s1("hello");
+	//anduin::string s2("hello");
 
-	cout << (s1 < s2) << endl;
-	cout << (s1 == s2) << endl;
+	//cout << (s1 < s2) << endl;
+	//cout << (s1 == s2) << endl;
 
-	anduin::string s3("hello");
-	anduin::string s4("helloxx");
-	cout << (s3 < s4) << endl;
-	cout << (s3 > s4) << endl;
+	//anduin::string s3("hello");
+	//anduin::string s4("helloxx");
+	//cout << (s3 < s4) << endl;
+	//cout << (s3 > s4) << endl;
 
-	
-	anduin::string s5("helloxxxx");
-	anduin::string s6("hello");
-	cout << (s5 < s6) << endl;
-	cout << (s5 > s6) << endl;
+	//
+	//anduin::string s5("helloxxxx");
+	//anduin::string s6("hello");
+	//cout << (s5 < s6) << endl;
+	//cout << (s5 > s6) << endl;
 
-	// test_string9();
+	//// test_string9();
 
-	anduin::string s7("hello world");
-	anduin::string s8(s7); // 拷贝构造
+	//anduin::string s7("hello world");
+	//anduin::string s8(s7); // 拷贝构造
 
-	cout << s8 << endl;
+	//cout << s8 << endl;
 
-	s7 += '\0';
-	s7 += "AAAAAAAAA";
+	//s7 += '\0';
+	//s7 += "AAAAAAAAA";
 
-	anduin::string s9(s7);
-	cout << s9 << endl;
+	//anduin::string s9(s7);
+	//cout << s9 << endl;
 
+	test_string4();
 
 	return 0;
 }
