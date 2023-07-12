@@ -46,6 +46,31 @@ namespace lx
 			}
 		}
 
+		// 第一种写法
+		//vector(const vector<T>& v)
+		//{
+		//	_start = new T[v.size()]; // size 和 capacity 都可以
+		//	memcpy(_start, v._start, sizeof(T) * v.size());
+		//	_finish = _start + v.size();
+		//	_endofstorage = _start + v.size();
+		//}
+
+		// 第二种写法
+		vector(const vector<T>& v)
+			:_start(nullptr)
+			,_finish(nullptr)
+			,_endofstorage(nullptr)
+		{
+			reserve(v.size()); // 先初始化，再开空间
+			for (const auto& e : v) // const auto& & 为了提高效率，加上 const 是因为参数给的是 const vector<T>& v，无法被修改
+			{
+				push_back(e);
+			}
+		}
+
+
+		// 第二种写法
+
 		void reserve(size_t n)
 		{
 			if (n > capacity())
@@ -78,6 +103,12 @@ namespace lx
 			++_finish;
 
 			// insert(end(), x);
+		}
+
+		void pop_back()
+		{
+			assert(_finish > _start);
+			--_finish;
 		}
 
 		size_t capacity() const
@@ -128,6 +159,29 @@ namespace lx
 
 			*pos = x;
 			++_finish;
+
+			return pos;
+		}
+
+		// stl 规定erase 会返回删除数据的下一个位置的迭代器
+		// void erase(iterator pos)
+		iterator erase(iterator pos)
+		{
+			assert(pos >= _start && pos < _finish); // pos != _finish
+			iterator begin = pos + 1;
+			while (begin < _finish)
+			{
+				*(begin - 1) = *begin;
+				++begin;
+			}
+			--_finish;
+
+			/*if (size() < capacity() / 2)
+			{
+				size_t len = pos - _start;
+				reserve(capacity() / 2);
+				pos = _start + len;
+			}*/
 
 			return pos;
 		}
@@ -211,5 +265,85 @@ namespace lx
 			cout << e << ' ';
 		}
 		cout << endl;
+
+		lx::vector<int>::iterator p1 = v1.begin() + 3;
+		v1.erase(p1);
+		for (auto e : v1)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+
+		// 外部迭代器失效
+		// *p1 += 30;
+		auto it = v1.begin();
+		while (it != v1.end())
+		{
+			if (*it % 2 == 0)
+			{
+				v1.erase(it);
+				// it = v1.erase(it);
+			}
+			else
+			{
+				++it;
+			}
+		}
+		for (auto e : v1)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+
+		cout << endl;
+	}
+
+	void test_vector3()
+	{
+		// 崩溃
+		std::vector<int> v;
+		v.push_back(1);
+		v.push_back(2);
+		v.push_back(3);
+		v.push_back(4);
+		v.push_back(4);
+
+
+		// 要求删除所有的偶数
+		auto it = v.begin();
+		while (it != v.end())
+		{
+			if (*it % 2 == 0)
+			{
+				it = v.erase(it);
+			}
+			++it;
+
+		}
+
+		for (auto e : v)
+		{
+			cout << e << " ";
+		}
+		cout << endl;
+	}
+
+	void test_vector4()
+	{
+		lx::vector<int> v;
+		v.push_back(1);
+		v.push_back(2);
+		v.push_back(3);
+		v.push_back(4);
+		v.push_back(4);
+		
+		lx::vector<int> v1(v);
+
+		for (auto e : v1)
+		{
+			cout << e << " ";
+		}
+		cout << endl;
 	}
 }
+
