@@ -37,6 +37,39 @@ namespace lx
 			, _endofstorage(nullptr)
 		{}
 
+		// 需要使用初始化列表初始化，19初始化了，但是13并没有初始化
+		template<class InputIterator>
+		vector(InputIterator start, InputIterator last)
+			:_start(nullptr)
+			,_finish(nullptr)
+			,_endofstorage(nullptr)
+		{
+			while (start != last)
+			{
+				push_back(*start);
+				++start;
+			}
+		}
+
+		// n 个 val 构造
+		// 半缺省函数 如果不给值，则默认调用 T 类型的默认构造
+		// 所以要提供 T() 的默认构造，否则会报错
+		// 这意味着，内置类型，如 int 也要有构造
+		// c++有了模板后，则认为对内置类型进行了升级，也需要构造函数
+		// 如 int 需要构造函数
+		// 为了和自定义类型同步，都需要构造
+		vector(size_t n, const T& val = T())
+			:_start(nullptr)
+			, _finish(nullptr)
+			, _endofstorage(nullptr)
+		{
+			reserve(n); // n 个 val 初始化
+			for (size_t i = 0; i < n; i++)
+			{
+				push_back(val);
+			}
+		}
+
 		~vector()
 		{
 			if (_start)
@@ -50,26 +83,59 @@ namespace lx
 		//vector(const vector<T>& v)
 		//{
 		//	_start = new T[v.size()]; // size 和 capacity 都可以
-		//	memcpy(_start, v._start, sizeof(T) * v.size());
+		//	// memcpy(_start, v._start, sizeof(T) * v.size()); // 内置类型可以，自定义类型不可以
+		//	for (size_t i = 0; i < v.size(); i++)
+		//	{
+		//		_start[i] = v._start[i]; // 借助赋值重载进行深拷贝
+		//	}
 		//	_finish = _start + v.size();
 		//	_endofstorage = _start + v.size();
 		//}
 
 		// 第二种写法
-		vector(const vector<T>& v)
-			:_start(nullptr)
-			,_finish(nullptr)
-			,_endofstorage(nullptr)
+		//vector(const vector<T>& v)
+		//	:_start(nullptr)
+		//	,_finish(nullptr)
+		//	,_endofstorage(nullptr)
+		//{
+		//	reserve(v.size()); // 先初始化，再开空间
+		//	for (const auto & e : v) // const auto& & 为了提高效率，加上 const 是因为参数给的是 const vector<T>& v，无法被修改
+		//	{
+		//		push_back(e);
+		//	}
+		//}
+
+		// 第三种写法：现代写法
+		void swap(vector<T>& v)
 		{
-			reserve(v.size()); // 先初始化，再开空间
-			for (const auto& e : v) // const auto& & 为了提高效率，加上 const 是因为参数给的是 const vector<T>& v，无法被修改
-			{
-				push_back(e);
-			}
+			std::swap(_start, v._start);
+			std::swap(_finish, v._finish);
+			std::swap(_endofstorage, v._endofstorage);
 		}
 
+		vector(const vector<T>& v)
+			:_start(nullptr)
+			, _finish(nullptr)
+			, _endofstorage(nullptr)
+		{
+			vector<T> tmp(v.begin(), v.end());
+			swap(tmp);
+		}
 
-		// 第二种写法
+		// 赋值重载 引用返回
+		//vector<T>& operator=(const vector<T>& v)
+		//{
+		//	vector<T> tmp(v); // 复用拷贝构造
+		//	swap(tmp);
+
+		//	return *this;
+		//}
+
+		vector<T>& operator=(vector<T> tmp)
+		{
+			swap(tmp);
+			return *this;
+		}
 
 		void reserve(size_t n)
 		{
@@ -79,13 +145,40 @@ namespace lx
 				T* tmp = new T[n];
 				if (_start)
 				{
-					memcpy(tmp, _start, sz * sizeof(T));
+					// memcpy(tmp, _start, sz * sizeof(T)); // 当 vector<vector<int>> 时，深拷贝
+					for (size_t i = 0; i < sz; i++)
+					{
+						tmp[i] = _start[i]; // 借助赋值重载进行深拷贝
+					}
 					delete[] _start;
 				}
 
 				_start = tmp;
 				_finish = _start + sz; // 由于 _start 改变，所以 _finish 也需要改变
 				_endofstorage = _start + n;
+			}
+		}
+
+		void resize(size_t n, const T& val = T())
+		{
+			if (n > capacity())
+			{
+				reserve(n);
+			}
+
+			// 如果 n 大于原本的 size()
+			if (n > size())
+			{
+				// _start +n 为最后 _finish 应在位置
+				while (_finish < _start + n)
+				{
+					*_finish = val;
+					++_finish;
+				}
+			}
+			else
+			{
+				_finish = _start + n; // 否则删除数据
 			}
 		}
 
@@ -186,6 +279,18 @@ namespace lx
 			return pos;
 		}
 
+		T& front()
+		{
+			assert(size() > 0);
+			return *_start;
+		}
+
+		T& back()
+		{
+			assert(size() > 0);
+			return *(_finish - 1);
+		}
+
 	private:
 		iterator _start;
 		iterator _finish;
@@ -240,7 +345,7 @@ namespace lx
 		v1.push_back(5);
 		v1.push_back(5);
 		v1.push_back(5);
-		// v1.push_back(5);
+		// v1.push_back(5); 
 		for (auto e : v1)
 		{
 			cout << e << ' ';
@@ -344,6 +449,185 @@ namespace lx
 			cout << e << " ";
 		}
 		cout << endl;
+	}
+
+	void test_vector5()
+	{
+		lx::vector<int> v;
+		v.push_back(1);
+		v.push_back(1);
+		v.push_back(1);
+		v.push_back(1);
+		v.push_back(1);
+		v.push_back(1);
+
+
+		lx::vector<int> v1(v);
+		for (auto e : v1)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+
+		lx::vector<int> v2;
+		// v2 = v1; // v2.operator(v1)
+		v2.operator=(v1);
+		for (auto e : v1)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+
+	}
+
+	/*void test_vector6()
+	{
+		int i = 0;
+		int j = int(NULL);
+		int k = int(10);
+
+		cout << i << j << k << endl;
+	}*/
+
+	void test_vector7()
+	{
+		vector<int*> v1(10);
+
+		for (auto e : v1)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+
+		// 报错
+		// 1 会被字面量识别为 int
+		/*vector<int> v2(10, 1);
+		for (auto e : v1)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;*/
+
+		// 不报错
+		/*vector<char> v3(10, 'a');
+		for (auto e : v3)
+		{
+			cout << e << ' ';
+		}*/
+	}
+
+	void test_vector8()
+	{
+		vector<int> v;
+		v.resize(10, 1);
+
+		for (auto e : v)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+
+		vector<int> v2;
+		v2.reserve(10);
+		v2.push_back(1);
+		v2.push_back(2);
+		v2.push_back(3);
+		v2.push_back(4);
+		v2.push_back(5);
+		v2.resize(8, 8);
+		for (auto e : v2)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+
+		vector<int> v3;
+		v3.reserve(10);
+		v3.push_back(1);
+		v3.push_back(2);
+		v3.push_back(3);
+		v3.push_back(4);
+		v3.push_back(5);
+		v3.resize(3);
+		for (auto e : v3)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+	}
+
+	//class Solution {
+	//public:
+	//	vector<vector<int>> generate(int numRows) {
+	//		vector<vector<int>> vv;
+	//		// 设定 vv 的大小：有多少行
+	//		vv.resize(numRows);
+	//		for (size_t i = 0; i < vv.size(); i++)
+	//		{
+	//			// 设定 vv[i](vector<int>) 的大小：列的大小：
+	//			vv[i].resize(i + 1, 0); // 元素初始化为 0
+	//			// 第一个和最后一个初始化为 0
+	//			vv[i][0] = vv[i][i] = 1;
+	//		}
+
+	//		for (size_t i = 0; i < vv.size(); i++)
+	//		{
+	//			for (size_t j = 0; j < vv[i].size(); j++)
+	//			{
+	//				if (vv[i][j] == 0)
+	//				{
+	//					vv[i][j] = vv[i - 1][j - 1] + vv[i - 1][j];
+	//				}
+	//			}
+	//		}
+
+	//		return vv;
+	//	}
+	//};
+
+	class Solution {
+	public:
+		// vector<vector<int>> generate(int numRows)
+		void generate(int numRows) 
+		{
+			vector<vector<int>> vv;
+			vv.resize(numRows);
+			for (size_t i = 0; i < vv.size(); ++i)
+			{
+				vv[i].resize(i + 1, 0);
+				vv[i].front() = vv[i].back() = 1;
+			}
+
+			for (size_t i = 0; i < vv.size(); ++i)
+			{
+				for (size_t j = 0; j < vv[i].size(); ++j)
+				{
+					if (vv[i][j] == 0)
+					{
+						vv[i][j] = vv[i - 1][j] + vv[i - 1][j - 1];
+					}
+				}
+			}
+
+			for (size_t i = 0; i < vv.size(); ++i)
+			{
+				for (size_t j = 0; j < vv[i].size(); ++j)
+				{
+					cout << vv[i][j] << " ";
+				}
+				cout << endl;
+			}
+
+			vector<vector<int>> ret = vv;
+
+			// return vv;
+		}
+	};
+
+
+	void test_vector9()
+	{
+		Solution().generate(5); // 匿名对象调用成员函数
 	}
 }
 
