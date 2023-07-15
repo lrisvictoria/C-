@@ -51,6 +51,15 @@ namespace lx
 			}
 		}
 
+		// 或者复用 resize
+		//vector(size_t n, const T& val = T()) // 不初始化会有随机值
+		//	:_start(nullptr)
+		//	, _finish(nullptr)
+		//	, _endofstorage(nullptr)
+		//{
+		//	resize(n, val);
+		//}
+
 		// n 个 val 构造
 		// 半缺省函数 如果不给值，则默认调用 T 类型的默认构造
 		// 所以要提供 T() 的默认构造，否则会报错
@@ -59,6 +68,19 @@ namespace lx
 		// 如 int 需要构造函数
 		// 为了和自定义类型同步，都需要构造
 		vector(size_t n, const T& val = T())
+			:_start(nullptr)
+			, _finish(nullptr)
+			, _endofstorage(nullptr)
+		{
+			reserve(n); // n 个 val 初始化
+			for (size_t i = 0; i < n; i++)
+			{
+				push_back(val);
+			}
+		}
+
+		// 源码中为了解决两个 int 被模板识别的情况，所以设定了重载函数
+		vector(int n, const T& val = T())
 			:_start(nullptr)
 			, _finish(nullptr)
 			, _endofstorage(nullptr)
@@ -99,7 +121,7 @@ namespace lx
 		//	,_endofstorage(nullptr)
 		//{
 		//	reserve(v.size()); // 先初始化，再开空间
-		//	for (const auto & e : v) // const auto& & 为了提高效率，加上 const 是因为参数给的是 const vector<T>& v，无法被修改
+		//	for (const auto& e : v) // const auto& & 为了提高效率，加上 const 是因为参数给的是 const vector<T>& v，无法被修改
 		//	{
 		//		push_back(e);
 		//	}
@@ -185,17 +207,17 @@ namespace lx
 		// 加上 T，T 为模板，为了节省效率
 		void push_back(const T& x)
 		{
-			if (_finish == _endofstorage)
-			{
-				size_t newcapacity = capacity() == 0 ? 4 : capacity() * 2;
-				reserve(newcapacity);
-			}
+			//if (_finish == _endofstorage)
+			//{
+			//	size_t newcapacity = capacity() == 0 ? 4 : capacity() * 2;
+			//	reserve(newcapacity);
+			//}
 
-			// 不是定位 new ，所以可以直接复制
-			*_finish = x;
-			++_finish;
+			//// 不是定位 new ，所以可以直接复制
+			//*_finish = x;
+			//++_finish;
 
-			// insert(end(), x);
+			insert(end(), x);
 		}
 
 		void pop_back()
@@ -250,7 +272,7 @@ namespace lx
 				--end;
 			}
 
-			*pos = x;
+			*pos = x; // 调用 string 的赋值重载，完成深拷贝
 			++_finish;
 
 			return pos;
@@ -292,9 +314,9 @@ namespace lx
 		}
 
 	private:
-		iterator _start;
-		iterator _finish;
-		iterator _endofstorage;
+		iterator _start = nullptr; // 给缺省值，可以减少初始化列表初始化
+		iterator _finish = nullptr;
+		iterator _endofstorage = nullptr;
 	};
 
 	void print(const vector<int>& v)
@@ -337,7 +359,7 @@ namespace lx
 
 	void test_vector2()
 	{
-		lx::vector<int> v1;
+		std::vector<int> v1;
 		v1.push_back(1);
 		v1.push_back(2);
 		v1.push_back(3);
@@ -360,7 +382,7 @@ namespace lx
 		}
 		cout << endl;
 
-		lx::vector<int>::iterator p = v1.begin() + 3;
+		std::vector<int>::iterator p = v1.begin() + 3;
 		p = v1.insert(p, 300);// 接收返回值
 
 		// 外部迭代器失效
@@ -371,7 +393,7 @@ namespace lx
 		}
 		cout << endl;
 
-		lx::vector<int>::iterator p1 = v1.begin() + 3;
+		std::vector<int>::iterator p1 = v1.begin() + 3;
 		v1.erase(p1);
 		for (auto e : v1)
 		{
@@ -491,7 +513,7 @@ namespace lx
 
 	void test_vector7()
 	{
-		vector<int*> v1(10);
+		vector<int> v1(10);
 
 		for (auto e : v1)
 		{
@@ -501,19 +523,19 @@ namespace lx
 
 		// 报错
 		// 1 会被字面量识别为 int
-		/*vector<int> v2(10, 1);
-		for (auto e : v1)
+		vector<int> v2(10, 1); // int int 
+		for (auto e : v2)
 		{
 			cout << e << ' ';
 		}
-		cout << endl;*/
+		cout << endl;
 
 		// 不报错
-		/*vector<char> v3(10, 'a');
+		vector<char> v3(10, 'a');
 		for (auto e : v3)
 		{
 			cout << e << ' ';
-		}*/
+		}
 	}
 
 	void test_vector8()
@@ -627,7 +649,76 @@ namespace lx
 
 	void test_vector9()
 	{
-		Solution().generate(5); // 匿名对象调用成员函数
+		vector<string> v;
+		v.push_back("1111111111111111111111111");
+		v.push_back("2222222222222222222222222");
+		v.push_back("3333333333333333333333333");
+		v.push_back("4444444444444444444444444");
+		v.push_back("5555555555555555555555555");
+
+		vector<string> v1(v);
+
+		for (auto& e : v)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+		// Solution().generate(5); // 匿名对象调用成员函数
+	}
+
+	void test_vector10()
+	{
+		vector<int> v(10, 1);
+
+		for (auto e : v)
+		{
+			cout << e << " ";
+		}
+		cout << endl;
+	}
+
+	void test_vector11()
+	{
+		vector<int> v;
+		v.push_back(1);
+		v.push_back(2);
+		v.push_back(3);
+		v.push_back(4);
+		v.push_back(5);
+
+		vector<int> v1(v);
+
+	}
+
+	void test_vector12()
+	{
+		std::vector<int> v;
+		v.push_back(1);
+		v.push_back(1);
+		v.push_back(1);
+		v.push_back(1);
+		//v.push_back(1);
+
+		for (auto e : v)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+
+		std::vector<int>::iterator it = v.begin();
+		it = v.insert(it, 3);
+		for (auto e : v)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+
+		*it += 10;
+		for (auto e : v)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
 	}
 }
 
