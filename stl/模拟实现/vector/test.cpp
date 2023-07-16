@@ -8,5 +8,5 @@ using namespace std;
 
 int main()
 {
-	lx::test_vector12();
+	lx::test_vector1();
 }
