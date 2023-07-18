@@ -432,12 +432,16 @@ namespace anduin
 		size_t _capacity;
 		size_t _size;
 
-		static size_t npos;
+		// static size_t npos;
 		// const static size_t npos = -1; // right，但是不建议这么写
 		// const static double x = 1.1; // error
 		// const static long y = 1; // right
+
+	public:
+		const static size_t npos;
 	};
-	size_t string::npos = -1;
+	const size_t string::npos = -1;
+	// size_t string::npos = -1;
 
 	ostream& operator<<(ostream& out, const string& s)
 	{

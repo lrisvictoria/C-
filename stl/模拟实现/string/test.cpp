@@ -140,6 +140,11 @@ void test_string9()
 	cout << sizeof(s3) << endl;
 }
 
+void test_string10()
+{
+	cout << anduin::string::npos << endl;
+}
+
 int main()
 {
 	//// test_string3();

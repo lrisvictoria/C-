@@ -1,5 +1,5 @@
 #include <iostream>
-#include <list>
+#include <algorithm>
 
 using namespace std;
 
@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	lx::test_list1();
 
+	lx::test_list4();
 	return 0;
 }
