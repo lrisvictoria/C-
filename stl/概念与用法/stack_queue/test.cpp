@@ -105,6 +105,49 @@ void test_op()
 	printf("deque sort:%d\n", end2 - begin2);
 }
 
+void test_priority_queue()
+{
+	// 优先级队列，容器适配器，底层是堆，优先出优先级高的元素，默认大的高
+	// 默认大堆，可以通过仿函数控制大小堆
+	// 头文件在 queue 中
+	// 不支持遍历
+	// greater 小堆
+	// less 大堆
+
+	// _Diff _Count = _ULast - _UFirst; 不支持 list 作为适配器，因为其中用到了 - ，list 地址不连续
+	// 堆也是要 [] 重载的，list 不行
+	priority_queue<int, vector<int>, greater<int>> pq; // 仿函数控制实现小堆，对于自定义类型，取决于自定义类型有没有重载比较
+	// 适配器用 deque 也行，但是不划算，随机访问有很多计算量
+	pq.push(3);
+	pq.push(5);
+	pq.push(1);
+	pq.push(4);
+
+	while (!pq.empty())
+	{
+		cout << pq.top() << ' ';
+		pq.pop();
+	}
+	cout << endl;
+
+	// 迭代器区间构造
+	vector<int> v;
+	v.push_back(3);
+	v.push_back(5);
+	v.push_back(1);
+	v.push_back(4);
+
+	vector<int>::iterator it = v.begin();
+	priority_queue<int> pq2(v.begin(), v.end());
+
+	while (!pq2.empty())
+	{
+		cout << pq2.top() << ' ';
+		pq2.pop();
+	}
+	cout << endl;
+}
+
 int main()
 {
 	/* Container adaptor
@@ -120,7 +163,7 @@ int main()
 	// 没有迭代器，不支持随便遍历
 
 	//test_stack_queue();
-	test_op();
+	test_priority_queue();
 
 	return 0;
 }
