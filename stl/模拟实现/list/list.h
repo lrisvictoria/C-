@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include "ReverseIterator.h"
 
 namespace lx
 {
@@ -91,6 +92,11 @@ namespace lx
 		typedef _list_iterator< T, T&, T*> iterator;
 		typedef _list_iterator< T, const T&, const T*> const_iterator;
 
+		typedef ReverseIterator<iterator, T&, T*> reverse_iterator;
+		typedef ReverseIterator<iterator, const T&, const T*> const_reverse_iterator;
+		// typedef ReverseIterator<const_iterator, const T&, const T*> const_reverse_iterator; 
+		// 模板参数传 iterator 也对，相当于用普通迭代器构造，但是const迭代器是由后面两个模板参数决定的，所以也没事
+
 		iterator begin()
 		{
 			return _head->_next; // 隐式类型转换
@@ -109,6 +115,31 @@ namespace lx
 		const_iterator end() const
 		{
 			return _head;
+		}
+
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator(end());
+		}
+
+		reverse_iterator rend()
+		{
+			return begin(); // 隐式类型转换
+		}
+
+		// q1:this->end 调用当前 this 的 end
+		// q2:this->const_reverse_iterator(this->end()); 反向迭代器会被识别为内嵌类型，类型不允许出现在类成员访问表达式的右侧
+		// q3:返回为构造 + 拷贝构造优化为一次构造
+		// q4:迭代器不能用 iterator 未解决
+		const_reverse_iterator rbegin() const
+		{
+			return const_reverse_iterator(this->end());
+		}
+
+		// typedef ReverseIterator<iterator, const T&, const T*>
+		const_reverse_iterator rend() const
+		{
+			return const_reverse_iterator(this->begin()); // begin() 调用的是 const 迭代器的
 		}
 
 		void empty_init()
@@ -247,44 +278,6 @@ namespace lx
 		size_t _size;
 	};
 
-	void Print(const list<int>& lt)
-	{
-		list<int>::const_iterator it = lt.begin();
-		while (it != lt.end())
-		{
-			// (*it) += 1;
-			cout << *it << " ";
-			++it;
-		}
-		cout << endl;
-	}
-
-	void test_list1()
-	{
-		lx::list<int> lt;
-		lt.push_back(1);
-		lt.push_back(2);
-		lt.push_back(3);
-		lt.push_back(4);
-
-		list<int>::iterator it = lt.begin();
-
-		while (it != lt.end())
-		{
-			(*it) += 1;
-			cout << *it << " ";
-			++it;
-		}
-		cout << endl;
-
-		for (auto e : lt)
-		{
-			cout << e << " ";
-		}
-		cout << endl;
-
-		Print(lt);
-	}
 
 	struct A
 	{
@@ -396,5 +389,89 @@ namespace lx
 			cout << e << " ";
 		}
 		cout << endl;
+	}
+
+	void Print(const list<int>& lt)
+	{
+		//list<int>::const_iterator it = lt.begin();
+		//while (it != lt.end())
+		//{
+		//	// (*it) += 1;
+		//	cout << *it << " ";
+		//	++it;
+		//}
+		//cout << endl;
+
+		
+		list<int>::const_reverse_iterator rcit = lt.rbegin();
+		while (rcit != lt.rend())
+		{
+			// (*it) += 1;
+			cout << *rcit << " ";
+			++rcit;
+		}
+		cout << endl;
+	}
+
+	void test_list5()
+	{
+		/*list<int> lt;
+		lt.push_back(1);
+		lt.push_back(2);
+		lt.push_back(3);
+		lt.push_back(4);
+
+		for (auto e : lt)
+		{
+			cout << e << " ";
+		}
+		cout << endl;
+
+		list<int>::reverse_iterator rit = lt.rbegin();
+		while (rit != lt.rend())
+		{
+			*rit = 10;
+			cout << *rit << " ";
+			++rit;
+		}
+		cout << endl;*/
+
+		list<int> lt1;
+		lt1.push_back(1);
+		lt1.push_back(2);
+		lt1.push_back(3);
+		lt1.push_back(4);
+
+		for (auto e : lt1)
+		{
+			cout << e << " ";
+		}
+		cout << endl;
+
+		// ReverseIterator<iterator, const T&, const T*> const_reverse_iterator
+		// <_list_iterator<T, T&, T*>, const T&, const T*>
+		// list<int>::const_reverse_iterator crit = lt1.rbegin();
+		//while (crit != lt1.crend())
+		//{
+		//	// *crit = 10;
+
+		//	cout << *crit << " ";
+		//	++crit;
+		//}
+		//cout << endl;
+
+		 Print(lt1);
+	}
+
+	void test_list6()
+	{
+		list<int> lt;
+		lt.push_back(1);
+		lt.push_back(2);
+		lt.push_back(3);
+		lt.push_back(4);
+
+		// list<int>::const_iterator cit = lt.begin();
+
 	}
 }

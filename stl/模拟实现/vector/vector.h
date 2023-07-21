@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include "ReverseIterator.h"
 
 namespace lx
 {
@@ -10,6 +11,10 @@ namespace lx
 	public:
 		typedef T* iterator;
 		typedef const T* const_iterator;
+
+		typedef ReverseIterator<iterator, T&, T*> reverse_iterator;
+		typedef ReverseIterator<iterator, const T&, const T*> const_reverse_iterator;
+
 
 		iterator begin()
 		{
@@ -31,6 +36,25 @@ namespace lx
 			return _finish;
 		}
 
+		reverse_iterator rbegin()
+		{
+			return end();
+		}
+
+		reverse_iterator rend()
+		{
+			return begin();
+		}
+
+		const_reverse_iterator crbegin() const
+		{
+			return end();
+		}
+
+		const_reverse_iterator crend() const
+		{
+			return begin();
+		}
 		vector()
 			:_start(nullptr)
 			, _finish(nullptr)
@@ -717,6 +741,39 @@ namespace lx
 		for (auto e : v)
 		{
 			cout << e << ' ';
+		}
+		cout << endl;
+	}
+
+	void test_vector13()
+	{
+		vector<int> v;
+		v.push_back(1);
+		v.push_back(2);
+		v.push_back(3);
+		v.push_back(4);
+		//v.push_back(1);
+
+		for (auto e : v)
+		{
+			cout << e << ' ';
+		}
+		cout << endl;
+
+		vector<int>::reverse_iterator rit = v.rbegin();
+		while (rit != v.rend())
+		{
+			cout << *rit << ' ';
+			++rit;
+		}
+		cout << endl;
+
+		rit = v.rbegin();
+		while (rit != v.rend())
+		{
+			*rit = 10086;
+			cout << *rit << ' ';
+			++rit;
 		}
 		cout << endl;
 	}
