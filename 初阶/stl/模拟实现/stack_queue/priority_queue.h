@@ -25,7 +25,7 @@ public:
 
 namespace lx
 {
-	template<class T, class Container = vector<T>, class Compare = less<T>>
+	template<class T, class Container = vector<T>, class Compare = Less<T>>
 	class priority_queue
 	{
 	private:
@@ -203,6 +203,27 @@ namespace lx
 		}
 	};
 
+	/*template<>
+	class Less<Date*>
+	{
+	public:
+		bool operator()(const Date* x, const Date* y)
+		{
+			return *x < *y;
+		}
+	};*/
+
+	// 偏特化，特化指针类型
+	template<class T>
+	class Less<T*>
+	{
+	public:
+		bool operator()(const T* x, const T* y)
+		{
+			return *x < *y;
+		}
+	};
+
 	void test_priority_queue2()
 	{
 		
@@ -225,8 +246,16 @@ namespace lx
 		// 优先级队列中存节点的指针
 		// 本意是要将指针指向的内容比较
 		// 但这时比较按地址比较，仿函数就要自己写
-		priority_queue<Date*, vector<Date*>, LessDate> pq; // 仿函数回去调用自定义类型的比较，如果没有就报错
 
+		// 模板特化知识
+		// 要进行多次比较，但是后面两个模板参数不想写，怎么办？模板特化
+		// 如果偶尔用则没必要写
+		
+		
+		// priority_queue<Date*, vector<Date*>, LessDate> pq; // 仿函数回去调用自定义类型的比较，如果没有就报错
+
+		// Date* ，走特化的类
+		lx::priority_queue<Date*> pq;
 		pq.push(new Date(1999, 3, 11));
 		pq.push(new Date(2028, 1, 10));
 		pq.push(new Date(2019, 1, 20));

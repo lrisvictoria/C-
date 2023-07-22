@@ -133,13 +133,16 @@ namespace lx
 		// q4:迭代器不能用 iterator 未解决
 		const_reverse_iterator rbegin() const
 		{
-			return const_reverse_iterator(this->end());
+			// return const_reverse_iterator(this->end());
+			return const_reverse_iterator(iterator(_head));
 		}
 
 		// typedef ReverseIterator<iterator, const T&, const T*>
 		const_reverse_iterator rend() const
 		{
-			return const_reverse_iterator(this->begin()); // begin() 调用的是 const 迭代器的
+			// return const_reverse_iterator(this->begin()); // begin() 调用的是 const 迭代器的
+			return const_reverse_iterator(iterator(_head->_next)); // 里面为普通类型的迭代器
+			// 类模板传不同参数为不同类型，类型不匹配就报错
 		}
 
 		void empty_init()
