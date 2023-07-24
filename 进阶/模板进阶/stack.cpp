@@ -7,7 +7,7 @@ namespace bit
 	// 类模板的跨文件声明和定义分离
 	// 不能在类外部的类模板成员上指定默认参数
 	// template<class T, class Container = std::deque<T>>
-	template<class T, class Container>
+	/*template<class T, class Container>
 	void stack<T, Container>::push(const T& x)
 	{
 		_con.push_back(x);
@@ -17,7 +17,7 @@ namespace bit
 	void stack<T, Container>::pop()
 	{
 		_con.pop_back();
-	}
+	}*/
 
 	void A::func1(int i)
 	{}

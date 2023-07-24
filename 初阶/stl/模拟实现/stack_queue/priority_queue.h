@@ -3,28 +3,30 @@
 // 为什么要写仿函数？因为不想让比较的地方写死，有不同的比较方式，这样切换大小堆更加方便
 // 函数指针可读性差，且如果要传函数指针，在构造函数的地方就要传，得保存在对象中
 
-template<class T>
-class Less
-{
-public:
-	bool operator()(const T& x, const T& y)
-	{
-		return x < y;
-	}
-};
 
-template<class T>
-class Greater
-{
-public:
-	bool operator()(const T& x, const T& y)
-	{
-		return x > y;
-	}
-};
 
 namespace lx
 {
+	template<class T>
+	class Less
+	{
+	public:
+		bool operator()(const T& x, const T& y)
+		{
+			return x < y;
+		}
+	};
+
+	template<class T>
+	class Greater
+	{
+	public:
+		bool operator()(const T& x, const T& y)
+		{
+			return x > y;
+		}
+	};
+
 	template<class T, class Container = vector<T>, class Compare = Less<T>>
 	class priority_queue
 	{

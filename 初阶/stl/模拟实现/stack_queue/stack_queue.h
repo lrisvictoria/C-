@@ -3,7 +3,6 @@
 namespace lx
 {
 	// 容器适配器：对容器进行封装，改造，控制，适配结果
-	
 	// 模板参数和参数参数类似，能给缺省值，给 vector<T>
  	template<class T, class Container = vector<T>>
 	class stack
