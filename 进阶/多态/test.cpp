@@ -1,39 +1,39 @@
-#include <iostream>
+ï»¿#include <iostream>
 
 using namespace std;
 
 
-// Ğéº¯Êı
-// ËäÈ»¶¼ÓÃ virtual µ«ÊÇĞéº¯ÊıºÍĞé¼Ì³ĞÃ»ÓĞÈÎºÎ¹ØÏµ
-// ³ÉÔ±º¯Êı²ÅÄÜ±ä³ÉĞéº¯Êı
-// Ğéº¯ÊıµÄÖØĞ´
-// ²»Í¬µÄÈËÈ¥µ÷ÓÃº¯Êı¾ÍÓĞ²»Í¬µÄĞÎÌ¬ 
+// è™šå‡½æ•°
+// è™½ç„¶éƒ½ç”¨ virtual ä½†æ˜¯è™šå‡½æ•°å’Œè™šç»§æ‰¿æ²¡æœ‰ä»»ä½•å…³ç³»
+// æˆå‘˜å‡½æ•°æ‰èƒ½å˜æˆè™šå‡½æ•°
+// è™šå‡½æ•°çš„é‡å†™
+// ä¸åŒçš„äººå»è°ƒç”¨å‡½æ•°å°±æœ‰ä¸åŒçš„å½¢æ€ 
 
-// Ö®Ç°µ÷ÓÃ²»Í¬µÄº¯ÊıĞèÒªÖ¸¶¨
-// ÏÖÔÚµ÷ÓÃ²»Í¬µÄº¯ÊıÖ»Òª¸ù¾İµ÷ÓÃµÄ¶ÔÏóÀ´ÅĞ¶Ï
+// ä¹‹å‰è°ƒç”¨ä¸åŒçš„å‡½æ•°éœ€è¦æŒ‡å®š
+// ç°åœ¨è°ƒç”¨ä¸åŒçš„å‡½æ•°åªè¦æ ¹æ®è°ƒç”¨çš„å¯¹è±¡æ¥åˆ¤æ–­
 
 
-// ¶ÔÏóÀïÃæÖ»ÓĞ³ÉÔ±±äÁ¿£¬ÅÉÉúÀà¸¸ÀàµÄ²¿·ÖºÍ¸¸ÀàµÄ²¿·ÖÃ»²î±ğ
-// ÈçºÎ×öµ½£¿²»Í¬ÀàĞÍµ÷ÓÃ²»Í¬Ğéº¯ÊıµÄ£¿
+// å¯¹è±¡é‡Œé¢åªæœ‰æˆå‘˜å˜é‡ï¼Œæ´¾ç”Ÿç±»çˆ¶ç±»çš„éƒ¨åˆ†å’Œçˆ¶ç±»çš„éƒ¨åˆ†æ²¡å·®åˆ«
+// å¦‚ä½•åšåˆ°ï¼Ÿä¸åŒç±»å‹è°ƒç”¨ä¸åŒè™šå‡½æ•°çš„ï¼Ÿ
 //class Person {
 //public:
-//	virtual void BuyTicket() const { cout << "ÂòÆ±-È«¼Û" << endl; }
+//	virtual void BuyTicket() const { cout << "ä¹°ç¥¨-å…¨ä»·" << endl; }
 //};
 //
 //class Student : public Person {
 //public:
-//	virtual void BuyTicket() const { cout << "ÂòÆ±-°ë¼Û" << endl; } 
+//	virtual void BuyTicket() const { cout << "ä¹°ç¥¨-åŠä»·" << endl; } 
 //};
 //
-//// ¶àÌ¬Ìõ¼ş
-//// 1. µ÷ÓÃº¯ÊıÊÇÖØĞ´µÄĞéº¯Êı -- Á½¸ö¶¼±ØĞëÖØĞ´
-//// 2. **»ùÀà**Ö¸Õë»òÕßÒıÓÃ
+//// å¤šæ€æ¡ä»¶
+//// 1. è°ƒç”¨å‡½æ•°æ˜¯é‡å†™çš„è™šå‡½æ•° -- ä¸¤ä¸ªéƒ½å¿…é¡»é‡å†™
+//// 2. **åŸºç±»**æŒ‡é’ˆæˆ–è€…å¼•ç”¨
 //
-//// ¶àÌ¬£¬²»Í¬¶ÔÏó´«µİ¹ıÈ¥£¬µ÷ÓÃ²»Í¬º¯Êı
-//// ¶àÌ¬µ÷ÓÃ¿´µÄÊÇÖ¸ÏòµÄ¶ÔÏó
-//// ÆÕÍ¨µ÷ÓÃ£¬¿´µ±Ç°µ÷ÓÃ¶ÔÏóµÄÀàĞÍ
-//// ÀıÈç´«µ½Õâ¸öº¯ÊıÖĞ£¬Ö»»á¿´²ÎÊıÀàĞÍ£¬¾ÍÊÇ Person
-//// ËùÒÔÁ½¸öÈ«¼Û void func(const Person p)
+//// å¤šæ€ï¼Œä¸åŒå¯¹è±¡ä¼ é€’è¿‡å»ï¼Œè°ƒç”¨ä¸åŒå‡½æ•°
+//// å¤šæ€è°ƒç”¨çœ‹çš„æ˜¯æŒ‡å‘çš„å¯¹è±¡
+//// æ™®é€šè°ƒç”¨ï¼Œçœ‹å½“å‰è°ƒç”¨å¯¹è±¡çš„ç±»å‹
+//// ä¾‹å¦‚ä¼ åˆ°è¿™ä¸ªå‡½æ•°ä¸­ï¼Œåªä¼šçœ‹å‚æ•°ç±»å‹ï¼Œå°±æ˜¯ Person
+//// æ‰€ä»¥ä¸¤ä¸ªå…¨ä»· void func(const Person p)
 //void func(const Person* p)
 //{
 //	p->BuyTicket();
@@ -50,20 +50,20 @@ using namespace std;
 //	return 0;
 //}
 
-// Ğéº¯ÊıÖØĞ´µÄÒ»Ğ©Ï¸½Ú£º
-// ÖØĞ´µÄÌõ¼ş±¾À´ÊÇĞéº¯Êı + ÈıÍ¬£¬µ«ÊÇÓĞÒ»Ğ©ÀıÍâ
-// 1. ¸¸Àà±ØĞë¼Ó virtual£¬×ÓÀà¿ÉÒÔ²»¼Ó virtual ¸¸Àà²»¼Ó²»ÊÇ¶àÌ¬
-// ×ÓÀàÒÑ¾­¼Ì³ĞÁËĞéº¯Êı£¬ÖØĞ´¾Í¿ÉÒÔÖ»ÖØĞ´ÊµÏÖ -- ½¨Òé¼ÓÉÏ
-// 2. Ğ­±ä£¬·µ»ØÖµ¿ÉÒÔ²»Í¬£¬µ«ÊÇÒªÇó·µ»ØÖµ±ØĞëÊÇ¸¸×Ó¹ØÏµµÄÖ¸ÕëºÍÒıÓÃ
+// è™šå‡½æ•°é‡å†™çš„ä¸€äº›ç»†èŠ‚ï¼š
+// é‡å†™çš„æ¡ä»¶æœ¬æ¥æ˜¯è™šå‡½æ•° + ä¸‰åŒï¼Œä½†æ˜¯æœ‰ä¸€äº›ä¾‹å¤–
+// 1. çˆ¶ç±»å¿…é¡»åŠ  virtualï¼Œå­ç±»å¯ä»¥ä¸åŠ  virtual çˆ¶ç±»ä¸åŠ ä¸æ˜¯å¤šæ€
+// å­ç±»å·²ç»ç»§æ‰¿äº†è™šå‡½æ•°ï¼Œé‡å†™å°±å¯ä»¥åªé‡å†™å®ç° -- å»ºè®®åŠ ä¸Š
+// 2. åå˜ï¼Œè¿”å›å€¼å¯ä»¥ä¸åŒï¼Œä½†æ˜¯è¦æ±‚è¿”å›å€¼å¿…é¡»æ˜¯çˆ¶å­å…³ç³»çš„æŒ‡é’ˆå’Œå¼•ç”¨
 
 //class Person {
 //public:
-//	virtual void BuyTicket() const { cout << "ÂòÆ±-È«¼Û" << endl; }
+//	virtual void BuyTicket() const { cout << "ä¹°ç¥¨-å…¨ä»·" << endl; }
 //};
 //
 //class Student : public Person {
 //public:
-//	virtual void BuyTicket() const { cout << "ÂòÆ±-°ë¼Û" << endl; }
+//	virtual void BuyTicket() const { cout << "ä¹°ç¥¨-åŠä»·" << endl; }
 //};
 //
 //void func(const Person p)
@@ -91,7 +91,7 @@ using namespace std;
 //class Person {
 //public:
 //	virtual	A* BuyTicket() const { 
-//		cout << "ÂòÆ±-È«¼Û" << endl;
+//		cout << "ä¹°ç¥¨-å…¨ä»·" << endl;
 //		return 0;
 //	}
 //};
@@ -99,7 +99,7 @@ using namespace std;
 //class Student : public Person {
 //public:
 //	virtual B* BuyTicket() const { 
-//		cout << "ÂòÆ±-°ë¼Û" << endl;
+//		cout << "ä¹°ç¥¨-åŠä»·" << endl;
 //		return 0;
 //	}
 //};
@@ -111,13 +111,13 @@ using namespace std;
 
 //class Person {
 //public:
-//	virtual void BuyTicket() { cout << "ÂòÆ±-È«¼Û" << endl; }
+//	virtual void BuyTicket() { cout << "ä¹°ç¥¨-å…¨ä»·" << endl; }
 //	virtual ~Person() { cout << "~Person()" << endl; }
 //};
 //
 //class Student : public Person {
 //public:
-//	virtual void BuyTicket() { cout << "ÂòÆ±-°ë¼Û" << endl; }
+//	virtual void BuyTicket() { cout << "ä¹°ç¥¨-åŠä»·" << endl; }
 //
 //	virtual ~Student() {
 //		cout << "~Student()" << endl;
@@ -146,7 +146,7 @@ using namespace std;
 //class Benz :public Car
 //{
 //public:
-//	virtual void Drive() { cout << "Benz-ÊæÊÊ" << endl; }
+//	virtual void Drive() { cout << "Benz-èˆ’é€‚" << endl; }
 //};
 
 //class Car {
@@ -155,24 +155,24 @@ using namespace std;
 //};
 //class Benz :public Car {
 //public:
-//	virtual void Drive() override { cout << "Benz-ÊæÊÊ" << endl; }
+//	virtual void Drive() override { cout << "Benz-èˆ’é€‚" << endl; }
 //};
 //
 //int main()
 //{}
 
-// Éè¼Æ²»Ïë±»¼Ì³ĞÀà£¬ÈçºÎÉè¼Æ£¿
+// è®¾è®¡ä¸æƒ³è¢«ç»§æ‰¿ç±»ï¼Œå¦‚ä½•è®¾è®¡ï¼Ÿ
 
- /*Éè¼Æ²»Ïë±»¼Ì³ĞÀà£¬ÈçºÎÉè¼Æ£¿
- ·½·¨1£º»ùÀà¹¹Ôìº¯ÊıË½ÓĞ   (C++98) 1/Ë½ÓĞÔÚ×ÓÀà²»¿É¼û£¬2/ÅÉÉúÀà¹¹Ôìº¯Êı±ØĞëµ÷ÓÃ¸¸Àà¹¹Ôìº¯Êı
- ·½·¨2£º»ùÀà¼ÓÒ»¸öfinal  £¨C++11£©*/
+ /*è®¾è®¡ä¸æƒ³è¢«ç»§æ‰¿ç±»ï¼Œå¦‚ä½•è®¾è®¡ï¼Ÿ
+ æ–¹æ³•1ï¼šåŸºç±»æ„é€ å‡½æ•°ç§æœ‰   (C++98) 1/ç§æœ‰åœ¨å­ç±»ä¸å¯è§ï¼Œ2/æ´¾ç”Ÿç±»æ„é€ å‡½æ•°å¿…é¡»è°ƒç”¨çˆ¶ç±»æ„é€ å‡½æ•°
+ æ–¹æ³•2ï¼šåŸºç±»åŠ ä¸€ä¸ªfinal  ï¼ˆC++11ï¼‰*/
 //class A
 //{
 //public:
-//	// ÉèÖÃÎª¾²Ì¬³ÉÔ±º¯Êı£¬·ñÔòÃ»ÓĞ¹¹Ôìº¯Êı£¬ÎŞ·¨´´½¨¶ÔÏó£¬ÄÇÃ´Ò²ÎŞ·¨¼ä½Óµ÷ÓÃ¹¹Ôìº¯Êı
+//	// è®¾ç½®ä¸ºé™æ€æˆå‘˜å‡½æ•°ï¼Œå¦åˆ™æ²¡æœ‰æ„é€ å‡½æ•°ï¼Œæ— æ³•åˆ›å»ºå¯¹è±¡ï¼Œé‚£ä¹ˆä¹Ÿæ— æ³•é—´æ¥è°ƒç”¨æ„é€ å‡½æ•°
 //	static A CreateObj()
 //	{
-//		return A(); // Ë½ÓĞºó£¬A µ÷ÓÃ¹¹Ôìº¯Êı
+//		return A(); // ç§æœ‰åï¼ŒA è°ƒç”¨æ„é€ å‡½æ•°
 //	}
 //private:
 //	A()
@@ -185,12 +185,12 @@ using namespace std;
 //int main()
 //{
 //	// B bb;
-//	A::CreateObj(); // ·ÃÎÊ¾²Ì¬³ÉÔ±º¯Êı
+//	A::CreateObj(); // è®¿é—®é™æ€æˆå‘˜å‡½æ•°
 //
 //	return 0;
 //}
 
-// ×îÖÕÀà
+// æœ€ç»ˆç±»
 //class A final
 //{
 //public:
@@ -238,14 +238,14 @@ using namespace std;
 
 //class Person {
 //public:
-//	virtual void BuyTicket() { cout << "ÂòÆ±-È«¼Û" << endl; }
+//	virtual void BuyTicket() { cout << "ä¹°ç¥¨-å…¨ä»·" << endl; }
 //
 //	int _a = 1;
 //};
 //
 //class Student : public Person {
 //public:
-//	virtual void BuyTicket() { cout << "ÂòÆ±-°ë¼Û" << endl; }
+//	virtual void BuyTicket() { cout << "ä¹°ç¥¨-åŠä»·" << endl; }
 //	int _b = 1;
 //};
 //
@@ -265,24 +265,315 @@ using namespace std;
 //	return 0;
 //}
 
-class A 
-{ 
-public: 
-	void test(float a) 
-	{ 
-		cout << a;
-	} 
-}; 
-class B :public A 
-{ 
-public: 
-	void test(int b) 
-	{ cout << b; } 
-}; 
-void main() 
-{ 
-	A* a = new A;
-	B* b = new B; 
-	a = b;
-	a->test(1.1); 
+//class A 
+//{ 
+//public: 
+//	void test(float a) 
+//	{ 
+//		cout << a;
+//	} 
+//}; 
+//class B :public A 
+//{ 
+//public: 
+//	void test(int b) 
+//	{ cout << b; } 
+//}; 
+//void main() 
+//{ 
+//	A* a = new A;
+//	B* b = new B; 
+//	a = b;
+//	a->test(1.1); 
+//}
+
+//class A
+//{
+//public:
+//	virtual void func(int val = 3) { std::cout << "A->" << val << std::endl; }
+//	virtual void test() { func(); }
+//};
+//class B : public A
+//{
+//public:
+//	void func(int bbb = 0) { std::cout << "B->" << bbb << std::endl; }
+//};
+//int main(int argc, char* argv[])
+//{
+//	B* p = new B;
+//	p->test();
+//	return 0;
+//}
+
+//class Person {
+//public:
+//	virtual void BuyTicket() { cout << "ä¹°ç¥¨-å…¨ä»·" << endl; }
+//
+//	virtual void Func1() 
+//	{
+//		cout << "Person::Func1()" << endl;
+//	}
+//
+//	virtual void Func2() 
+//	{
+//		cout << "Person::Func2()" << endl;
+//	}
+//
+//public:
+//	int _a = 0;
+//};
+//
+//class Student : public Person {
+//public:
+//	virtual void BuyTicket() { cout << "ä¹°ç¥¨-åŠä»·" << endl; }
+//	virtual void func3() {}
+//protected:
+//	int _b = 1;
+//};
+
+//void func(Person& p)
+//{
+//	p.BuyTicket();
+//}
+//
+// 
+// 
+//int main()
+//{
+//	Person ps;
+//	Student st;
+//	st._a = 10;
+//
+//	ps = st;
+//	Person* ptr = &st;
+//	Person& ref = st;
+//
+//	return 0;
+//}
+
+//int main()
+//{
+//	Person ps;
+//	Student st;
+//
+//	int a = 0;
+//	printf("æ ˆï¼š%p\n", &a);
+//
+//	static int b = 0;
+//	printf("é™æ€åŒºï¼š%p\n", &b);
+//
+//	int* p = new int;
+//	printf("å †ï¼š%p\n", p);
+//
+//	const char* str = "hello world";
+//	printf("å¸¸é‡åŒºï¼š%p\n", str);
+//
+//	printf("è™šè¡¨1ï¼š%p\n", (int*)*((int*)&ps));
+//	printf("è™šè¡¨2ï¼š%p\n", (int*)*((int*)&st));
+//
+//
+//	return 0;
+//}
+
+//class Person {
+//public:
+//	virtual void BuyTicket() { cout << "ä¹°ç¥¨-å…¨ä»·" << endl; }
+//
+//	virtual void Func1() 
+//	{
+//		cout << "Person::Func1()" << endl;
+//	}
+//
+//	virtual void Func2() 
+//	{
+//		cout << "Person::Func2()" << endl;
+//	}
+//
+//protected:
+//	int _a = 0;
+//};
+//
+//class Student : public Person {
+//public:
+//	virtual void BuyTicket() { cout << "ä¹°ç¥¨-åŠä»·" << endl; }
+//
+//private:
+//	virtual void Func3()
+//	{
+//		// _b++;
+//		cout << "Student::Func3()" << endl; // è°ƒç”¨æ—¶æ‰“å°ï¼Œçœ‹åœ°å€æ˜¯å¦å’Œå†…å­˜ä¸­ä¸€æ ·
+//	}
+//protected:
+//	int _b = 1;
+//};
+//
+//typedef void(*FUNC_PTR) ();
+//
+//// æ‰“å°å‡½æ•°æŒ‡é’ˆæ•°ç»„
+//void PrintVFT(FUNC_PTR* table)
+//{
+//	// ç»“å°¾æ—¶ \0
+//	for (size_t i = 0; table[i] != nullptr; i++)
+//	{
+//		printf("[%d]:%p->", i, table[i]);
+//		FUNC_PTR f = table[i];
+//
+//		f();
+//	}
+//	cout << endl;
+//}
+//
+//int main()
+//{
+//	Person ps;
+//	Student st;
+//
+//	// å–å‰å››ä¸ªå­—èŠ‚
+//	int vft1 = *(int*)&ps;
+//	PrintVFT((FUNC_PTR*)vft1);
+//
+//	int vft2 = *(int*)&st;
+//	PrintVFT((FUNC_PTR*)vft2);
+//
+//	return 0;
+//}
+
+typedef void(*FUNC_PTR) ();
+
+// æ‰“å°å‡½æ•°æŒ‡é’ˆæ•°ç»„
+void PrintVFT(FUNC_PTR* table)
+{
+	// ç»“å°¾æ—¶ \0
+	for (size_t i = 0; table[i] != nullptr; i++)
+	{
+		printf("[%d]:%p->", i, table[i]);
+		FUNC_PTR f = table[i];
+
+		f();
+	}
+	cout << endl;
 }
+
+class Base1 {
+public:
+	virtual void func1() { cout << "Base1::func1" << endl; }
+	virtual void func2() { cout << "Base1::func2" << endl; }
+private:
+	int b1;
+};
+
+class Base2 {
+public:
+	virtual void func1() { cout << "Base2::func1" << endl; }
+	virtual void func2() { cout << "Base2::func2" << endl; }
+private:
+	int b2;
+};
+
+class Derive : public Base1, public Base2 {
+public:
+	virtual void func1() { cout << "Derive::func1" << endl; }
+	virtual void func3() { cout << "Derive::func3" << endl; }
+private:
+	int d1;
+};
+
+//int main()
+//{
+//	Derive d;
+//	cout << sizeof(d) << endl;
+//
+//	int vft1 = *((int*)&d);
+//	//int vft2 = *((int*)((char*)&d+sizeof(Base1)));
+//	Base2* ptr = &d; // åˆ‡ç‰‡
+//	int vft2 = *((int*)ptr);
+//
+//	PrintVFT((FUNC_PTR*)vft1);
+//	PrintVFT((FUNC_PTR*)vft2);
+//
+//	return 0;
+//}
+
+int main()
+{
+	Derive d;
+	Base1* ptr1 = &d;
+	ptr1->func1();
+
+	Base2* ptr2 = &d;
+	ptr2->func1();
+
+	return 0;
+}
+
+//class Person {
+//public:
+//	virtual void BuyTicket() { cout << "ä¹°ç¥¨-å…¨ä»·" << endl; }
+//
+//	virtual void Func1() 
+//	{
+//		cout << "Person::Func1()" << endl;
+//	}
+//
+//	virtual void Func2() 
+//	{
+//		cout << "Person::Func2()" << endl;
+//	}
+//
+//protected:
+//	int _a = 0;
+//};
+//
+//class Student : public Person {
+//public:
+//	virtual void BuyTicket() { cout << "ä¹°ç¥¨-åŠä»·" << endl; }
+//
+//	virtual void Func3()
+//	{
+//		// _b++;
+//		cout << "Student::Func3()" << endl; // è°ƒç”¨æ—¶æ‰“å°ï¼Œçœ‹åœ°å€æ˜¯å¦å’Œå†…å­˜ä¸­ä¸€æ ·
+//	}
+//protected:
+//	int _b = 1;
+//};
+//
+//int main()
+//{
+//	Person ps;
+//	Student st;
+//
+//	Person* ptr = &ps;
+//	ptr->BuyTicket();
+//
+//	ptr = &st;
+//	ptr->BuyTicket();
+//}
+
+//class A
+//{
+//public:
+//  A() :m_iVal(0) { test(); }
+//  virtual void func() { std::cout << m_iVal << ' '; }
+//  void test() { func(); }
+//public:
+//  int m_iVal;
+//};
+//
+//class B : public A
+//{
+//public:
+//    B() { test(); }
+//    virtual void func()
+//    {
+//        ++m_iVal;
+//        std::cout << m_iVal << ' ';
+//    }
+//
+//};
+//
+//int main(int argc, char* argv[])
+//{
+//    A* p = new B;
+//    p->test();
+//    return 0;
+//}
