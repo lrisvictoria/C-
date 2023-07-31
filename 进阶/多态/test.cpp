@@ -438,45 +438,45 @@ using namespace std;
 //	return 0;
 //}
 
-typedef void(*FUNC_PTR) ();
-
-// 打印函数指针数组
-void PrintVFT(FUNC_PTR* table)
-{
-	// 结尾时 \0
-	for (size_t i = 0; table[i] != nullptr; i++)
-	{
-		printf("[%d]:%p->", i, table[i]);
-		FUNC_PTR f = table[i];
-
-		f();
-	}
-	cout << endl;
-}
-
-class Base1 {
-public:
-	virtual void func1() { cout << "Base1::func1" << endl; }
-	virtual void func2() { cout << "Base1::func2" << endl; }
-private:
-	int b1;
-};
-
-class Base2 {
-public:
-	virtual void func1() { cout << "Base2::func1" << endl; }
-	virtual void func2() { cout << "Base2::func2" << endl; }
-private:
-	int b2;
-};
-
-class Derive : public Base1, public Base2 {
-public:
-	virtual void func1() { cout << "Derive::func1" << endl; }
-	virtual void func3() { cout << "Derive::func3" << endl; }
-private:
-	int d1;
-};
+//typedef void(*FUNC_PTR) ();
+//
+//// 打印函数指针数组
+//void PrintVFT(FUNC_PTR* table)
+//{
+//	// 结尾时 \0
+//	for (size_t i = 0; table[i] != nullptr; i++)
+//	{
+//		printf("[%d]:%p->", i, table[i]);
+//		FUNC_PTR f = table[i];
+//
+//		f();
+//	}
+//	cout << endl;
+//}
+//
+//class Base1 {
+//public:
+//	virtual void func1() { cout << "Base1::func1" << endl; }
+//	virtual void func2() { cout << "Base1::func2" << endl; }
+//private:
+//	int b1;
+//};
+//
+//class Base2 {
+//public:
+//	virtual void func1() { cout << "Base2::func1" << endl; }
+//	virtual void func2() { cout << "Base2::func2" << endl; }
+//private:
+//	int b2;
+//};
+//
+//class Derive : public Base1, public Base2 {
+//public:
+//	virtual void func1() { cout << "Derive::func1" << endl; }
+//	virtual void func3() { cout << "Derive::func3" << endl; }
+//private:
+//	int d1;
+//};
 
 //int main()
 //{
@@ -494,17 +494,17 @@ private:
 //	return 0;
 //}
 
-int main()
-{
-	Derive d;
-	Base1* ptr1 = &d;
-	ptr1->func1();
-
-	Base2* ptr2 = &d;
-	ptr2->func1();
-
-	return 0;
-}
+//int main()
+//{
+//	Derive d;
+//	Base1* ptr1 = &d;
+//	ptr1->func1();
+//
+//	Base2* ptr2 = &d;
+//	ptr2->func1();
+//
+//	return 0;
+//}
 
 //class Person {
 //public:
@@ -577,3 +577,278 @@ int main()
 //    p->test();
 //    return 0;
 //}
+
+//class A
+//
+//{
+//
+//public:
+//
+//    virtual void f()
+//
+//    {
+//
+//        cout << "A::f()" << endl;
+//
+//    }
+//
+//};
+//
+//
+//
+//class B : public A
+//
+//{
+//
+//private:
+//
+//    virtual void f()
+//
+//    {
+//
+//        cout << "B::f()" << endl;
+//
+//    }
+//
+//};
+//
+//
+//
+//int main()
+//{
+//    A* pa = (A*)new B;
+//
+//    pa->f();
+//}
+
+//class A
+//{
+//public:
+//	virtual void func1()
+//	{
+//		cout << "A::func1" << endl;
+//	}
+//public:
+//	int _a;
+//};
+//
+////class B : public A
+//class B : virtual public A
+//{
+//public:
+//	virtual void func1()
+//	{
+//		cout << "B::func1" << endl;
+//	}
+//
+//	virtual void func2()
+//	{
+//		cout << "B::func2" << endl;
+//	}
+//public:
+//	int _b;
+//};
+//
+////class C : public A
+//class C : virtual public A
+//{
+//public:
+//	virtual void func1()
+//	{
+//		cout << "C::func1" << endl;
+//	}
+//
+//	virtual void func2()
+//	{
+//		cout << "C::func2" << endl;
+//	}
+//public:
+//	int _c;
+//};
+//
+//class D : public B, public C
+//{
+//public:
+//	virtual void func1()
+//	{
+//		cout << "D::func1" << endl;
+//	}
+//
+//	virtual void func3()
+//	{
+//		cout << "D::func3" << endl;
+//	}
+//public:
+//	int _d;
+//};
+//
+//typedef void(*FUNC_PTR) ();
+//
+//// 打印函数指针数组
+//void PrintVFT(FUNC_PTR* table)
+//{
+//	// 结尾时 \0
+//	for (size_t i = 0; table[i] != nullptr; i++)
+//	{
+//		printf("[%d]:%p->", i, table[i]);
+//		FUNC_PTR f = table[i];
+//
+//		f();
+//	}
+//	cout << endl;
+//}
+//
+//int main()
+//{
+//	D d;
+//	d.B::_a = 1;
+//	d.C::_a = 2;
+//	d._b = 3;
+//	d._c = 4;
+//	d._d = 5;
+//
+//	int vft1 = *((int*)&d);
+//	C* ptr = &d; // 切片
+//	int vft2 = *((int*)ptr);
+//	
+//	PrintVFT((FUNC_PTR*)vft1);
+//	PrintVFT((FUNC_PTR*)vft2);
+//	A* ptr1 = &d;
+//	int vft3 = *((int*)ptr1);
+//	PrintVFT((FUNC_PTR*)vft3);
+//}
+
+//class A
+//{
+//public:
+//	virtual void func1()
+//	{
+//		cout << "A::func1" << endl;
+//	}
+//public:
+//	int _a;
+//};
+//
+//class B : virtual public A
+//{
+//public:
+//	virtual void func1()
+//	{
+//		cout << "B::func1" << endl;
+//	}
+//public:
+//	int _b;
+//};
+//
+//class C : virtual public A
+//{
+//public:
+//	virtual void func1()
+//	{
+//		cout << "C::func1" << endl;
+//	}
+//public:
+//	int _c;
+//};
+//
+//class D : public B, public C
+//{
+//public:
+//	virtual void func1()
+//	{
+//		cout << "D::func1" << endl;
+//	}
+//public:
+//	int _d;
+//};
+//
+//int main()
+//{
+//	D d;
+//	d.B::_a = 1;
+//	d.C::_a = 2;
+//	d._b = 3;
+//	d._c = 4;
+//	d._d = 5;
+//}
+//
+//class Car
+//{
+//public:
+//	virtual void Drive() = 0;
+//
+//	void func1();
+//};
+//
+//void Car::func1()
+//{
+//	int a = 1;
+//}
+//
+//class Benz :public Car
+//{
+//public:
+//	virtual void Drive()
+//	{
+//		cout << "Benz-舒适" << endl;
+//	}
+//};
+//
+//class BMW :public Car
+//{
+//public:
+//	virtual void Drive()
+//	{
+//		cout << "BMW-操控" << endl;
+//	}
+//};
+//void func(Car* p)
+//{
+//	p->Drive();
+//	p->func1();
+//}
+//
+//int main()
+//{
+//	Benz b;
+//	func(&b);
+//}
+
+class Car
+{
+public:
+	Car()
+		:_a(0)
+	{}
+
+	inline virtual void Drive()
+	{}
+
+private:
+	int _a = 0;
+};
+
+
+
+class Benz :public Car
+{
+public:
+	inline virtual void Drive()
+	{
+		cout << "Benz-舒适" << endl;
+	}
+};
+
+
+void Func(Car* p)
+{
+	p->Drive();
+}
+
+int main()
+{
+	Car c;
+	// TestBSTree1();
+
+	return 0;
+}
