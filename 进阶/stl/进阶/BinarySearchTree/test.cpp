@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	TestBSTree2();
+	key_value::TestBSTree2();
 
 	return 0;
 }
