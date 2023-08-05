@@ -34,7 +34,7 @@ void test_set1()
     cout << endl;
 
     auto pos = s.find(30);  // O(logN)
-    //auto pos = find(s.begin(), s.end(), 3); // O(N)
+    //auto pos = find(s.begin(), s.end(), 3); // 算法库中 O(N)
     // 防止找不到崩溃，找不到 pos 就是找到最后，最后一个迭代器，要判断
     if (pos != s.end())
         s.erase(pos);
@@ -46,6 +46,39 @@ void test_set1()
         cout << e << " ";
     }
     cout << endl;
+
+    // count
+    // 返回值出现了几次，对于 set 没有用
+    // set 只会返回 1 或 0
+
+    // 判断在不在，效率和 set 中 find 等价
+    if (s.count(5))
+    {
+        cout << s.count(5) << endl;
+    }
+
+    std::set<int> myset;
+    std::set<int>::iterator itlow, itup;
+
+    for (int i = 1; i < 10; i++) myset.insert(i * 10); // 10 20 30 40 50 60 70 80 90
+
+    // 迭代器区间要求左闭右开，所以 upper_bound 找 >
+    // 删除 [25, 60]
+    itlow = myset.lower_bound(30);                //       返回 >= 30 的第一个位置
+    itup = myset.upper_bound(60);                 //       返回 > 60 的第一个位置
+
+    // 返回区间：[25, 70)
+    cout << *itlow << " " << *itup << endl;
+
+    myset.erase(itlow, itup);
+
+    for (auto e : myset)
+    {
+        cout << e << " ";
+    }
+    cout << endl;
+
+
 }
 
 int main()
