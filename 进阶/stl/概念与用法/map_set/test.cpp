@@ -64,8 +64,15 @@ void test_set1()
 
     // 迭代器区间要求左闭右开，所以 upper_bound 找 >
     // 删除 [25, 60]
-    itlow = myset.lower_bound(30);                //       返回 >= 30 的第一个位置
-    itup = myset.upper_bound(60);                 //       返回 > 60 的第一个位置
+    //itlow = myset.lower_bound(30);                //       返回 >= 30 的第一个位置
+    //itup = myset.upper_bound(60);                 //       返回 > 60 的第一个位置
+
+    //std::pair<std::set<int>::const_iterator, std::set<int>::const_iterator> ret;
+    auto ret = myset.equal_range(30); // 返回的是 pair
+    // 和 count 类似，找到区间内都是等于 30 的值，若没有找到则会返回大于等于 30 的第一个值
+    // 在 set 中只有一个 30，所以无意义，可以直接用 find 删除
+    itlow = ret.first; // 左边界第一个等于 30，找不到返回大于 30 的第一个值，右边界为大于 30 的第一个值
+    itup = ret.second;
 
     // 返回区间：[25, 70)
     cout << *itlow << " " << *itup << endl;
@@ -78,6 +85,11 @@ void test_set1()
     }
     cout << endl;
 
+
+}
+
+void test_set2()
+{
 
 }
 
