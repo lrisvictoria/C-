@@ -88,9 +88,63 @@ void test_set1()
 
 }
 
+
 void test_set2()
 {
+    // 允许键值冗余 排序
+    multiset<int> s;
+  
+    s.insert(3);
+    s.insert(3);
+    s.insert(3);
+    s.insert(3);
+    s.insert(3);
+    s.insert(3);
+    s.insert(3);
+    s.insert(3);
+    s.insert(3);
+    s.insert(6);
 
+    s.insert(7);
+    s.insert(7);
+    s.insert(7);
+    s.insert(7);
+    s.insert(7);
+    s.insert(8);
+
+    for (auto e : s)
+    {
+        cout << e << ' ';
+    }
+    cout << endl;
+
+    auto pos = s.find(7); // 返回的 7 是中序的第一个7（旋转）
+    while (pos != s.end())
+    {
+        cout << *pos << " ";
+        ++pos;
+    }
+    cout << endl;
+
+    // 删 7 
+    // 找不到，first, second  返回 >= 7 的值
+    // 返回一个不存在的区间
+    auto ret = s.equal_range(7); // 返回的是 pair
+   
+    auto itlow = ret.first; // 左边界第一个等于 30，找不到返回大于 30 的第一个值，右边界为大于 30 的第一个值
+    auto itup = ret.second;
+
+    // cout << *itlow << " " << *itup << endl;
+
+    s.erase(itlow, itup);
+
+    for (auto e : s)
+    {
+        cout << e << " ";
+    }
+    cout << endl;
+
+    // count equal_range 专门设计multi
 }
 
 int main()
@@ -98,7 +152,7 @@ int main()
     // set 底层是红黑树，搜索树 
     // 关联式容器：数据之间有强关联性，不能随便插入数据
     // 序列式容器（类比线性表）：单纯存储数据，数据之间的关系不考虑
-    test_set1();
+    test_set2();
 
     return 0;
 }
