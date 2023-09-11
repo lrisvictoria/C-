@@ -106,6 +106,10 @@ public:
 				{
 					RotateRL(parent); // 右左双旋
 				}
+				else if (parent->_bf == -2 || cur->_bf == 1)
+				{
+					RotateLR(parent); // 左右双旋
+				}
 
 				// 旋转之后，子树的高度变为之前一样，不会对上层有影响，更新结束
 				break;
@@ -132,7 +136,6 @@ public:
 			curleft->_parent = parent;
 		}
 		
-
 		cur->_left = parent;
 		Node* ppnode = parent->_parent;
 		parent->_parent = cur;
@@ -238,6 +241,40 @@ public:
 			assert(false); 
 		}
 
+	}
+
+	void RotateRL(Node* parent)
+	{
+		Node* cur = parent->_left;
+		Node* curright = cur->_right;
+
+		int bf = curright->_bf;
+
+		RotateL(parent->_left);
+		RotateL(parent);
+
+		if (bf == 0)
+		{
+			cur->_bf = 0;
+			curright->_bf = 0;
+			parent->_bf = 0;
+		}
+		else if (bf == 1)
+		{
+			cur->_bf = 0;
+			curright->_bf = 0;
+			parent->_bf = 1;
+		}
+		else if (bf == -1)
+		{	
+			cur->_bf = -1;
+			curright->_bf = 0;
+			parent->_bf = 0; 
+		}
+		else
+		{
+			assert(false);
+		}
 	}
 
 private:
