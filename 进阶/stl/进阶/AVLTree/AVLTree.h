@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <cassert>
 using namespace std;
 
 template<class K, class V>
@@ -34,6 +35,8 @@ public:
 			return true;
 		}
 
+		Node* parent = nullptr;
+		Node* cur = _root;
 		// 否则找空 
 		while (cur)
 		{
@@ -55,7 +58,7 @@ public:
 
 		// 到当前位置已经找到空，插入
 		cur = new Node(kv);
-		if (cur->first > kv.first)
+		if (parent->_kv.first < kv.first)
 		{
 			parent->_right = cur;
 		}
@@ -94,19 +97,19 @@ public:
 			else if (parent->_bf == 2 || parent->_bf == -2)
 			{
 				// 子树不平衡了，需要旋转 || 右边有孩子
-				if (parent->_bf == 2 || cur->_bf == 1)
+				if (parent->_bf == 2 && cur->_bf == 1)
 				{
 					RotateL(parent);
 				}
-				else if (parent->_bf == -2 || cur->_bf == -1)
+				else if (parent->_bf == -2 && cur->_bf == -1)
 				{
 					RotateR(parent);
 				}
-				else if (parent->_b == 2 || cur->_bf == -1)
+				else if (parent->_bf == 2 && cur->_bf == -1)
 				{
 					RotateRL(parent); // 右左双旋
 				}
-				else if (parent->_bf == -2 || cur->_bf == 1)
+				else if (parent->_bf == -2 && cur->_bf == 1)
 				{
 					RotateLR(parent); // 左右双旋
 				}
@@ -119,6 +122,8 @@ public:
 				assert(false); // 插入之前平衡因子就出问题了，断言
 			}
 		}
+
+		return true;
 	}
 
 	// 左旋 -- 根据 parent 来进行旋转
@@ -162,8 +167,6 @@ public:
 
 			cur->_parent = ppnode;
 		}
-		
-
 
 		parent->_bf = cur->_bf = 0; // parent 和 cur 都平衡
 	} 
@@ -208,16 +211,50 @@ public:
 	}
 
 	// 右左双旋
+	//void RotateRL(Node* parent)
+	//{
+	//	// 单旋会改平衡因子
+	//	// 假设无视单旋是否改平衡因子，保证能跑
+	//	Node* cur = parent->_right;
+	//	Node* curleft = cur->_left;
+	//	int bf = curleft->_bf; // 记录平衡因子
+
+	//	RotateR(parent->_right);
+	//	RotateL(parent->_left);
+	//	if (bf == 0)
+	//	{
+	//		cur->_bf = 0;
+	//		curleft->_bf = 0;
+	//		parent->_bf = 0;
+	//	}
+	//	else if (bf == 1)
+	//	{
+	//		cur->_bf = 0;
+	//		curleft->_bf = 0;
+	//		parent->_bf = -1;
+	//	}
+	//	else if (bf == -1)
+	//	{
+	//		cur->_bf = 1;
+	//		curleft->_bf = 0;
+	//		parent->_bf = 0;
+	//	}
+	//	else
+	//	{
+	//		assert(false); 
+	//	}
+
+	//}
+
 	void RotateRL(Node* parent)
 	{
-		// 单旋会改平衡因子
-		// 假设无视单旋是否改平衡因子，保证能跑
 		Node* cur = parent->_right;
-		Node* curleft = parent->_left;
-		int bf = curleft->_bf; // 记录平衡因子
+		Node* curleft = cur->_left;
+		int bf = curleft->_bf;
 
 		RotateR(parent->_right);
-		RotateL(parent->_left);
+		RotateL(parent);
+
 		if (bf == 0)
 		{
 			cur->_bf = 0;
@@ -238,12 +275,11 @@ public:
 		}
 		else
 		{
-			assert(false); 
+			assert(false);
 		}
-
 	}
 
-	void RotateRL(Node* parent)
+	void RotateLR(Node* parent)
 	{
 		Node* cur = parent->_left;
 		Node* curright = cur->_right;
@@ -251,7 +287,7 @@ public:
 		int bf = curright->_bf;
 
 		RotateL(parent->_left);
-		RotateL(parent);
+		RotateR(parent);
 
 		if (bf == 0)
 		{
@@ -259,13 +295,13 @@ public:
 			curright->_bf = 0;
 			parent->_bf = 0;
 		}
-		else if (bf == 1)
+		else if (bf == -1)
 		{
 			cur->_bf = 0;
 			curright->_bf = 0;
 			parent->_bf = 1;
 		}
-		else if (bf == -1)
+		else if (bf == 1)
 		{	
 			cur->_bf = -1;
 			curright->_bf = 0;
@@ -277,6 +313,49 @@ public:
 		}
 	}
 
+	int Height()
+	{
+		return Height(_root);
+	}
+
+	int Height(Node* root)
+	{
+		if (root == nullptr)
+		{
+			return 0;
+		}
+
+		int leftHeight = Height(root->_left);
+		int rightHeight = Height(root->_right);
+
+		return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
+	}
+
+	bool IsBalance()
+	{
+		return IsBalance(_root);
+	}
+
+	bool IsBalance(Node* root)
+	{
+		if (root == nullptr)
+		{
+			return true;
+		}
+
+		int leftHeight = Height(root->_left);
+		int rightHeight = Height(root->_right);
+
+		if (rightHeight - leftHeight != root->_bf)
+		{
+			cout << "平衡因子异常：" << root->_kv.first << "->" << root->_bf << endl;
+			return false;
+		}
+
+		return abs(rightHeight - leftHeight) < 2 && IsBalance(root->_left) && IsBalance(root->_right);
+	}
+
 private:
-	Node* _root;
+	Node* _root = nullptr;
 };
+
