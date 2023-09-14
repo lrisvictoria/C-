@@ -124,7 +124,7 @@ public:
 		}
 
 		return true;
-	}
+		}
 
 	// 左旋 -- 根据 parent 来进行旋转
 	void RotateL(Node* parent)
@@ -211,50 +211,16 @@ public:
 	}
 
 	// 右左双旋
-	//void RotateRL(Node* parent)
-	//{
-	//	// 单旋会改平衡因子
-	//	// 假设无视单旋是否改平衡因子，保证能跑
-	//	Node* cur = parent->_right;
-	//	Node* curleft = cur->_left;
-	//	int bf = curleft->_bf; // 记录平衡因子
-
-	//	RotateR(parent->_right);
-	//	RotateL(parent->_left);
-	//	if (bf == 0)
-	//	{
-	//		cur->_bf = 0;
-	//		curleft->_bf = 0;
-	//		parent->_bf = 0;
-	//	}
-	//	else if (bf == 1)
-	//	{
-	//		cur->_bf = 0;
-	//		curleft->_bf = 0;
-	//		parent->_bf = -1;
-	//	}
-	//	else if (bf == -1)
-	//	{
-	//		cur->_bf = 1;
-	//		curleft->_bf = 0;
-	//		parent->_bf = 0;
-	//	}
-	//	else
-	//	{
-	//		assert(false); 
-	//	}
-
-	//}
-
 	void RotateRL(Node* parent)
 	{
+		// 单旋会改平衡因子
+		// 假设无视单旋是否改平衡因子，保证能跑
 		Node* cur = parent->_right;
 		Node* curleft = cur->_left;
-		int bf = curleft->_bf;
+		int bf = curleft->_bf; // 记录平衡因子
 
 		RotateR(parent->_right);
 		RotateL(parent);
-
 		if (bf == 0)
 		{
 			cur->_bf = 0;
@@ -275,9 +241,11 @@ public:
 		}
 		else
 		{
-			assert(false);
+			assert(false); 
 		}
+
 	}
+
 
 	void RotateLR(Node* parent)
 	{
