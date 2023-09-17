@@ -64,6 +64,15 @@ public:
 		}
 
 		cur->_parent = parent;
+
+		// ¸¸Ç×´æÔÚÇÒÎªºìÉ«
+		while (parent && parent->_col = RED)
+		{
+			Node* grandfather = parent->_parent;
+
+		}
+
+		return true;
 	}
 
 private:
