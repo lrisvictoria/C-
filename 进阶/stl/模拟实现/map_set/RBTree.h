@@ -28,23 +28,23 @@ struct RBTreeNode
 	{}
 };
 
-template<class T>
+template<class T, class Ptr, class Ref>
 struct _TreeIterator
 {
 	typedef RBTreeNode<T> Node;
-	typedef _TreeIterator<T> Self;
+	typedef _TreeIterator<T, Ptr, Ref> Self;
 	Node* _node;
 
 	_TreeIterator(Node* node)
 		:_node(node)
 	{}
 
-	T& operator*()
+	Ref operator*()
 	{
 		return _node->_data;
 	}
 
-	T* operator->()
+	Ptr operator->()
 	{
 		return &_node->_data;
 	}
@@ -107,7 +107,8 @@ class RBTree
 	typedef RBTreeNode<T> Node;
 public:
 
-	typedef _TreeIterator<T> iterator;
+	typedef _TreeIterator<T, T*, T&> iterator;
+	typedef _TreeIterator<T, const T*, const T&> const_iterator;
 
 	iterator begin()
 	{
@@ -125,6 +126,25 @@ public:
 	iterator end()
 	{
 		return iterator(nullptr);
+	}
+
+	const_iterator begin() const
+	{
+		Node* leftMin = _root;
+
+		// ¿ÉÄÜÊÇ¿ÕÊ÷
+		while (leftMin && leftMin->_left)
+		{
+			leftMin = leftMin->_left;
+		}
+
+		return 
+			const_iterator(leftMin);
+	}
+
+	const_iterator end() const
+	{
+		return const_iterator(nullptr);
 	}
 
 	Node* find(const K& key)

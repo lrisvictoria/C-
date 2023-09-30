@@ -15,13 +15,25 @@ namespace lx
 		};
 
 public:
-	typedef typename RBTree<K, pair<K, V>, MapKeyOfT>::iterator iterator;
+	typedef typename RBTree<K, pair<const K, V>, MapKeyOfT>::iterator iterator;
+	typedef typename RBTree<K, pair<const K, V>, MapKeyOfT>::const_iterator const_iterator;
+
 	iterator begin()
 	{
 		return _t.begin();
 	}
 
 	iterator end()
+	{
+		return _t.end();
+	}
+
+	const_iterator begin() const
+	{
+		return _t.begin();
+	}
+
+	const_iterator end() const
 	{
 		return _t.end();
 	}
@@ -37,6 +49,7 @@ public:
 		}
 		
 	private:
-		RBTree<K, pair<K, V>, MapKeyOfT>  _t;
+		RBTree<K, pair<const K, V>, MapkeyofT> _t; // 对于 key 加 const 修饰，pair 整体可以修改
+		// RBTree<K, pair<K, V>, MapKeyOfT>  _t;
 	};
 } 
