@@ -33,10 +33,15 @@ struct _TreeIterator
 {
 	typedef RBTreeNode<T> Node;
 	typedef _TreeIterator<T, Ptr, Ref> Self;
+	typedef _TreeIterator<T, T*, T&> Iterator; // 仿照库中的方式处理普通迭代器构造 const 迭代器
 	Node* _node;
 
 	_TreeIterator(Node* node)
 		:_node(node)
+	{}
+
+	_TreeIterator(const Iterator& it)
+		:_node(it._node)
 	{}
 
 	Ref operator*()
@@ -67,17 +72,10 @@ struct _TreeIterator
 			Node* cur = _node;
 			Node* parent = cur->_parent;
 
-			while (parent)
+			while (parent && cur == parent->_right)
 			{
-				if (cur == parent->_left)
-				{
-					break;
-				}
-				else
-				{
-					cur = cur->_parent;
-					parent = parent->_parent;
-				}
+				cur = cur->_parent;
+				parent = parent->_parent;
 			}
 
 			_node = parent;
@@ -88,7 +86,35 @@ struct _TreeIterator
 
 	Self& operator--()
 	{
+		if (_node->_left)
+		{
+			Node* subright = _node->_left;
 
+			while (subright->_right)
+			{
+				subright = subright->_right;
+			}
+
+			_node = subright;
+		}
+		else
+		{
+			// 孩子是父亲右的那个节点
+			Node* cur = _node;
+			Node* parent = cur->_parent; 
+
+			// 为了和库里的同步，因为库里的 parent 走到最后都是真
+			// 有一种情况要特殊判断，见笔记，否则会死循环
+			while (parent && cur == parent->_left)
+			{
+				cur = cur->_parent;
+				parent = parent->_parent;
+			 }
+
+			_node = parent;
+		}
+
+		return *this;
 	}
 
 	bool operator!=(const Self& s)
@@ -171,13 +197,14 @@ public:
 		return nullptr;
 	}
 
-	bool Insert(const T& data)
+	// 改成返回一个 pair ，成功插入后的迭代器，和是否插入
+	pair<iterator, bool> Insert(const T& data)
 	{
 		if (_root == nullptr)
 		{
 			_root = new Node(data);
 			_root->_col = BLACK;
-			return true;
+			return make_pair(iterator(_root), true);
 		}
 
 		Node* cur = _root;
@@ -212,12 +239,16 @@ public:
 			}
 			else
 			{
-				return false;
+				return make_pair(iterator(cur), false);
 			}
 		}
 
+		// cur 在变色的过程中可能会一直往上走，所以 cur 不一定是新插入的节点，可能是某个进行变色的节点
+		// 要提前保存 cur ，之后返回
 		cur = new Node(data);
 		cur->_col = RED;
+
+		Node* newnode = cur;
 		//KeyOfT kot;
 		if (kot(parent->_data) > kot(data))
 		{
@@ -308,7 +339,7 @@ public:
 
 		_root->_col = BLACK; // BLACK 总为黑
 
-		return true;
+		return make_pair(iterator(newnode), true);
 	}
 
 	// 旋转

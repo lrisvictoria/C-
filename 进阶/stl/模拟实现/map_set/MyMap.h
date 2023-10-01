@@ -32,24 +32,30 @@ public:
 	{
 		return _t.begin();
 	}
-
+	 
 	const_iterator end() const
 	{
 		return _t.end();
 	}
 
-	V& operator[](const K& key)
+	/*V& operator[](const K& key)
 	{
 		return key.second;
+	}*/
+
+	V& operator[](const K& key)
+	{
+		pair<iterator, bool> ret = insert(make_pair(key, V()));
+		return ret.first->second;
 	}
 
-		bool insert(const pair<K, V>& kv)
-		{
-			return _t.Insert(kv) ;
-		}
+	pair<iterator, bool> insert(const pair<K, V>& kv)
+	{
+		return _t.Insert(kv);
+	}
 		
 	private:
-		RBTree<K, pair<const K, V>, MapkeyofT> _t; // 对于 key 加 const 修饰，pair 整体可以修改
+		RBTree<K, pair<const K, V>, MapKeyOfT> _t; // 对于 key 加 const 修饰，pair 整体可以修改
 		// RBTree<K, pair<K, V>, MapKeyOfT>  _t;
 	};
 } 

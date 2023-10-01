@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -49,25 +50,45 @@ int main()
 	}
 	
 
-	//lx::set<int> s;
-	//s.insert(1);
-	//s.insert(3);
-	//s.insert(2);
-	//s.insert(4);
+	lx::set<int> s;
+	s.insert(1);
+	s.insert(3);
+	s.insert(2);
+	s.insert(4);
 
-	//lx::set<int>::iterator it = s.begin();
-	//while (it != s.end())
-	//{
-	//	if (*it % 2 == 0)
-	//	{
-	//		//s*it = 1;
-	//		// *it = 1;
-	//	}
+	lx::set<int>::iterator it = s.begin();
+	while (it != s.end())
+	{
+		if (*it % 2 == 0)
+		{
+			//s*it = 1;
+			// *it = 1;
+		}
 
-	//	cout << *it << " ";
-	//	++it;
-	//}
+		cout << *it << " ";
+		++it;
+	}
 
+	lx::map<string, string> dict;
+	dict.insert(make_pair("sort", "xxx"));
+	dict["left"]; // ²åÈë
+
+	for (const auto& kv : dict)
+	{
+		cout << kv.first << ":" << kv.second << endl;
+	}
+	cout << endl;
+	 
+
+	dict["left"] = "×ó±ß"; // ĞŞ¸Ä
+	dict["sort"] = "ÅÅĞò"; // ĞŞ¸Ä
+	dict["right"] = "ÓÒ±ß"; // ²åÈë+ĞŞ¸Ä
+
+	for (const auto& kv : dict)
+	{
+		cout << kv.first << ":" << kv.second << endl;
+	}
+	cout << endl;
 
 	return 0;
 }

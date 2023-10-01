@@ -36,9 +36,22 @@ namespace lx
 			return _t.end();
 		}
 
-		bool insert(const K& kv)
+		// set 这里有问题，_t.insert 返回的是普通迭代器
+		// 但是 pair<iterator, bool> 中 iterator 不是普通迭代器
+		// 类型不匹配，报错
+		// Tree::const_iterator
+		pair<iterator, bool> insert(const K& key)
 		{
-			return _t.Insert(kv);
+			// pair<Tree::iterator, bool>
+			// return _t.Insert(kv);
+
+			// 仿照库里写
+			// 这里直接取的 iterator 是红黑树中的普通迭代器，普通对象调用返回普通迭代器
+			// 但是 return 部分的 iterator 是取的内嵌类型，被解释为 const_iterator
+			// 而 ret 的 first 是普通迭代器，相当于拿普通迭代器取构造 const 迭代器
+			// 类型不匹配，导致编不过
+			pair<typename RBTree<K, K, SetKeyOfT>::iterator, bool> ret = _t.Insert(key); // 这里的 iterator 指的是普通迭代器
+			return pair<iterator, bool>(ret.first, ret.second); // 这里的 iterator 是 const 迭代器
 		}
 	private:
 		RBTree<K, K, SetKeyOfT> _t;
