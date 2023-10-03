@@ -13,12 +13,13 @@ int main()
 		ht.Insert(make_pair(e, e));
 	}
 
-	//HashTable<string, string> dict; // key 有可能不能取模，走两层映射，不是整形想办法让它变成整形
-	//dict.Insert(make_pair("sort", "排序"));
-	//dict.Insert(make_pair("left", "xxx"));
-	//auto dret = dict.Find("left");
-	////dret->_kv.first = "xx";
-	//dret->_kv.second = "左边";
+	// HashTable<string, string, StringHashFunc> dict; // key 有可能不能取模，走两层映射，不是整形想办法让它变成整形
+	HashTable<string, string> dict; // 模板特化
+	dict.Insert(make_pair("sort", "排序"));
+	dict.Insert(make_pair("left", "xxx"));
+	auto dret = dict.Find("left");
+	//dret->_kv.first = "xx";
+	dret->_kv.second = "左边";
 
 	auto ret = ht.Find(4);
 	// ret->_kv.first = 41;
@@ -26,3 +27,4 @@ int main()
 
 	return 0;
 }
+

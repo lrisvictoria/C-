@@ -17,7 +17,61 @@ struct HashData
 	STATE _state = EMPTY;
 };
 
-template<class K, class V>
+template<class K>
+struct DefaultHashFunc
+{
+	size_t operator()(const K& key)
+	{
+		return (size_t)key;
+	}
+};
+
+// 写法1：写一个类
+//struct StringHashFunc
+//{
+//	size_t operator()(const string& str)
+//	{
+//		return (size_t)str[0];
+//	}
+//};
+
+// 写法2：针对 string 写模板特化
+template<>
+struct DefaultHashFunc<string>
+{
+	size_t operator()(const string& str)
+	{
+		// return (size_t)str[0]; // 第一个字母相同的都冲突，不好
+		// 把所有的 ascii 码值加起来
+		
+		/*size_t hash = 0;
+		for (auto ch : str)
+		{
+			hash += ch;
+		}*/
+
+		// 但是这样也有问题 bacd abcd abbe 都是冲突的
+		// 所以要字符串哈希
+		// 使用 the c programming language 中的 BKDR 哈希算法
+
+		// 这样可以有效避免冲突
+		// 但字符串的组合是无限的，不同的字符串仍可能映射计算出相同的整形 
+		// 因为 size_t 只有 2^32 个，是一个多对一的关系
+
+		// 若字符串溢出，就截断，插入查找都一样
+		size_t hash = 0;
+		for (auto ch : str)
+		{
+			hash *= 131;
+			hash += ch;
+		}
+
+		return hash;
+	}
+};
+
+// 增加仿函数
+template<class K, class V, class HashFunc = DefaultHashFunc<K>>
 class HashTable
 {
 public:
@@ -39,7 +93,7 @@ public:
 			newtable.resize(newSize);
 
 			// 遍历旧表，重新映射到新表
-			HashTable<K, V> newHT;
+			HashTable<K, V, HashFunc> newHT;
 			newHT._table.resize(newSize);
 
 			// 遍历旧表，将数据插入到新表中
@@ -52,12 +106,14 @@ public:
 			_table.swap(newHT._table);
 		}
 
+		HashFunc hf;
+
 		// 线性探测
 
 		// 这里用 size 而不是 capacity
 		// 因为此刻可能没有 capacity 个数据，%出来的结果可能大于现在已有数据
 		// 那么这块空间 [] 就不能访问，就会被断言检查到，
-		size_t hashi = kv.first % _table.size(); // 算起始位置
+		size_t hashi = hf(kv.first) % _table.size(); // 算起始位置
 		while (_table[hashi]._state == EXIST)
 		{
 			++hashi;
@@ -74,7 +130,8 @@ public:
 	// 返回数据这边加 const ，因为 key 不支持修改
 	HashData<const K, V>* Find(const K& key)
 	{
-		size_t hashi = key % _table.size(); // 算起始位置
+		HashFunc hf;
+		size_t hashi = hf(key) % _table.size(); // 算起始位置
 		while (_table[hashi]._state != EMPTY)
 		{
 			// 存在且相等
@@ -82,7 +139,7 @@ public:
 			if (_table[hashi]._state == EXIST
 				&& _table[hashi]._kv.first == key)
 			{
-				return (HashDate<const K, V>*) & _table[hashi];
+				return (HashData<const K, V>*) & _table[hashi];
 			}
 
 			++hashi;
