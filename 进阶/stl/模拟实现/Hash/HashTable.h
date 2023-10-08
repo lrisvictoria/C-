@@ -194,25 +194,41 @@ namespace hash_bucket
 	template<class K, class T, class KeyOfT, class HashFunc>
 	class HashTable;
 
-	template<class K, class T, class KeyOfT, class HashFunc>
+	template<class K, class T, class Ptr, class Ref, class KeyOfT, class HashFunc>
 	struct HTIterator
 	{
 		typedef HashNode<T> Node;
-		typedef HTIterator<K, T, KeyOfT, HashFunc> Self;
+		typedef HTIterator<K, T, Ptr, Ref, KeyOfT, HashFunc> Self;
+		typedef HTIterator<K, T, T*, T&, KeyOfT, HashFunc> Iterator;
 		Node* _node;
-		HashTable<K, T, KeyOfT, HashFunc>* _pht;
 
-		HTIterator(Node* node, HashTable<K, T, KeyOfT, HashFunc>* pht)
+		// 解决 const* _pht 问题
+		// HashTable<K, T, KeyOfT, HashFunc>* _pht;
+		const HashTable<K, T, KeyOfT, HashFunc>* _pht;
+
+
+		/*HTIterator(Node* node, HashTable<K, T, KeyOfT, HashFunc>* pht)
 			:_node(node)
 			,_pht(pht)
+		{}*/
+
+		HTIterator(Node* node, const HashTable<K, T, KeyOfT, HashFunc>* pht)
+			:_node(node)
+			, _pht(pht)
 		{}
 
-		T& operator*()
+		// 针对 Insert 插入返回迭代器问题，写的重载函数
+		HTIterator(const Iterator& it)
+			:_node(it._node)
+			,_pht(it._pht)
+		{}
+
+		Ref operator*()
 		{
 			return _node->_data;
 		}
 
-		T* operator->()
+		Ptr operator->()
 		{
 			return &_node->_data;
 		}
@@ -263,11 +279,13 @@ namespace hash_bucket
 	
 		// 声明迭代器是哈希表的友元 -- 模板友元
 		// 类模板声明时要把模板参数带上
-		template<class K, class T, class KeyOfT, class HashFunc>
+		template<class K, class T, class Ptr, class Ref, class KeyOfT, class HashFunc>
 		friend struct HTIterator;
 
 	public:
-		typedef HTIterator<K, T, KeyOfT, HashFunc> iterator;
+		typedef HTIterator<K, T, T*, T&, KeyOfT, HashFunc> iterator;
+		typedef HTIterator<K, T, const T*, const T&, KeyOfT, HashFunc> const_iterator;
+
 
 		iterator begin()
 		{
@@ -288,11 +306,53 @@ namespace hash_bucket
 			return iterator(nullptr, this);
 		}
 
+		const_iterator begin() const
+		{
+			// 找第一个桶
+			for (size_t i = 0; i < _table.size(); i++)
+			{
+				if (_table[i])
+				{
+					return const_iterator(_table[i], this);
+				}
+			}
+
+			return const_iterator(nullptr, this);
+		}
+
+		const_iterator end() const
+		{
+			return const_iterator(nullptr, this);
+		}
+
+		size_t GetNextPrime(size_t prime)
+		{
+			static const int __stl_num_primes = 28;
+			static const unsigned long __stl_prime_list[__stl_num_primes] =
+			{
+			  53,         97,         193,       389,       769,
+			  1543,       3079,       6151,      12289,     24593,
+			  49157,      98317,      196613,    393241,    786433,
+			  1572869,    3145739,    6291469,   12582917,  25165843,
+			  50331653,   100663319,  201326611, 402653189, 805306457,
+			  1610612741, 3221225473, 4294967291
+			};
+
+			size_t i = 0;
+			for (; i < PRIMECOUNT; ++i)
+			{
+				if (primeList[i] > prime)
+					return primeList[i];
+			}
+
+			return primeList[i];
+		}
+
 		// 对于该哈希表，析构，拷贝构造都要自己写
-		// 上面的开放寻址法，会用他们自己生成的拷贝构造
+		// 上面的开放寻址法，会用它自己生成的拷贝构造
 		HashTable()
 		{
-			_table.resize(10, nullptr);
+			_table.resize(GetNextPrime(1), nullptr); // 获取比 1 大的素数
 		}
 
 		HashTable(const HashTable& ht)
@@ -335,20 +395,23 @@ namespace hash_bucket
 			}
 		}
 
-		bool Insert(const T& data)
+		pair<iterator, bool> Insert(const T& data)
 		{
 			KeyOfT kot;
 
-			if (Find(kot(data)))
+			iterator it = Find(kot(data));
+			if (it != end())
 			{
-				return false;
+				return make_pair(it, false);
 			}
 
 			HashFunc hf;
 			// 负载因子到 1 就扩容
 			if (_n == _table.size())
 			{
-				size_t newSize = _table.size() * 2;
+				//size_t newSize = _table.size() * 2;
+				size_t newSize = GetNextPrime(_table.size());
+
 				vector<Node*> newTable;
 				newTable.resize(newSize, nullptr);
 
@@ -382,10 +445,10 @@ namespace hash_bucket
 			newnode->_next = _table[hashi];
 			_table[hashi] = newnode;
 			++_n;
-			return true;
+			return make_pair(iterator(newnode, this), true);
 		}
 		
-		Node* Find(const K& key)
+		iterator Find(const K& key)
 		{
 			HashFunc hf;
 			KeyOfT kot;
@@ -397,13 +460,13 @@ namespace hash_bucket
 			{
 				if (kot(cur->_data) == key)
 				{
-					return cur;
+					return iterator(cur, this);
 				}
 
 				cur = cur->_next;
 			}
 
-			return nullptr;
+			return end();
 		}
 
 		bool Erase(const K& key)
