@@ -2,7 +2,7 @@
 
 using namespace std;
 
-#include "HashTable.h"
+//#include "HashTable.h"
 
 //int main()
 //{
@@ -76,53 +76,53 @@ using namespace std;
 //	return 0;
 //}
 
-#include "UnorderedMap.h"
-#include "UnorderedSet.h"
-
-int main()
-{
-
-	lx::unordered_set<int> us;
-	us.insert(3);
-	us.insert(1);
-	us.insert(3);
-	us.insert(4);
-	us.insert(5);
-	us.insert(0);
-
-	lx::unordered_map<string, string> dict;
-	dict.insert(make_pair("sort", "ÅÅĞò"));
-	dict.insert(make_pair("left", "×ó±ß"));
-	dict.insert(make_pair("insert", "²åÈë"));
-	dict.insert(make_pair("sort", "xxx"));
-
-	lx::unordered_set<int>::iterator it = us.begin();
-	while (it != us.end())
-	{
-		// *it += 10;
-
-		cout << *it << " ";
-		++it;
-	}
-	cout << endl;
-
-	lx::unordered_map<string, string>::iterator dit = dict.begin();
-	while (dit != dict.end())
-	{
-		// dit->first += 'x';
-		dit->second += 'x';
-
-		++dit;
-	}
-	cout << endl;
-
-	for (auto& kv : dict)
-	{
-		cout << kv.first << ":" << kv.second << endl;
-	}
-
-	return 0;
-}
+//#include "UnorderedMap.h"
+//#include "UnorderedSet.h"
+//
+//int main()
+//{
+//
+//	lx::unordered_set<int> us;
+//	us.insert(3);
+//	us.insert(1);
+//	us.insert(3);
+//	us.insert(4);
+//	us.insert(5);
+//	us.insert(0);
+//
+//	lx::unordered_map<string, string> dict;
+//	dict.insert(make_pair("sort", "ÅÅĞò"));
+//	dict.insert(make_pair("left", "×ó±ß"));
+//	dict.insert(make_pair("insert", "²åÈë"));
+//	dict.insert(make_pair("sort", "xxx"));
+//
+//	lx::unordered_set<int>::iterator it = us.begin();
+//	while (it != us.end())
+//	{
+//		// *it += 10;
+//
+//		cout << *it << " ";
+//		++it;
+//	}
+//	cout << endl;
+//
+//	lx::unordered_map<string, string>::iterator dit = dict.begin();
+//	while (dit != dict.end())
+//	{
+//		// dit->first += 'x';
+//		dit->second += 'x';
+//
+//		++dit;
+//	}
+//	cout << endl;
+//
+//	for (auto& kv : dict)
+//	{
+//		cout << kv.first << ":" << kv.second << endl;
+//	}
+//
+//	return 0;
+//}
 
 //int main()
 //{
@@ -131,3 +131,35 @@ int main()
 //
 //	return 0;
 //}
+
+#include"BitSet.h"
+
+int main()
+{
+	lx::bitset<1000> bs;
+	bs.set(1);
+	bs.set(10);
+	bs.set(100);
+
+	cout << bs.test(1) << endl;
+	cout << bs.test(10) << endl;
+	cout << bs.test(100) << endl;
+	cout << bs.test(999) << endl<<endl;
+
+	bs.set(999);
+	bs.reset(10);
+
+	cout << bs.test(1) << endl;
+	cout << bs.test(10) << endl;
+	cout << bs.test(100) << endl;
+	cout << bs.test(999) << endl << endl;
+
+	//getchar();
+
+	//lx::bitset<-1> bs1;
+	//bit::bitset<0xffffffff> bs2;
+
+	//getchar();
+
+	return 0;
+}
