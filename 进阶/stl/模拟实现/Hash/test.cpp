@@ -134,32 +134,63 @@ using namespace std;
 
 #include"BitSet.h"
 
+//int main()
+//{
+//	lx::bitset<1000> bs;
+//	bs.set(1);
+//	bs.set(10);
+//	bs.set(100);
+//
+//	cout << bs.test(1) << endl;
+//	cout << bs.test(10) << endl;
+//	cout << bs.test(100) << endl;
+//	cout << bs.test(999) << endl<<endl;
+//
+//	bs.set(999);
+//	bs.reset(10);
+//
+//	cout << bs.test(1) << endl;
+//	cout << bs.test(10) << endl;
+//	cout << bs.test(100) << endl;
+//	cout << bs.test(999) << endl << endl;
+//
+//	//getchar();
+//
+//	//lx::bitset<-1> bs1;
+//	//bit::bitset<0xffffffff> bs2;
+//
+//	//getchar();
+//
+//	return 0;
+//}
+
 int main()
 {
-	lx::bitset<1000> bs;
-	bs.set(1);
-	bs.set(10);
-	bs.set(100);
+	int a1[] = { 1,2,3,3,4,4,4,4,4,2,3,6,3,1,5,5,8,9 };
+	int a2[] = { 8,4,8,4,1,1,1,1 };
 
-	cout << bs.test(1) << endl;
-	cout << bs.test(10) << endl;
-	cout << bs.test(100) << endl;
-	cout << bs.test(999) << endl<<endl;
+	lx::bitset<10> bs1;
+	lx::bitset<10> bs2;
 
-	bs.set(999);
-	bs.reset(10);
+	// 去重
+	for (auto e : a1)
+	{
+		bs1.set(e);
+	}
 
-	cout << bs.test(1) << endl;
-	cout << bs.test(10) << endl;
-	cout << bs.test(100) << endl;
-	cout << bs.test(999) << endl << endl;
+	// 去重
+	for (auto e : a2)
+	{
+		bs2.set(e);
+	}
 
-	//getchar();
-
-	//lx::bitset<-1> bs1;
-	//bit::bitset<0xffffffff> bs2;
-
-	//getchar();
-
-	return 0;
+	// 9：03继续
+	for (int i = 0; i < 10; i++)
+	{
+		if (bs1.test(i) && bs2.test(i))
+		{
+			cout << i << " ";
+		}
+	}
+	cout << endl;
 }
