@@ -63,7 +63,7 @@ namespace lx
 			// 10 代表出现两次及以上，不变
 		}
 
-		// 判断是否出现一次
+		// 判断是否出现一次1
 		bool is_once(size_t x)
 		{
 			return !_b1.test(x) && _b2.test(x);

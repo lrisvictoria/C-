@@ -155,7 +155,7 @@ using namespace std;
 //	cout << bs.test(999) << endl << endl;
 //
 //	//getchar();
-//
+//	
 //	//lx::bitset<-1> bs1;
 //	//bit::bitset<0xffffffff> bs2;
 //
@@ -164,33 +164,131 @@ using namespace std;
 //	return 0;
 //}
 
-int main()
+//int main()
+//{
+//	int a1[] = { 1,2,3,3,4,4,4,4,4,2,3,6,3,1,5,5,8,9 };
+//	int a2[] = { 8,4,8,4,1,1,1,1 };
+//
+//	lx::bitset<10> bs1;
+//	lx::bitset<10> bs2;
+//
+//	// 去重
+//	for (auto e : a1)
+//	{
+//		bs1.set(e);
+//	}
+//
+//	// 去重
+//	for (auto e : a2)
+//	{
+//		bs2.set(e);
+//	}
+//
+//	// 9：03继续
+//	for (int i = 0; i < 10; i++)
+//	{
+//		if (bs1.test(i) && bs2.test(i))
+//		{
+//			cout << i << " ";
+//		}
+//	}
+//	cout << endl;
+//}
+
+//#include <bitset>
+//
+//using namespace std;
+//
+//
+//
+//int main()
+//{
+//	bitset<15> b;
+//	cout << sizeof(b) << endl;
+//
+//
+//	return 0;
+//}
+
+#include"BloomFilter.h"
+
+void TestBloomFilter()
 {
-	int a1[] = { 1,2,3,3,4,4,4,4,4,2,3,6,3,1,5,5,8,9 };
-	int a2[] = { 8,4,8,4,1,1,1,1 };
+	BloomFilter<11> bf;
+	bf.Set("孙悟空");
+	bf.Set("猪八戒");
+	bf.Set("牛魔王");
+	bf.Set("二郎神");
 
-	lx::bitset<10> bs1;
-	lx::bitset<10> bs2;
+	cout << bf.Test("孙悟空") << endl;
+	cout << bf.Test("猪八戒") << endl;
+	cout << bf.Test("沙悟净") << endl;
+}
 
-	// 去重
-	for (auto e : a1)
+
+void TestBloomFilter2()
+{
+	srand(time(0));
+	const size_t N = 100000;
+	BloomFilter<N * 8> bf;
+
+	std::vector<std::string> v1;
+	//std::string url = "https://www.cnblogs.com/-clq/archive/2012/05/31/2528153.html";
+	std::string url = "猪八戒";
+
+	for (size_t i = 0; i < N; ++i)
 	{
-		bs1.set(e);
+		v1.push_back(url + std::to_string(i));
 	}
 
-	// 去重
-	for (auto e : a2)
+	for (auto& str : v1)
 	{
-		bs2.set(e);
+		bf.Set(str);
 	}
 
-	// 9：03继续
-	for (int i = 0; i < 10; i++)
+	// v2跟v1是相似字符串集（前缀一样），但是不一样
+	std::vector<std::string> v2;
+	for (size_t i = 0; i < N; ++i)
 	{
-		if (bs1.test(i) && bs2.test(i))
+		std::string urlstr = url;
+		urlstr += std::to_string(9999999 + i);
+		v2.push_back(urlstr);
+	}
+
+	size_t n2 = 0;
+	for (auto& str : v2)
+	{
+		if (bf.Test(str)) // 误判
 		{
-			cout << i << " ";
+			++n2;
 		}
 	}
-	cout << endl;
+	cout << "相似字符串误判率:" << (double)n2 / (double)N << endl;
+
+	// 不相似字符串集
+	std::vector<std::string> v3;
+	for (size_t i = 0; i < N; ++i)
+	{
+		//string url = "zhihu.com";
+		string url = "孙悟空";
+		url += std::to_string(i + rand());
+		v3.push_back(url);
+	}
+
+	size_t n3 = 0;
+	for (auto& str : v3)
+	{
+		if (bf.Test(str))
+		{
+			++n3;
+		}
+	}
+	cout << "不相似字符串误判率:" << (double)n3 / (double)N << endl;
+}
+
+int main()
+{
+	TestBloomFilter2();
+
+	return 0;
 }
