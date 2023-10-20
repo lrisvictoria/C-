@@ -41,13 +41,44 @@ using namespace std;
 //	return 0;
 //}
 
+//int main()
+//{
+//	vector<int> v1 = { 1, 2 }; // 不是列表初始化支持的，它们有不同的规则
+//	// 这里本质也是一个构造
+//	// 这个列表叫做 initializer_list
+//	auto il = { 10, 20, 30 };
+//	initializer_list<int> il = { 10, 20, 30 };
+//	cout << typeid(il).name() << endl;
+// }
+
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
 int main()
 {
-	vector<int> v1 = { 1, 2 }; // 不是列表初始化支持的，它们有不同的规则
-	// 这里本质也是一个构造
-	// 这个列表叫做 initializer_list
-	auto il = { 10, 20, 30 };
-	initializer_list<int> il = { 10, 20, 30 };
-	cout << typeid(il).name() << endl;
+    int n;
+    cin >> n;
 
+    int res = 0;
+
+    for (int i = 2; i < n; i++)
+    {
+        int tmp = 1;
+        for (int j = 2; j <= i / 2; j++)
+        {
+            if (!(i % j))
+            {
+                tmp += j;
+            }
+        }
+
+        if (tmp == i) res++;
+    }
+
+    cout << res << endl;
+
+
+    return 0;
 }
