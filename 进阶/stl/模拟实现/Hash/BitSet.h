@@ -3,6 +3,7 @@
 
 using namespace std;
 
+// 准确来说， bitset 是一个模板类而不是容器，因为模板参数不是类型，而是整形的数值
 namespace lx
 {
 	template<size_t N>

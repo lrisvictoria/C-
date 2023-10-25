@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -51,34 +53,253 @@ using namespace std;
 //	cout << typeid(il).name() << endl;
 // }
 
-#include <iostream>
-#include <algorithm>
+//#include <iostream>
+//#include <algorithm>
+//
+//using namespace std;
+//
+//int main()
+//{
+//    int n;
+//    cin >> n;
+//
+//    int res = 0;
+//
+//    for (int i = 2; i < n; i++)
+//    {
+//        int tmp = 1;
+//        for (int j = 2; j <= i / 2; j++)
+//        {
+//            if (!(i % j))
+//            {
+//                tmp += j;
+//            }
+//        }
+//
+//        if (tmp == i) res++;
+//    }
+//
+//    cout << res << endl;
+//
+//
+//    return 0;
+//}
 
-using namespace std;
+//int sum(int a, int b)
+//{
+//	return a + b;
+//}
+//
+//int main()
+//{
+//	// decltype(sum(1, 3)) a;
+//
+//	const char* str = "xxxxxx";
+//
+//	str[2] = 0x11223344;
+//
+//	return 0;
+//}
 
-int main()
-{
-    int n;
-    cin >> n;
+//int main()
+//{
+//	double x = 1.1, y = 2.2;
+//	// 左值引用
+//	int a = 0;
+//	int& r1 = a; 
+//
+//	// 左值引用能否给右值取别名？
+//	// const 左值引用可以 
+//	const int& r2 = 10;
+//	const double& r3 = x + y;
+//
+//	// 右值引用
+//	int&& r5 = 10; 
+//	double&& r6 = x + y; 
+//
+//	// 右值引用是否能给左值取别名？
+//	// 直接给不可以
+//	// 强制给，特殊情况下可以用, move 一下
+//	// move 以后 a 可能有一些影响（这边没影响）
+//	// 总结：右值引用可以引用 move 以后的左值
+//	int&& r7 = a;
+//	double&& r8 = move(a);
+//
+//	
+//
+//	return 0;
+//}
 
-    int res = 0;
+// 左值引用的使用场景和价值是什么
+// 使用场景：1.做参数    2.做返回值     价值->减少拷贝
+// 处理不到位的：局部对象返回不能用左值引用解决
 
-    for (int i = 2; i < n; i++)
-    {
-        int tmp = 1;
-        for (int j = 2; j <= i / 2; j++)
-        {
-            if (!(i % j))
-            {
-                tmp += j;
-            }
-        }
+//string func()
+//{
+//	string str;
+//	cin >> str;
+//
+//	//...
+//
+//	return str;
+//}
+//
+//int main()
+//{
+//	return 0;
+//}
 
-        if (tmp == i) res++;
-    }
+//#include <cassert>
+//
+//namespace lx
+//{
+//	class string
+//	{
+//	public:
+//		typedef char* iterator;
+//		iterator begin()
+//		{
+//			return _str;
+//		}
+//		iterator end()
+//		{
+//			return _str + _size;
+//		}
+//		string(const char* str = "")
+//			:_size(strlen(str))
+//			, _capacity(_size)
+//		{
+//			//cout << "string(char* str)" << endl;
+//			_str = new char[_capacity + 1];
+//			strcpy(_str, str);
+//		}
+//		// s1.swap(s2)
+//		void swap(string& s)
+//		{
+//			::swap(_str, s._str);
+//			::swap(_size, s._size);
+//			::swap(_capacity, s._capacity);
+//		}
+//		// 拷贝构造
+//		string(const string& s)
+//			:_str(nullptr)
+//		{
+//			cout << "string(const string& s) -- 深拷贝" << endl;
+//			string tmp(s._str);
+//			swap(tmp);
+//		}
+//		// 赋值重载
+//		string& operator=(const string& s)
+//		{
+//			cout << "string& operator=(string s) -- 深拷贝" << endl;
+//			string tmp(s);
+//			swap(tmp);
+//			return *this;
+//		}
+//		//// 移动构造
+//		//string(string&& s)
+//		//	:_str(nullptr)
+//		//	, _size(0)
+//		//	, _capacity(0)
+//		//{
+//		//	cout << "string(string&& s) -- 移动语义" << endl;
+//		//	swap(s);
+//		//}
+//		//// 移动赋值
+//		//string& operator=(string&& s)
+//		//{
+//		//	cout << "string& operator=(string&& s) -- 移动语义" << endl;
+//		//	swap(s);
+//		//	return *this;
+//		//}
+//		~string()
+//		{
+//			delete[] _str;
+//			_str = nullptr;
+//		}
+//		char& operator[](size_t pos)
+//		{
+//			assert(pos < _size);
+//			return _str[pos];
+//		}
+//		void reserve(size_t n)
+//		{
+//			if (n > _capacity)
+//			{
+//				char* tmp = new char[n + 1];
+//				strcpy(tmp, _str);
+//				delete[] _str;
+//				_str = tmp;
+//				_capacity = n;
+//			}
+//		}
+//		void push_back(char ch)
+//		{
+//			if (_size >= _capacity)
+//			{
+//				size_t newcapacity = _capacity == 0 ? 4 : _capacity * 2;
+//				reserve(newcapacity);
+//			}
+//				_str[_size] = ch;
+//			++_size;
+//			_str[_size] = '\0';
+//		}
+//		//string operator+=(char ch)
+//		string& operator+=(char ch)
+//		{
+//			push_back(ch);
+//			return *this;
+//		}
+//		const char* c_str() const
+//		{
+//			return _str;
+//		}
+//	private:
+//		char* _str;
+//		size_t _size;
+//		size_t _capacity; // 不包含最后做标识的\0
+//	};
+//}
+//
+//// 左值引用的使用场景和价值是什么？
+//// 使用场景：1、做参数  2、做返回值  价值->减少拷贝
+//lx::string func()
+//{
+//	lx::string str("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+//	//cin >> str;
+//	//....
+//
+//	return str;
+//}
+//
+//int main()
+//{
+//	lx::string ret1 = func();
+//
+//	lx::string ret2;
+//	//...
+//	ret2 = func();
+//
+//	return 0;
+//}
 
-    cout << res << endl;
+// 右值引用起作用的场景与左值引用不太一样
+// 是间接起作用的
 
-
-    return 0;
-}
+// 是否构成函数重载？是
+//void func(int& r)
+//{
+//	cout << "void func(int& r)" << endl;
+//}
+//
+//
+//
+//void func(int&& r)
+//{
+//	cout << "void func(int&& r)" << endl;
+//}
+//
+//int main()
+//{
+//	return 0;
+//}
