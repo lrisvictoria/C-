@@ -149,139 +149,141 @@ using namespace std;
 //	return 0;
 //}
 
-//#include <cassert>
-//
-//namespace lx
-//{
-//	class string
-//	{
-//	public:
-//		typedef char* iterator;
-//		iterator begin()
-//		{
-//			return _str;
-//		}
-//		iterator end()
-//		{
-//			return _str + _size;
-//		}
-//		string(const char* str = "")
-//			:_size(strlen(str))
-//			, _capacity(_size)
-//		{
-//			//cout << "string(char* str)" << endl;
-//			_str = new char[_capacity + 1];
-//			strcpy(_str, str);
-//		}
-//		// s1.swap(s2)
-//		void swap(string& s)
-//		{
-//			::swap(_str, s._str);
-//			::swap(_size, s._size);
-//			::swap(_capacity, s._capacity);
-//		}
-//		// 拷贝构造
-//		string(const string& s)
-//			:_str(nullptr)
-//		{
-//			cout << "string(const string& s) -- 深拷贝" << endl;
-//			string tmp(s._str);
-//			swap(tmp);
-//		}
-//		// 赋值重载
-//		string& operator=(const string& s)
-//		{
-//			cout << "string& operator=(string s) -- 深拷贝" << endl;
-//			string tmp(s);
-//			swap(tmp);
-//			return *this;
-//		}
-//		//// 移动构造
-//		//string(string&& s)
-//		//	:_str(nullptr)
-//		//	, _size(0)
-//		//	, _capacity(0)
-//		//{
-//		//	cout << "string(string&& s) -- 移动语义" << endl;
-//		//	swap(s);
-//		//}
-//		//// 移动赋值
-//		//string& operator=(string&& s)
-//		//{
-//		//	cout << "string& operator=(string&& s) -- 移动语义" << endl;
-//		//	swap(s);
-//		//	return *this;
-//		//}
-//		~string()
-//		{
-//			delete[] _str;
-//			_str = nullptr;
-//		}
-//		char& operator[](size_t pos)
-//		{
-//			assert(pos < _size);
-//			return _str[pos];
-//		}
-//		void reserve(size_t n)
-//		{
-//			if (n > _capacity)
-//			{
-//				char* tmp = new char[n + 1];
-//				strcpy(tmp, _str);
-//				delete[] _str;
-//				_str = tmp;
-//				_capacity = n;
-//			}
-//		}
-//		void push_back(char ch)
-//		{
-//			if (_size >= _capacity)
-//			{
-//				size_t newcapacity = _capacity == 0 ? 4 : _capacity * 2;
-//				reserve(newcapacity);
-//			}
-//				_str[_size] = ch;
-//			++_size;
-//			_str[_size] = '\0';
-//		}
-//		//string operator+=(char ch)
-//		string& operator+=(char ch)
-//		{
-//			push_back(ch);
-//			return *this;
-//		}
-//		const char* c_str() const
-//		{
-//			return _str;
-//		}
-//	private:
-//		char* _str;
-//		size_t _size;
-//		size_t _capacity; // 不包含最后做标识的\0
-//	};
-//}
+#include <cassert>
+
+namespace lx
+{
+	class string
+	{
+	public:
+		typedef char* iterator;
+		iterator begin()
+		{
+			return _str;
+		}
+		iterator end()
+		{
+			return _str + _size;
+		}
+		string(const char* str = "")
+			:_size(strlen(str))
+			, _capacity(_size)
+		{
+			//cout << "string(char* str)" << endl;
+			_str = new char[_capacity + 1];
+			strcpy(_str, str);
+		}
+		// s1.swap(s2)
+		void swap(string& s)
+		{
+			::swap(_str, s._str);
+			::swap(_size, s._size);
+			::swap(_capacity, s._capacity);
+		}
+		// 拷贝构造
+		string(const string& s)
+			:_str(nullptr)
+		{
+			cout << "string(const string& s) -- 深拷贝" << endl;
+			string tmp(s._str);
+			swap(tmp);
+		}
+		// 赋值重载
+		string& operator=(const string& s)
+		{
+			cout << "string& operator=(string s) -- 深拷贝" << endl;
+			string tmp(s);
+			swap(tmp);
+			return *this;
+		}
+		//// 移动构造
+		//string(string&& s)
+		//	:_str(nullptr)
+		//	, _size(0)
+		//	, _capacity(0)
+		//{
+		//	cout << "string(string&& s) -- 移动语义" << endl;
+		//	swap(s);
+		//}
+		// 移动赋值
+		// 和上面的赋值构成函数重载
+		// 左值走上面的，右值走下面的
+		string& operator=(string&& s)
+		{
+			cout << "string& operator=(string&& s) -- 移动语义" << endl;
+			swap(s);
+			return *this;
+		}
+		~string()
+		{
+			delete[] _str;
+			_str = nullptr;
+		}
+		char& operator[](size_t pos)
+		{
+			assert(pos < _size);
+			return _str[pos];
+		}
+		void reserve(size_t n)
+		{
+			if (n > _capacity)
+			{
+				char* tmp = new char[n + 1];
+				strcpy(tmp, _str);
+				delete[] _str;
+				_str = tmp;
+				_capacity = n;
+			}
+		}
+		void push_back(char ch)
+		{
+			if (_size >= _capacity)
+			{
+				size_t newcapacity = _capacity == 0 ? 4 : _capacity * 2;
+				reserve(newcapacity);
+			}
+				_str[_size] = ch;
+			++_size;
+			_str[_size] = '\0';
+		}
+		//string operator+=(char ch)
+		string& operator+=(char ch)
+		{
+			push_back(ch);
+			return *this;
+		}
+		const char* c_str() const
+		{
+			return _str;
+		}
+	private:
+		char* _str;
+		size_t _size;
+		size_t _capacity; // 不包含最后做标识的\0
+	};
+}
 //
 //// 左值引用的使用场景和价值是什么？
 //// 使用场景：1、做参数  2、做返回值  价值->减少拷贝
-//lx::string func()
-//{
-//	lx::string str("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-//	//cin >> str;
-//	//....
-//
-//	return str;
-//}
-//
-//int main()
-//{
-//	lx::string ret1 = func();
-//
-//	lx::string ret2;
-//	//...
-//	ret2 = func();
-//
-//	return 0;
-//}
+lx::string func()
+{
+	lx::string str("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+	//cin >> str;
+	//....
+
+	return str;
+}
+
+int main()
+{
+	//lx::string ret1 = func();
+
+	lx::string ret2;
+	//...
+	ret2 = func();
+
+	return 0;
+}
 
 // 右值引用起作用的场景与左值引用不太一样
 // 是间接起作用的
@@ -301,5 +303,102 @@ using namespace std;
 //
 //int main()
 //{
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <algorithm>
+//#include <vector>
+//
+//using namespace std;
+//
+//int main()
+//{
+//    int t, n, k;
+//
+//    cin >> t;
+//    while (t--)
+//    {
+//        cin >> n >> k;
+//        vector<int> poker(2 * n);
+//
+//        for (int i = 0; i < 2 * n; i++)
+//        {
+//            cin >> poker[i];
+//        }
+//        while (k--)
+//        {
+//            vector<int> p1(poker.begin(), poker.begin() + n);
+//            vector<int> p2(poker.begin() + n, poker.end());
+//
+//            int i = p1.size() - 1, j = p2.size() - 1, k = 0;
+//            while (i >= 0 && j >= 0)
+//            {
+//                poker[k++] = p2[j--];
+//                poker[k++] = p1[i--];
+//            }
+//        }
+//
+//        for (int i = 0; i < 2 * n; i++)
+//        {
+//            cout << poker[i] << " ";
+//        }
+//        cout << endl;
+//    }
+//
+//    return 0;
+//}
+
+//class A
+//{
+//public:
+//	void Drive()
+//	{
+//		cout << "Drive" << endl;
+//	}
+//};
+//
+//class B : public A
+//{
+//public:
+//	/*virtual void Drive()
+//	{
+//		cout << "class B Drive" << endl;
+//	}*/
+//};
+//
+//int main()
+//{
+//	A aa;
+//	//B bb;
+//	// bb.B::A::Drive();
+//}
+
+// 是否构成函数重载？是
+//void func(int& r)
+//{
+//	cout << "void func(int& r)" << endl;
+//}
+
+// 是否构成重载？是
+// 调用是否产生歧义？不会，调用最匹配的那个
+//void func(const int& r)
+//{
+//	cout << "void func(const int& r)" << endl;
+//}
+//
+//void func(int&& r)
+//{
+//	cout << "void func(int&& r)" << endl;
+//}
+//
+//int main()
+//{
+//	int a = 0;
+//	func(a);
+//
+//	int b = 1;
+//	func(a + b);
+//
 //	return 0;
 //}
