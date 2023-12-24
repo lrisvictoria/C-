@@ -202,18 +202,19 @@ namespace lx
 		//	, _size(0)
 		//	, _capacity(0)
 		//{
-		//	cout << "string(string&& s) -- 移动语义" << endl;
+		//	cout << "string(string&& s) -- 移动拷贝" << endl;
 		//	swap(s);
 		//}
-		// 移动赋值
-		// 和上面的赋值构成函数重载
-		// 左值走上面的，右值走下面的
-		string& operator=(string&& s)
-		{
-			cout << "string& operator=(string&& s) -- 移动语义" << endl;
-			swap(s);
-			return *this;
-		}
+		//
+		//// 移动赋值
+		//// 和上面的赋值构成函数重载
+		//// 左值走上面的，右值走下面的
+		//string& operator=(string&& s)
+		//{
+		//	cout << "string& operator=(string&& s) -- 移动拷贝" << endl;
+		//	swap(s);
+		//	return *this;
+		//}
 		~string()
 		{
 			delete[] _str;
@@ -281,6 +282,7 @@ int main()
 	lx::string ret2;
 	//...
 	ret2 = func();
+
 
 	return 0;
 }
@@ -400,5 +402,57 @@ int main()
 //	int b = 1;
 //	func(a + b);
 //
+//	return 0;
+//}
+
+//class A
+//{
+//public:
+//	A(int a = 0)
+//		:_a(a)
+//	{
+//		cout << "A(int a)" << endl;
+//	}
+//	A(const A& aa)
+//		:_a(aa._a)
+//	{
+//		cout << "A(const A& aa)" << endl;
+//	}
+//	A& operator=(const A& aa)
+//	{
+//		cout << "A& operator=(const A& aa)" << endl;
+//		if (this != &aa)
+//		{
+//			_a = aa._a;
+//		}
+//		return *this;
+//	}
+//	~A()
+//	{
+//		cout << "~A()" << endl;
+//	}
+//private:
+//	int _a;
+//};
+//
+//void f1(A aa)
+//{}
+//
+//A f2()
+//{
+//	A aa;
+//	return aa;
+//}
+//int main()
+//{
+//	// 传值传参
+//	A aa1;
+//
+//	// 一个表达式中，连续拷贝构造+拷贝构造->优化一个拷贝构造
+//	A aa2 = f2();
+//	cout << endl;
+//	// 一个表达式中，连续拷贝构造+赋值重载->无法优化
+//	aa1 = f2();
+//	cout << endl;
 //	return 0;
 //}
