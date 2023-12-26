@@ -196,25 +196,25 @@ namespace lx
 			swap(tmp);
 			return *this;
 		}
-		//// 移动构造
-		//string(string&& s)
-		//	:_str(nullptr)
-		//	, _size(0)
-		//	, _capacity(0)
-		//{
-		//	cout << "string(string&& s) -- 移动拷贝" << endl;
-		//	swap(s);
-		//}
-		//
-		//// 移动赋值
-		//// 和上面的赋值构成函数重载
-		//// 左值走上面的，右值走下面的
-		//string& operator=(string&& s)
-		//{
-		//	cout << "string& operator=(string&& s) -- 移动拷贝" << endl;
-		//	swap(s);
-		//	return *this;
-		//}
+		// 移动构造
+		string(string&& s)
+			:_str(nullptr)
+			, _size(0)
+			, _capacity(0)
+		{
+			cout << "string(string&& s) -- 移动拷贝" << endl;
+			swap(s);
+		}
+		
+		// 移动赋值
+		// 和上面的赋值构成函数重载
+		// 左值走上面的，右值走下面的
+		string& operator=(string&& s)
+		{
+			cout << "string& operator=(string&& s) -- 移动拷贝" << endl;
+			swap(s);
+			return *this;
+		}
 		~string()
 		{
 			delete[] _str;
@@ -266,26 +266,26 @@ namespace lx
 //
 //// 左值引用的使用场景和价值是什么？
 //// 使用场景：1、做参数  2、做返回值  价值->减少拷贝
-lx::string func()
-{
-	lx::string str("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-	//cin >> str;
-	//....
-
-	return str;
-}
-
-int main()
-{
-	//lx::string ret1 = func();
-
-	lx::string ret2;
-	//...
-	ret2 = func();
-
-
-	return 0;
-}
+//lx::string func()
+//{
+//	lx::string str("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+//	//cin >> str;
+//	//....
+//
+//	return str;
+//}
+//
+//int main()
+//{
+//	//lx::string ret1 = func();
+//
+//	lx::string ret2;
+//	//...
+//	ret2 = func();
+//
+//
+//	return 0;
+//}
 
 // 右值引用起作用的场景与左值引用不太一样
 // 是间接起作用的
@@ -456,3 +456,35 @@ int main()
 //	cout << endl;
 //	return 0;
 //}
+
+//#include <iostream>
+//
+//using namespace std;
+//
+//int main()
+//{
+//	lx::string ret3("1111111111111111111");
+//	lx::string copy1 = ret3;
+//	move(ret3); // 资源不会被转移
+//	lx::string copy2 = ret3; // 拷贝构造 
+//	lx::string copy3 = move(ret3);
+//
+//	return 0;
+//}
+ 
+#include <list>
+int main()
+{
+	list<lx::string> lt;
+	lx::string s1("11111111111111111111");
+	lt.push_back(s1);
+
+	cout << endl;
+	lx::string s2("11111111111111111111");
+	lt.push_back(move(s2));
+
+	cout << endl;
+	lt.push_back("22222222222222222222"); // 一般这么写
+
+	return 0;
+}
