@@ -161,18 +161,22 @@ namespace lx
 		{
 			return _str;
 		}
+
 		iterator end()
 		{
 			return _str + _size;
 		}
+
 		string(const char* str = "")
 			:_size(strlen(str))
 			, _capacity(_size)
 		{
-			//cout << "string(char* str)" << endl;
+			cout << "string(const char* str)" << endl;
+
 			_str = new char[_capacity + 1];
 			strcpy(_str, str);
 		}
+
 		// s1.swap(s2)
 		void swap(string& s)
 		{
@@ -180,51 +184,55 @@ namespace lx
 			::swap(_size, s._size);
 			::swap(_capacity, s._capacity);
 		}
+
 		// 拷贝构造
 		string(const string& s)
 			:_str(nullptr)
 		{
 			cout << "string(const string& s) -- 深拷贝" << endl;
-			string tmp(s._str);
-			swap(tmp);
+
+			//string tmp(s._str);
+			//swap(tmp);
 		}
+
+		string(string&& s)
+			:_str(nullptr)
+		{
+			cout << "string(string&& s) -- 移动拷贝" << endl;
+
+			swap(s);
+		}
+
 		// 赋值重载
 		string& operator=(const string& s)
 		{
 			cout << "string& operator=(string s) -- 深拷贝" << endl;
 			string tmp(s);
 			swap(tmp);
+
 			return *this;
 		}
-		// 移动构造
-		string(string&& s)
-			:_str(nullptr)
-			, _size(0)
-			, _capacity(0)
+
+		/*string& operator=(string && s)
 		{
-			cout << "string(string&& s) -- 移动拷贝" << endl;
+			cout << "string& operator=(string && s) -- 移动拷贝" << endl;
 			swap(s);
-		}
-		
-		// 移动赋值
-		// 和上面的赋值构成函数重载
-		// 左值走上面的，右值走下面的
-		string& operator=(string&& s)
-		{
-			cout << "string& operator=(string&& s) -- 移动拷贝" << endl;
-			swap(s);
+
 			return *this;
-		}
+		}*/
+
 		~string()
 		{
 			delete[] _str;
 			_str = nullptr;
 		}
+
 		char& operator[](size_t pos)
 		{
 			assert(pos < _size);
 			return _str[pos];
 		}
+
 		void reserve(size_t n)
 		{
 			if (n > _capacity)
@@ -233,9 +241,11 @@ namespace lx
 				strcpy(tmp, _str);
 				delete[] _str;
 				_str = tmp;
+
 				_capacity = n;
 			}
 		}
+
 		void push_back(char ch)
 		{
 			if (_size >= _capacity)
@@ -243,16 +253,19 @@ namespace lx
 				size_t newcapacity = _capacity == 0 ? 4 : _capacity * 2;
 				reserve(newcapacity);
 			}
-				_str[_size] = ch;
+
+			_str[_size] = ch;
 			++_size;
 			_str[_size] = '\0';
 		}
+
 		//string operator+=(char ch)
 		string& operator+=(char ch)
 		{
 			push_back(ch);
 			return *this;
 		}
+
 		const char* c_str() const
 		{
 			return _str;
@@ -472,10 +485,79 @@ namespace lx
 //	return 0;
 //}
  
-#include <list>
+//#include <list>
+//int main()
+//{
+//	list<lx::string> lt;
+//	lx::string s1("11111111111111111111");
+//	lt.push_back(s1);
+//
+//	cout << endl;
+//	lx::string s2("11111111111111111111");
+//	lt.push_back(move(s2));
+//
+//	cout << endl;
+//	lt.push_back("22222222222222222222"); // 一般这么写
+//
+//	return 0;
+//}
+
+//void Fun(int& x) { cout << "左值引用" << endl; }
+//void Fun(const int& x) { cout << "const 左值引用" << endl; }
+//void Fun(int&& x) { cout << "右值引用" << endl; }
+//void Fun(const int&& x) { cout << "const 右值引用" << endl; }
+//
+//// 万能引用：既可以接收左值，又可以接收右值
+//// 虽然这么写，但是是一个模板，类型如果这么写，就是写死的，是右值引用，模板不是写死的
+//
+//// 实参是左值，就是左值引用（引用折叠 -- 如果是左值，则传参，参数变为 int&，两个引用折叠了一下）
+//// 实参是左值，就是左值引用
+//template<typename T>
+//void perfectforward(T&& t)
+//{
+//	// 完美转发，t 是左值引用，保持左值属性
+//	// 完美转发，t 是右值引用，保持右值属性
+//	Fun(forward<T>(t));
+//}
+//
+//int main()
+//{
+//	perfectforward(10); // 右值
+//	int a;
+//	perfectforward(a); // 左值
+//	perfectforward(std::move(a)); // 右值
+//	const int b = 8;
+//	perfectforward(b); // const 左值
+//	perfectforward(std::move(b)); // const 右值
+//	return 0;
+//}
+
+//void func(const int&& a)
+//{
+//	cout << "yes" << endl;
+//}
+//
+//int main()
+//{
+//	int a;
+//	int& r = a;
+//	int&& rr = move(a);
+//
+//	func(rr);
+//
+//	cout << &r << endl;
+//	cout << &rr << endl;
+//
+//	rr++;
+//
+//	return 0;
+//}
+
+
+#include "list.h"
 int main()
 {
-	list<lx::string> lt;
+	lx::list<lx::string> lt;
 	lx::string s1("11111111111111111111");
 	lt.push_back(s1);
 
