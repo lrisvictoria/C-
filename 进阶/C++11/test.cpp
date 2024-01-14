@@ -554,19 +554,65 @@ namespace lx
 //}
 
 
-#include "list.h"
+//#include "list.h"
+//int main()
+//{
+//	lx::list<lx::string> lt;
+//	lx::string s1("11111111111111111111");
+//	lt.push_back(s1);
+//
+//	cout << endl;
+//	lx::string s2("11111111111111111111");
+//	lt.push_back(move(s2));
+//
+//	cout << endl;
+//	lt.push_back("22222222222222222222"); // 一般这么写
+//
+//	return 0;
+//}
+
+#include <algorithm>
+
+using namespace std;
+
+struct Goods
+{
+	string _name; // 名字
+	double _price; // 价格
+	int _evaluate; // 评价
+	Goods(const char* str, double price, int evaluate)
+		:_name(str)
+		, _price(price)
+		, _evaluate(evaluate)
+	{}
+};
+
 int main()
 {
-	lx::list<lx::string> lt;
-	lx::string s1("11111111111111111111");
-	lt.push_back(s1);
+	vector<Goods> v = { { "苹果", 2.1, 5 }, { "香蕉", 3, 4 }, { "橙子", 2.2,
+	3 }, { "菠萝", 1.5, 4 } };
+	// sort(v.begin(), v.end());
 
-	cout << endl;
-	lx::string s2("11111111111111111111");
-	lt.push_back(move(s2));
+	// 局部的匿名函数对象
+	// 不能显示写类型，只能推 = 右边的是个对象
+	auto less = [](int x, int y)->bool {return x < y; };
+	cout << less(1, 2) << endl;
 
-	cout << endl;
-	lt.push_back("22222222222222222222"); // 一般这么写
+	// 只要 return 了，返回值可以不写
+	//auto goodsPriceLess = [](const Goods& x, const Goods& y)->bool {return x._price < y._price;  };
+	auto goodsPriceLess = [](const Goods& x, const Goods& y){return x._price < y._price;  };
 
-	return 0;
+	sort(v.begin(), v.end(), goodsPriceLess);
+
+	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
+		return x._price < y._price; });
+
+	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
+		return x._price > y._price; });
+
+	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
+		return x._evaluate < y._evaluate; });
+
+	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
+		return x._evaluate > y._evaluate; });
 }
