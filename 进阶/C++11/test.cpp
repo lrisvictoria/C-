@@ -571,48 +571,96 @@ namespace lx
 //	return 0;
 //}
 
-#include <algorithm>
+//#include <algorithm>
+//
+//using namespace std;
+//
+//struct Goods
+//{
+//	string _name; // 名字
+//	double _price; // 价格
+//	int _evaluate; // 评价
+//	Goods(const char* str, double price, int evaluate)
+//		:_name(str)
+//		, _price(price)
+//		, _evaluate(evaluate)
+//	{}
+//};
+//
+//int main()
+//{
+//	vector<Goods> v = { { "苹果", 2.1, 5 }, { "香蕉", 3, 4 }, { "橙子", 2.2,
+//	3 }, { "菠萝", 1.5, 4 } };
+//	// sort(v.begin(), v.end());
+//
+//	// 局部的匿名函数对象
+//	// 不能显示写类型，只能推 = 右边的是个对象
+//	auto less = [](int x, int y)->bool {return x < y; };
+//	cout << less(1, 2) << endl;
+//
+//	// 只要 return 了，返回值可以不写
+//	//auto goodsPriceLess = [](const Goods& x, const Goods& y)->bool {return x._price < y._price;  };
+//	auto goodsPriceLess = [](const Goods& x, const Goods& y){return x._price < y._price;  };
+//
+//	sort(v.begin(), v.end(), goodsPriceLess);
+//
+//	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
+//		return x._price < y._price; });
+//
+//	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
+//		return x._price > y._price; });
+//
+//	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
+//		return x._evaluate < y._evaluate; });
+//
+//	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
+//		return x._evaluate > y._evaluate; });
+//}
+
+
+//#include <iostream>
+//using namespace std;
+//int main(void)
+//{
+//	const int a = 10;
+//	int* p = (int*)(&a);
+//	*p = 20;
+//	cout << "a = " << a << ", *p = " << *p << endl;
+//	cout << a << endl;
+//	return 0;
+//}
+
+//#include <iostream>
+//
+//using namespace std;
+//
+//class A
+//{
+//public:
+//	A()
+//	{}
+//
+//	~A()
+//	{
+//		cout << "析构" << endl;
+//	}
+//private:
+//	int _b = 4;
+//};
+//
+//int main()
+//{
+//	A a;
+//
+//	return 0;
+//}
+
+#include <iostream>
+#include <errno.h>
 
 using namespace std;
 
-struct Goods
-{
-	string _name; // 名字
-	double _price; // 价格
-	int _evaluate; // 评价
-	Goods(const char* str, double price, int evaluate)
-		:_name(str)
-		, _price(price)
-		, _evaluate(evaluate)
-	{}
-};
-
 int main()
 {
-	vector<Goods> v = { { "苹果", 2.1, 5 }, { "香蕉", 3, 4 }, { "橙子", 2.2,
-	3 }, { "菠萝", 1.5, 4 } };
-	// sort(v.begin(), v.end());
-
-	// 局部的匿名函数对象
-	// 不能显示写类型，只能推 = 右边的是个对象
-	auto less = [](int x, int y)->bool {return x < y; };
-	cout << less(1, 2) << endl;
-
-	// 只要 return 了，返回值可以不写
-	//auto goodsPriceLess = [](const Goods& x, const Goods& y)->bool {return x._price < y._price;  };
-	auto goodsPriceLess = [](const Goods& x, const Goods& y){return x._price < y._price;  };
-
-	sort(v.begin(), v.end(), goodsPriceLess);
-
-	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
-		return x._price < y._price; });
-
-	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
-		return x._price > y._price; });
-
-	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
-		return x._evaluate < y._evaluate; });
-
-	sort(v.begin(), v.end(), [](const Goods& x, const Goods& y) {
-		return x._evaluate > y._evaluate; });
+	char inbuffer[1024];
 }
