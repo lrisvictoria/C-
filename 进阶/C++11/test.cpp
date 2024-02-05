@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS 1
+ï»¿#define _CRT_SECURE_NO_WARNINGS 1
 
 #include <iostream>
 #include <vector>
@@ -19,25 +19,25 @@ using namespace std;
 //	int _y;
 //};
 //
-//// Ò»ÇĞ½Ô¿ÉÓÃ {} ³õÊ¼»¯£¬²¢ÇÒ¿ÉÒÔ²»Ğ´¸³Öµ·ûºÅ
-//// ÈÕ³£¶¨Òå²»ÒªÈ¥µô =£¬µ«ÊÇÎÒÃÇÒªÄÜ¿´¶®
+//// ä¸€åˆ‡çš†å¯ç”¨ {} åˆå§‹åŒ–ï¼Œå¹¶ä¸”å¯ä»¥ä¸å†™èµ‹å€¼ç¬¦å·
+//// æ—¥å¸¸å®šä¹‰ä¸è¦å»æ‰ =ï¼Œä½†æ˜¯æˆ‘ä»¬è¦èƒ½çœ‹æ‡‚
 //int main()
 //{
 //	int x = 1;
-//	int y = { 2 }; // ÕûĞÎÖ§³ÖÕâÑù³õÊ¼»¯
+//	int y = { 2 }; // æ•´å½¢æ”¯æŒè¿™æ ·åˆå§‹åŒ–
 //	int z{ 3 };// right
 //	int a1[] = { 1, 2,3 };
-//	int a2[]{ 1, 2, 3 }; // Êı×éÕâÑù³õÊ¼»¯Ò²¶Ô
+//	int a2[]{ 1, 2, 3 }; // æ•°ç»„è¿™æ ·åˆå§‹åŒ–ä¹Ÿå¯¹
 //
-//	// ±¾ÖÊ¶¼ÊÇµ÷ÓÃ¹¹Ôìº¯Êı
+//	// æœ¬è´¨éƒ½æ˜¯è°ƒç”¨æ„é€ å‡½æ•°
 //	Point p(1, 2);
-//	Point p1 = { 1, 3 }; //»á²»»áµ÷ÓÃ¹¹Ôìº¯Êı? »á ±¾ÖÊÊÇ¶à²ÎÊı¹¹Ôìº¯ÊıµÄÒşÊ½ÀàĞÍ×ª»»
-//	Point p2{ 2, 2 }; // »á²»»áµ÷ÓÃ¹¹Ôìº¯Êı? »á
+//	Point p1 = { 1, 3 }; //ä¼šä¸ä¼šè°ƒç”¨æ„é€ å‡½æ•°? ä¼š æœ¬è´¨æ˜¯å¤šå‚æ•°æ„é€ å‡½æ•°çš„éšå¼ç±»å‹è½¬æ¢
+//	Point p2{ 2, 2 }; // ä¼šä¸ä¼šè°ƒç”¨æ„é€ å‡½æ•°? ä¼š
 //
-//	const Point& r = { 3, 3 }; // ÁÙÊ±¶ÔÏó¾ßÓĞ³£ĞÔ
+//	const Point& r = { 3, 3 }; // ä¸´æ—¶å¯¹è±¡å…·æœ‰å¸¸æ€§
 //
 //	int* p1 = new int[3] {1, 2, 3};
-//	Point* ptr = new Point[2]{ {1, 2}, {2, 3} }; // µ±Ã»ÓĞÓĞÃû¶ÔÏóÊ±Ğé¸¡ÁËºÜ¶à£¬²»ÓÃÄäÃû¶ÔÏó
+//	Point* ptr = new Point[2]{ {1, 2}, {2, 3} }; // å½“æ²¡æœ‰æœ‰åå¯¹è±¡æ—¶è™šæµ®äº†å¾ˆå¤šï¼Œä¸ç”¨åŒ¿åå¯¹è±¡
 //
 //
 //	return 0;
@@ -45,9 +45,9 @@ using namespace std;
 
 //int main()
 //{
-//	vector<int> v1 = { 1, 2 }; // ²»ÊÇÁĞ±í³õÊ¼»¯Ö§³ÖµÄ£¬ËüÃÇÓĞ²»Í¬µÄ¹æÔò
-//	// ÕâÀï±¾ÖÊÒ²ÊÇÒ»¸ö¹¹Ôì
-//	// Õâ¸öÁĞ±í½Ğ×ö initializer_list
+//	vector<int> v1 = { 1, 2 }; // ä¸æ˜¯åˆ—è¡¨åˆå§‹åŒ–æ”¯æŒçš„ï¼Œå®ƒä»¬æœ‰ä¸åŒçš„è§„åˆ™
+//	// è¿™é‡Œæœ¬è´¨ä¹Ÿæ˜¯ä¸€ä¸ªæ„é€ 
+//	// è¿™ä¸ªåˆ—è¡¨å«åš initializer_list
 //	auto il = { 10, 20, 30 };
 //	initializer_list<int> il = { 10, 20, 30 };
 //	cout << typeid(il).name() << endl;
@@ -104,24 +104,24 @@ using namespace std;
 //int main()
 //{
 //	double x = 1.1, y = 2.2;
-//	// ×óÖµÒıÓÃ
+//	// å·¦å€¼å¼•ç”¨
 //	int a = 0;
 //	int& r1 = a; 
 //
-//	// ×óÖµÒıÓÃÄÜ·ñ¸øÓÒÖµÈ¡±ğÃû£¿
-//	// const ×óÖµÒıÓÃ¿ÉÒÔ 
+//	// å·¦å€¼å¼•ç”¨èƒ½å¦ç»™å³å€¼å–åˆ«åï¼Ÿ
+//	// const å·¦å€¼å¼•ç”¨å¯ä»¥ 
 //	const int& r2 = 10;
 //	const double& r3 = x + y;
 //
-//	// ÓÒÖµÒıÓÃ
+//	// å³å€¼å¼•ç”¨
 //	int&& r5 = 10; 
 //	double&& r6 = x + y; 
 //
-//	// ÓÒÖµÒıÓÃÊÇ·ñÄÜ¸ø×óÖµÈ¡±ğÃû£¿
-//	// Ö±½Ó¸ø²»¿ÉÒÔ
-//	// Ç¿ÖÆ¸ø£¬ÌØÊâÇé¿öÏÂ¿ÉÒÔÓÃ, move Ò»ÏÂ
-//	// move ÒÔºó a ¿ÉÄÜÓĞÒ»Ğ©Ó°Ïì£¨Õâ±ßÃ»Ó°Ïì£©
-//	// ×Ü½á£ºÓÒÖµÒıÓÃ¿ÉÒÔÒıÓÃ move ÒÔºóµÄ×óÖµ
+//	// å³å€¼å¼•ç”¨æ˜¯å¦èƒ½ç»™å·¦å€¼å–åˆ«åï¼Ÿ
+//	// ç›´æ¥ç»™ä¸å¯ä»¥
+//	// å¼ºåˆ¶ç»™ï¼Œç‰¹æ®Šæƒ…å†µä¸‹å¯ä»¥ç”¨, move ä¸€ä¸‹
+//	// move ä»¥å a å¯èƒ½æœ‰ä¸€äº›å½±å“ï¼ˆè¿™è¾¹æ²¡å½±å“ï¼‰
+//	// æ€»ç»“ï¼šå³å€¼å¼•ç”¨å¯ä»¥å¼•ç”¨ move ä»¥åçš„å·¦å€¼
 //	int&& r7 = a;
 //	double&& r8 = move(a);
 //
@@ -130,9 +130,9 @@ using namespace std;
 //	return 0;
 //}
 
-// ×óÖµÒıÓÃµÄÊ¹ÓÃ³¡¾°ºÍ¼ÛÖµÊÇÊ²Ã´
-// Ê¹ÓÃ³¡¾°£º1.×ö²ÎÊı    2.×ö·µ»ØÖµ     ¼ÛÖµ->¼õÉÙ¿½±´
-// ´¦Àí²»µ½Î»µÄ£º¾Ö²¿¶ÔÏó·µ»Ø²»ÄÜÓÃ×óÖµÒıÓÃ½â¾ö
+// å·¦å€¼å¼•ç”¨çš„ä½¿ç”¨åœºæ™¯å’Œä»·å€¼æ˜¯ä»€ä¹ˆ
+// ä½¿ç”¨åœºæ™¯ï¼š1.åšå‚æ•°    2.åšè¿”å›å€¼     ä»·å€¼->å‡å°‘æ‹·è´
+// å¤„ç†ä¸åˆ°ä½çš„ï¼šå±€éƒ¨å¯¹è±¡è¿”å›ä¸èƒ½ç”¨å·¦å€¼å¼•ç”¨è§£å†³
 
 //string func()
 //{
@@ -185,11 +185,11 @@ namespace lx
 			::swap(_capacity, s._capacity);
 		}
 
-		// ¿½±´¹¹Ôì
+		// æ‹·è´æ„é€ 
 		string(const string& s)
 			:_str(nullptr)
 		{
-			cout << "string(const string& s) -- Éî¿½±´" << endl;
+			cout << "string(const string& s) -- æ·±æ‹·è´" << endl;
 
 			//string tmp(s._str);
 			//swap(tmp);
@@ -198,15 +198,15 @@ namespace lx
 		string(string&& s)
 			:_str(nullptr)
 		{
-			cout << "string(string&& s) -- ÒÆ¶¯¿½±´" << endl;
+			cout << "string(string&& s) -- ç§»åŠ¨æ‹·è´" << endl;
 
 			swap(s);
 		}
 
-		// ¸³ÖµÖØÔØ
+		// èµ‹å€¼é‡è½½
 		string& operator=(const string& s)
 		{
-			cout << "string& operator=(string s) -- Éî¿½±´" << endl;
+			cout << "string& operator=(string s) -- æ·±æ‹·è´" << endl;
 			string tmp(s);
 			swap(tmp);
 
@@ -215,7 +215,7 @@ namespace lx
 
 		/*string& operator=(string && s)
 		{
-			cout << "string& operator=(string && s) -- ÒÆ¶¯¿½±´" << endl;
+			cout << "string& operator=(string && s) -- ç§»åŠ¨æ‹·è´" << endl;
 			swap(s);
 
 			return *this;
@@ -273,12 +273,12 @@ namespace lx
 	private:
 		char* _str;
 		size_t _size;
-		size_t _capacity; // ²»°üº¬×îºó×ö±êÊ¶µÄ\0
+		size_t _capacity; // ä¸åŒ…å«æœ€ååšæ ‡è¯†çš„\0
 	};
 }
 //
-//// ×óÖµÒıÓÃµÄÊ¹ÓÃ³¡¾°ºÍ¼ÛÖµÊÇÊ²Ã´£¿
-//// Ê¹ÓÃ³¡¾°£º1¡¢×ö²ÎÊı  2¡¢×ö·µ»ØÖµ  ¼ÛÖµ->¼õÉÙ¿½±´
+//// å·¦å€¼å¼•ç”¨çš„ä½¿ç”¨åœºæ™¯å’Œä»·å€¼æ˜¯ä»€ä¹ˆï¼Ÿ
+//// ä½¿ç”¨åœºæ™¯ï¼š1ã€åšå‚æ•°  2ã€åšè¿”å›å€¼  ä»·å€¼->å‡å°‘æ‹·è´
 //lx::string func()
 //{
 //	lx::string str("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
@@ -300,10 +300,10 @@ namespace lx
 //	return 0;
 //}
 
-// ÓÒÖµÒıÓÃÆğ×÷ÓÃµÄ³¡¾°Óë×óÖµÒıÓÃ²»Ì«Ò»Ñù
-// ÊÇ¼ä½ÓÆğ×÷ÓÃµÄ
+// å³å€¼å¼•ç”¨èµ·ä½œç”¨çš„åœºæ™¯ä¸å·¦å€¼å¼•ç”¨ä¸å¤ªä¸€æ ·
+// æ˜¯é—´æ¥èµ·ä½œç”¨çš„
 
-// ÊÇ·ñ¹¹³Éº¯ÊıÖØÔØ£¿ÊÇ
+// æ˜¯å¦æ„æˆå‡½æ•°é‡è½½ï¼Ÿæ˜¯
 //void func(int& r)
 //{
 //	cout << "void func(int& r)" << endl;
@@ -389,14 +389,14 @@ namespace lx
 //	// bb.B::A::Drive();
 //}
 
-// ÊÇ·ñ¹¹³Éº¯ÊıÖØÔØ£¿ÊÇ
+// æ˜¯å¦æ„æˆå‡½æ•°é‡è½½ï¼Ÿæ˜¯
 //void func(int& r)
 //{
 //	cout << "void func(int& r)" << endl;
 //}
 
-// ÊÇ·ñ¹¹³ÉÖØÔØ£¿ÊÇ
-// µ÷ÓÃÊÇ·ñ²úÉúÆçÒå£¿²»»á£¬µ÷ÓÃ×îÆ¥ÅäµÄÄÇ¸ö
+// æ˜¯å¦æ„æˆé‡è½½ï¼Ÿæ˜¯
+// è°ƒç”¨æ˜¯å¦äº§ç”Ÿæ­§ä¹‰ï¼Ÿä¸ä¼šï¼Œè°ƒç”¨æœ€åŒ¹é…çš„é‚£ä¸ª
 //void func(const int& r)
 //{
 //	cout << "void func(const int& r)" << endl;
@@ -458,13 +458,13 @@ namespace lx
 //}
 //int main()
 //{
-//	// ´«Öµ´«²Î
+//	// ä¼ å€¼ä¼ å‚
 //	A aa1;
 //
-//	// Ò»¸ö±í´ïÊ½ÖĞ£¬Á¬Ğø¿½±´¹¹Ôì+¿½±´¹¹Ôì->ÓÅ»¯Ò»¸ö¿½±´¹¹Ôì
+//	// ä¸€ä¸ªè¡¨è¾¾å¼ä¸­ï¼Œè¿ç»­æ‹·è´æ„é€ +æ‹·è´æ„é€ ->ä¼˜åŒ–ä¸€ä¸ªæ‹·è´æ„é€ 
 //	A aa2 = f2();
 //	cout << endl;
-//	// Ò»¸ö±í´ïÊ½ÖĞ£¬Á¬Ğø¿½±´¹¹Ôì+¸³ÖµÖØÔØ->ÎŞ·¨ÓÅ»¯
+//	// ä¸€ä¸ªè¡¨è¾¾å¼ä¸­ï¼Œè¿ç»­æ‹·è´æ„é€ +èµ‹å€¼é‡è½½->æ— æ³•ä¼˜åŒ–
 //	aa1 = f2();
 //	cout << endl;
 //	return 0;
@@ -478,8 +478,8 @@ namespace lx
 //{
 //	lx::string ret3("1111111111111111111");
 //	lx::string copy1 = ret3;
-//	move(ret3); // ×ÊÔ´²»»á±»×ªÒÆ
-//	lx::string copy2 = ret3; // ¿½±´¹¹Ôì 
+//	move(ret3); // èµ„æºä¸ä¼šè¢«è½¬ç§»
+//	lx::string copy2 = ret3; // æ‹·è´æ„é€  
 //	lx::string copy3 = move(ret3);
 //
 //	return 0;
@@ -497,38 +497,38 @@ namespace lx
 //	lt.push_back(move(s2));
 //
 //	cout << endl;
-//	lt.push_back("22222222222222222222"); // Ò»°ãÕâÃ´Ğ´
+//	lt.push_back("22222222222222222222"); // ä¸€èˆ¬è¿™ä¹ˆå†™
 //
 //	return 0;
 //}
 
-//void Fun(int& x) { cout << "×óÖµÒıÓÃ" << endl; }
-//void Fun(const int& x) { cout << "const ×óÖµÒıÓÃ" << endl; }
-//void Fun(int&& x) { cout << "ÓÒÖµÒıÓÃ" << endl; }
-//void Fun(const int&& x) { cout << "const ÓÒÖµÒıÓÃ" << endl; }
+//void Fun(int& x) { cout << "å·¦å€¼å¼•ç”¨" << endl; }
+//void Fun(const int& x) { cout << "const å·¦å€¼å¼•ç”¨" << endl; }
+//void Fun(int&& x) { cout << "å³å€¼å¼•ç”¨" << endl; }
+//void Fun(const int&& x) { cout << "const å³å€¼å¼•ç”¨" << endl; }
 //
-//// ÍòÄÜÒıÓÃ£º¼È¿ÉÒÔ½ÓÊÕ×óÖµ£¬ÓÖ¿ÉÒÔ½ÓÊÕÓÒÖµ
-//// ËäÈ»ÕâÃ´Ğ´£¬µ«ÊÇÊÇÒ»¸öÄ£°å£¬ÀàĞÍÈç¹ûÕâÃ´Ğ´£¬¾ÍÊÇĞ´ËÀµÄ£¬ÊÇÓÒÖµÒıÓÃ£¬Ä£°å²»ÊÇĞ´ËÀµÄ
+//// ä¸‡èƒ½å¼•ç”¨ï¼šæ—¢å¯ä»¥æ¥æ”¶å·¦å€¼ï¼Œåˆå¯ä»¥æ¥æ”¶å³å€¼
+//// è™½ç„¶è¿™ä¹ˆå†™ï¼Œä½†æ˜¯æ˜¯ä¸€ä¸ªæ¨¡æ¿ï¼Œç±»å‹å¦‚æœè¿™ä¹ˆå†™ï¼Œå°±æ˜¯å†™æ­»çš„ï¼Œæ˜¯å³å€¼å¼•ç”¨ï¼Œæ¨¡æ¿ä¸æ˜¯å†™æ­»çš„
 //
-//// Êµ²ÎÊÇ×óÖµ£¬¾ÍÊÇ×óÖµÒıÓÃ£¨ÒıÓÃÕÛµş -- Èç¹ûÊÇ×óÖµ£¬Ôò´«²Î£¬²ÎÊı±äÎª int&£¬Á½¸öÒıÓÃÕÛµşÁËÒ»ÏÂ£©
-//// Êµ²ÎÊÇ×óÖµ£¬¾ÍÊÇ×óÖµÒıÓÃ
+//// å®å‚æ˜¯å·¦å€¼ï¼Œå°±æ˜¯å·¦å€¼å¼•ç”¨ï¼ˆå¼•ç”¨æŠ˜å  -- å¦‚æœæ˜¯å·¦å€¼ï¼Œåˆ™ä¼ å‚ï¼Œå‚æ•°å˜ä¸º int&ï¼Œä¸¤ä¸ªå¼•ç”¨æŠ˜å äº†ä¸€ä¸‹ï¼‰
+//// å®å‚æ˜¯å·¦å€¼ï¼Œå°±æ˜¯å·¦å€¼å¼•ç”¨
 //template<typename T>
 //void perfectforward(T&& t)
 //{
-//	// ÍêÃÀ×ª·¢£¬t ÊÇ×óÖµÒıÓÃ£¬±£³Ö×óÖµÊôĞÔ
-//	// ÍêÃÀ×ª·¢£¬t ÊÇÓÒÖµÒıÓÃ£¬±£³ÖÓÒÖµÊôĞÔ
+//	// å®Œç¾è½¬å‘ï¼Œt æ˜¯å·¦å€¼å¼•ç”¨ï¼Œä¿æŒå·¦å€¼å±æ€§
+//	// å®Œç¾è½¬å‘ï¼Œt æ˜¯å³å€¼å¼•ç”¨ï¼Œä¿æŒå³å€¼å±æ€§
 //	Fun(forward<T>(t));
 //}
 //
 //int main()
 //{
-//	perfectforward(10); // ÓÒÖµ
+//	perfectforward(10); // å³å€¼
 //	int a;
-//	perfectforward(a); // ×óÖµ
-//	perfectforward(std::move(a)); // ÓÒÖµ
+//	perfectforward(a); // å·¦å€¼
+//	perfectforward(std::move(a)); // å³å€¼
 //	const int b = 8;
-//	perfectforward(b); // const ×óÖµ
-//	perfectforward(std::move(b)); // const ÓÒÖµ
+//	perfectforward(b); // const å·¦å€¼
+//	perfectforward(std::move(b)); // const å³å€¼
 //	return 0;
 //}
 
@@ -566,7 +566,7 @@ namespace lx
 //	lt.push_back(move(s2));
 //
 //	cout << endl;
-//	lt.push_back("22222222222222222222"); // Ò»°ãÕâÃ´Ğ´
+//	lt.push_back("22222222222222222222"); // ä¸€èˆ¬è¿™ä¹ˆå†™
 //
 //	return 0;
 //}
@@ -577,9 +577,9 @@ namespace lx
 //
 //struct Goods
 //{
-//	string _name; // Ãû×Ö
-//	double _price; // ¼Û¸ñ
-//	int _evaluate; // ÆÀ¼Û
+//	string _name; // åå­—
+//	double _price; // ä»·æ ¼
+//	int _evaluate; // è¯„ä»·
 //	Goods(const char* str, double price, int evaluate)
 //		:_name(str)
 //		, _price(price)
@@ -589,16 +589,16 @@ namespace lx
 //
 //int main()
 //{
-//	vector<Goods> v = { { "Æ»¹û", 2.1, 5 }, { "Ïã½¶", 3, 4 }, { "³È×Ó", 2.2,
-//	3 }, { "²¤ÂÜ", 1.5, 4 } };
+//	vector<Goods> v = { { "è‹¹æœ", 2.1, 5 }, { "é¦™è•‰", 3, 4 }, { "æ©™å­", 2.2,
+//	3 }, { "è è", 1.5, 4 } };
 //	// sort(v.begin(), v.end());
 //
-//	// ¾Ö²¿µÄÄäÃûº¯Êı¶ÔÏó
-//	// ²»ÄÜÏÔÊ¾Ğ´ÀàĞÍ£¬Ö»ÄÜÍÆ = ÓÒ±ßµÄÊÇ¸ö¶ÔÏó
+//	// å±€éƒ¨çš„åŒ¿åå‡½æ•°å¯¹è±¡
+//	// ä¸èƒ½æ˜¾ç¤ºå†™ç±»å‹ï¼Œåªèƒ½æ¨ = å³è¾¹çš„æ˜¯ä¸ªå¯¹è±¡
 //	auto less = [](int x, int y)->bool {return x < y; };
 //	cout << less(1, 2) << endl;
 //
-//	// Ö»Òª return ÁË£¬·µ»ØÖµ¿ÉÒÔ²»Ğ´
+//	// åªè¦ return äº†ï¼Œè¿”å›å€¼å¯ä»¥ä¸å†™
 //	//auto goodsPriceLess = [](const Goods& x, const Goods& y)->bool {return x._price < y._price;  };
 //	auto goodsPriceLess = [](const Goods& x, const Goods& y){return x._price < y._price;  };
 //
@@ -642,7 +642,7 @@ namespace lx
 //
 //	~A()
 //	{
-//		cout << "Îö¹¹" << endl;
+//		cout << "ææ„" << endl;
 //	}
 //private:
 //	int _b = 4;
@@ -655,12 +655,88 @@ namespace lx
 //	return 0;
 //}
 
-#include <iostream>
-#include <errno.h>
+//#include <iostream>
+//#include <errno.h>
+//
+//using namespace std;
+//
+//int main()
+//{
+//	char inbuffer[1024];
+//}
 
-using namespace std;
+//#include <string>
+//
+//using namespace std;
+//
+//int main(int argc, char* argv[])
+//{
+//	string a = "hello world";
+//	string b = a;
+//	if (a.c_str() == b.c_str())
+//	{
+//		cout << "true" << endl;
+//	}
+//	else cout << "false" << endl;
+//	string c = b;
+//	c = "";
+//	if (a.c_str() == b.c_str())
+//	{
+//		cout << "true" << endl;
+//	}
+//	else cout << "false" << endl;
+//	a = "";
+//	if (a.c_str() == b.c_str())
+//	{
+//		cout << "true" << endl;
+//	}
+//	else cout << "false" << endl;
+//	return 0;
+//}
 
+
+class A
+{
+public:
+	A(int a = 0)
+		:_a(a)
+	{
+		cout << "A(int a)" << endl;
+	}
+	A(const A& aa)
+		:_a(aa._a)
+	{
+		cout << "A(const A& aa)" << endl;
+	}
+	A& operator=(const A& aa)
+	{
+		cout << "A& operator=(const A& aa)" << endl;
+		if (this != &aa)
+		{
+			_a = aa._a;
+		}
+		return *this;
+	}
+	~A()
+	{
+		cout << "~A()" << endl;
+	}
+private:
+	int _a;
+};
+void f1(A aa)
+{}
+A f2()
+{
+	A aa;
+	return aa;
+}
 int main()
 {
-	char inbuffer[1024];
+	// ä¼ å€¼ä¼ å‚
+	A aa1;
+	f1(aa1);
+	cout << endl;
+
+	return 0;
 }
