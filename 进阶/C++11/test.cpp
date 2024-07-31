@@ -847,23 +847,23 @@ using namespace std;
 //}
 
 
-#include <functional>
-#include <iostream>
-
-	using namespace std;
-
-double sub1(int x, double rate, int y)
-{
-	return (x - y) * rate;
-}
-
-int main()
-{
-	function<double(int, int)> ff1 = bind(sub1, placeholders::_1, 1.5, placeholders::_2);
-
-	//在定义期间固定参数，类似与缺省值的效果。
-	cout << ff1(2, 1) << endl;
-
-	auto ff2 = bind(sub1, placeholders::_2, 1, placeholders::_1);
-	cout << ff2(3, 1) << endl;
-}
+//#include <functional>
+//#include <iostream>
+//
+//	using namespace std;
+//
+//double sub1(int x, double rate, int y)
+//{
+//	return (x - y) * rate;
+//}
+//
+//int main()
+//{
+//	function<double(int, int)> ff1 = bind(sub1, placeholders::_1, 1.5, placeholders::_2);
+//
+//	//在定义期间固定参数，类似与缺省值的效果。
+//	cout << ff1(2, 1) << endl;
+//
+//	auto ff2 = bind(sub1, placeholders::_2, 1, placeholders::_1);
+//	cout << ff2(3, 1) << endl;
+//}
