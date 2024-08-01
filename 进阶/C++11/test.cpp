@@ -1,4 +1,4 @@
-﻿//#define _CRT_SECURE_NO_WARNINGS 1
+﻿#define _CRT_SECURE_NO_WARNINGS 1
 //
 //#include <iostream>
 //#include <vector>
@@ -800,6 +800,7 @@
 //}
 
 #include <iostream>
+#include <map>
 using namespace std;
 
 //void func()
@@ -867,3 +868,234 @@ using namespace std;
 //	auto ff2 = bind(sub1, placeholders::_2, 1, placeholders::_1);
 //	cout << ff2(3, 1) << endl;
 //}
+
+
+//定义
+//MemoryPool MemoryPool::_inst;
+
+//class MemoryPool
+//{
+//public:
+//
+//	// 提供获取单例对象的接口函数
+//	static MemoryPool* GetInstance()
+//	{
+//		return _pinst;
+//	}
+//
+//	void* Alloc(size_t n)
+//	{
+//		void* ptr = nullptr;
+//		// ....
+//		return ptr;
+//	}
+//
+//	void Dealloc(void* ptr)
+//	{
+//		// ...
+//	}
+//
+//	// 防止拷贝
+//	MemoryPool(MemoryPool& my) = delete;
+//	MemoryPool& operator= (MemoryPool& my) = delete;
+//private:
+//	// 构造函数私有化
+//	MemoryPool()
+//	{}
+//
+//	char* _ptr = nullptr;
+//	// ...
+//
+//	static MemoryPool* _pinst; // 声明
+//};
+//
+//// 定义
+//MemoryPool* MemoryPool::_pinst = new MemoryPool;
+//
+//int main()
+//{
+//	//MemoryPool pool1;
+//	//MemoryPool pool2;
+//
+//	void* ptr1 = MemoryPool::GetInstance()->Alloc(10);
+//	MemoryPool::GetInstance()->Dealloc(ptr1);
+//}
+
+//#include <map>
+//
+//
+//namespace lazy
+//{
+//	class Singleton
+//	{
+//	public:
+//		// 2、提供获取单例对象的接口函数
+//		static Singleton& GetInstance()
+//		{
+//			if (_psinst == nullptr)
+//			{
+//				// 第一次调用GetInstance的时候创建单例对象
+//				_psinst = new Singleton;
+//			}
+//
+//			return *_psinst;
+//		}
+//
+//		// 一般单例不用释放。
+//		// 特殊场景：1、中途需要显示释放  2、程序结束时，需要做一些特殊动作（如持久化）
+//		static void DelInstance()
+//		{
+//			if (_psinst)
+//			{
+//				delete _psinst;
+//				_psinst = nullptr;
+//			}
+//		}
+//
+//		void Add(const pair<string, string>& kv)
+//		{
+//			_dict[kv.first] = kv.second;
+//		}
+//
+//		void Print()
+//		{
+//			for (auto& e : _dict)
+//			{
+//				cout << e.first << ":" << e.second << endl;
+//			}
+//			cout << endl;
+//		}
+//
+//		class GC
+//		{
+//		public:
+//			~GC()
+//			{
+//				lazy::Singleton::DelInstance();
+//			}
+//		};
+//
+//	private:
+//		// 1、构造函数私有
+//		Singleton()
+//		{
+//			// ...
+//		}
+//
+//		~Singleton()
+//		{
+//			cout << "~Singleton()" << endl;
+//
+//			// map数据写到文件中
+//			FILE* fin = fopen("map.txt", "w");
+//			for (auto& e : _dict)
+//			{
+//				fputs(e.first.c_str(), fin);
+//				fputs(":", fin);
+//				fputs(e.second.c_str(), fin);
+//				fputs("\n", fin);
+//			}
+//		}
+//
+//		// 3、防拷贝
+//		Singleton(const Singleton& s) = delete;
+//		Singleton& operator=(const Singleton& s) = delete;
+//
+//		map<string, string> _dict;
+//		// ...
+//
+//		static Singleton* _psinst;
+//		static GC _gc;
+//	};
+//
+//	Singleton* Singleton::_psinst = nullptr;
+//	Singleton::GC Singleton::_gc;
+//}
+//
+////class GC
+////{
+////public:
+////	~GC()
+////	{
+////		lazy::Singleton::DelInstance();
+////	}
+////};
+////
+////GC gc;
+//
+//int main()
+//{
+//	//Singleton s1;
+//	//Singleton s2;
+//
+//	cout << &lazy::Singleton::GetInstance() << endl;
+//	cout << &lazy::Singleton::GetInstance() << endl;
+//	cout << &lazy::Singleton::GetInstance() << endl;
+//
+//	//Singleton copy(Singleton::GetInstance());
+//
+//	lazy::Singleton::GetInstance().Add({ "xxx", "111" });
+//	lazy::Singleton::GetInstance().Add({ "yyy", "222" });
+//	lazy::Singleton::GetInstance().Add({ "zzz", "333" });
+//	lazy::Singleton::GetInstance().Add({ "abc", "333" });
+//
+//	lazy::Singleton::GetInstance().Print();
+//
+//	//lazy::Singleton::DelInstance();
+//
+//	lazy::Singleton::GetInstance().Add({ "abc", "444" });
+//	lazy::Singleton::GetInstance().Print();
+//
+//	//lazy::Singleton::DelInstance();
+//
+//	return 0;
+//}
+
+//int main()
+//{
+//	int a = 0;
+//	int* p = &a;
+//
+//	int address =(int)p;
+//
+//	cout << address << endl;
+//
+//	return 0;
+//}
+
+//int main()
+//{
+//	volatile const int a = 2;
+//	int* p = const_cast<int*>(&a);
+//	*p = 4;
+//	cout << a << endl;
+//	cout << *p << endl;
+//	return 0;
+//}
+
+class A
+{
+public:
+	virtual void f() {}
+
+	int _a = 0;
+};
+
+class B :public A
+{
+public:
+	int _b = 0;
+};
+void Func(A* ptr) // 子类指针传过来，父 = 子，向上转换，切片，支持
+{
+	B* bptr = (B*)ptr;
+	bptr->_a++;
+	bptr->_b++;
+		
+}
+int main()
+{
+	B bb;
+	Func(&bb);
+	return 0;
+}
