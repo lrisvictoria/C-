@@ -1543,7 +1543,7 @@
 ////	iss >> rInfo._name >> rInfo._id >> rInfo._date >> rInfo._msg;
 ////	cout << "-------------------------------------------------------" << endl;
 ////	cout << "姓名：" << rInfo._name << "(" << rInfo._id << ") ";
-////	cout << rInfo._date << endl;
+	cout << rInfo._date << endl;
 ////	cout << rInfo._name << ":>" << rInfo._msg << endl;
 ////	cout << "-------------------------------------------------------" << endl;
 ////	return 0;
