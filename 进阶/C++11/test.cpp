@@ -1550,36 +1550,3 @@
 ////}
 //
 //
-
-//#include<iostream>
-//#include <string>
-//
-//using namespace std;
-//
-//int main()
-//{
-//	string s;
-//	s.iterator
-//}
-
-
-#include <iostream>
-#include <string>
-#include <string.h>
-#include <vector>
-#include <algorithm>
-
-using namespace std;
-
-
-struct Goods
-{
-	string _name; // 名字
-	double _price; // 价格
-	int _evaluate; // 评价
-	Goods(const char* str, double price, int evaluate)
-		:_name(str)
-		, _price(price)
-		, _evaluate(evaluate)
-	{}
-};
